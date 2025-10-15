@@ -17,6 +17,7 @@ const Login = () => {
       navigate("/super-admin/dashboard");
     }
   }, [user, navigate]);
+  
 
   useEffect(() => {
     sessionStorage.removeItem("registrationEmail");
