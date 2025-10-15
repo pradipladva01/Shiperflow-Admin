@@ -1,0 +1,182 @@
+// Variables SCSS File
+// Common variables used across the application
+
+// ===========================================
+// Colors
+// ===========================================
+
+// Theme Colors - Red/Crimson Palette
+$theme-primary: #B22222; // Main theme color (Fire Brick Red)
+$theme-primary-50: #fef2f2; // Very light red
+$theme-primary-100: #fee2e2; // Light red
+$theme-primary-200: #fecaca; // Lighter red
+$theme-primary-300: #fca5a5; // Light red
+$theme-primary-400: #f87171; // Medium light red
+$theme-primary-500: #ef4444; // Medium red
+$theme-primary-600: #B22222; // Main theme (Fire Brick Red)
+$theme-primary-700: #991b1b; // Dark red
+$theme-primary-800: #7f1d1d; // Darker red
+$theme-primary-900: #450a0a; // Very dark red
+$theme-primary-950: #2d0a0a; // Darkest red
+
+// Legacy Red Colors (keeping for backward compatibility)
+$primary-red: #ff1f1f;
+$primary-red-500: #ff1f1f;
+$primary-red-600: #e01e1e;
+
+// Black Shades
+$black-50: #f8fafc;
+$black-100: #f1f5f9;
+$black-200: #e2e8f0;
+$black-300: #cbd5e1;
+$black-400: #5b6b79;
+$black-500: #64748b;
+$black-600: #475569;
+$black-700: #334155;
+$black-800: #1e293b;
+$black-900: #0f172a;
+$black-950: #1d2630;
+
+// Background Colors
+$bg-light: #f3f5f7;
+$bg-white: #ffffff;
+$bg-gray: #f8f9fa;
+$bg-gray-light: #f9fafb;
+$bg-theme-light: $theme-primary-50;
+$bg-theme-subtle: $theme-primary-100;
+
+// Border Colors
+$border-light: #bec8d0;
+$border-gray: #dbe0e5a6;
+$border-gray-light: #e5e7eb;
+$border-card: #e7eaee;
+$border-theme: $theme-primary-200;
+$border-theme-light: $theme-primary-100;
+$border-color: $border-light;
+
+// Text Colors
+$text-primary: #1d2630;
+$text-secondary: #5b6b79;
+$text-muted: rgba(0, 0, 0, 0.5);
+$text-theme: $theme-primary-600;
+$text-theme-light: $theme-primary-500;
+$text-theme-dark: $theme-primary-800;
+
+// Status Colors
+$success: #10b981;
+$success-light: #d1fae5;
+$warning: #f59e0b;
+$warning-light: #fef3c7;
+$error: #ef4444;
+$error-light: #fee2e2;
+$info: $theme-primary-500;
+$info-light: $theme-primary-100;
+
+// ===========================================
+// Spacing
+// ===========================================
+
+// Common spacing values
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+$spacing-xl: 24px;
+$spacing-xxl: 30px;
+
+// Padding values
+$padding-sm: 10px;
+$padding-md: 15px;
+$padding-lg: 20px;
+$padding-xl: 25px;
+
+// Margin values
+$margin-xs: 5px;
+$margin-sm: 10px;
+$margin-md: 15px;
+$margin-lg: 20px;
+
+// ===========================================
+// Sizing
+// ===========================================
+
+// Common widths
+$sidebar-width: 280px;
+$sidebar-collapsed-width: 90px;
+$header-height: 74px;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+$border-radius-xxl: 20px;
+
+// ===========================================
+// Typography
+// ===========================================
+
+// Font sizes
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 24px;
+$font-size-xxl: 30px;
+$font-size-xxxl: 40px;
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-sm: 1.57;
+$line-height-md: 16px;
+
+// ===========================================
+// Z-index
+// ===========================================
+
+$z-index-sidebar: 1026;
+$z-index-header: 1025;
+$z-index-modal: 1000;
+$z-index-dropdown: 1030;
+
+// ===========================================
+// Transitions
+// ===========================================
+
+$transition-fast: 0.2s ease-in-out;
+$transition-normal: 0.3s ease-in-out;
+
+// ===========================================
+// Shadows
+// ===========================================
+
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 14px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+// ===========================================
+// Breakpoints
+// ===========================================
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// ===========================================
+// Common Values
+// ===========================================
+
+// Button sizes
+$btn-height-sm: 44px;
+$btn-height-md: 50px;
+
+// Avatar sizes
+$avatar-sm: 30px;
+$avatar-md: 45px;

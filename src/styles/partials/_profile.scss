@@ -1,0 +1,99 @@
+// Profile Page Styles
+.profile-container {
+    padding: $padding-xl;
+    background: $bg-white;
+    min-height: 100vh;
+
+    .profile-section {
+        max-width: 800px;
+        margin: 0 auto;
+
+        .profile-heading {
+            font-size: $font-size-xxl;
+            font-weight: $font-weight-bold;
+            color: $text-primary;
+            margin-bottom: $spacing-xl;
+            margin-top: 0;
+        }
+
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: $spacing-lg;
+            margin-bottom: $spacing-lg;
+
+            .profile-avatar {
+                .avatar-image {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 3px solid $border-light;
+                    background: $bg-light;
+                }
+            }
+
+            .profile-details {
+                flex: 1;
+
+                .profile-name {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-sm;
+                    margin-bottom: $spacing-xs;
+
+                    .name-text {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-bold;
+                        color: $text-primary;
+                    }
+
+                    .vulcan-salute {
+                        font-size: $font-size-md;
+                    }
+                }
+
+                .profile-email {
+                    font-size: $font-size-sm;
+                    color: $text-secondary;
+                    font-weight: $font-weight-normal;
+                }
+            }
+        }
+
+        .profile-divider {
+            height: 1px;
+            background: $border-light;
+            width: 100%;
+            margin-top: $spacing-lg;
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: $breakpoint-md) {
+    .profile-container {
+        padding: $padding-md;
+
+        .profile-section {
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+                gap: $spacing-md;
+
+                .profile-avatar {
+                    .avatar-image {
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+
+                .profile-details {
+                    .profile-name {
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}

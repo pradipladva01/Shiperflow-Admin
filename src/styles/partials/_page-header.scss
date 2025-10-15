@@ -1,0 +1,39 @@
+// Page Header Styles
+.page_header {
+    margin-bottom: $padding-lg;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        font-size: $font-size-xxl;
+        font-weight: $font-weight-bold;
+        margin: 0;
+        color: $black-950;
+    }
+
+    .filter_btn {
+        padding: $spacing-sm $padding-lg;
+        font-size: $font-size-lg;
+        background-color: $success-light;
+        color: $success;
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .page_header h1 {
+        font-size: 18px;
+    }
+
+    .page_header .filter_btn {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

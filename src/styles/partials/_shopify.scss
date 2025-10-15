@@ -1,0 +1,101 @@
+// Shopify Section Styles
+.shopify_section {
+    .page_header {
+        flex-direction: column;
+        gap: 10px;
+
+        p {
+            color: var(--black-400);
+        }
+    }
+
+    .shopify_store {
+        padding: 20px;
+        border: 1px solid #e7eaee;
+        border-radius: 12px;
+        background-color: white;
+
+        h5 {
+            color: var(--black-950);
+            margin-bottom: 5px;
+            font-size: 22px;
+        }
+
+        p {
+            color: var(--black-400);
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .shopify_url_main {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+
+            input {
+                width: 300px;
+                padding: 10px 20px;
+                background-color: white;
+                border: 1px solid rgb(190, 200, 208);
+                color: var(--black-400);
+                border-radius: 10px;
+
+                &::placeholder {
+                    color: var(--black-400);
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
+            .connect_btn {
+                padding: 10px 20px;
+                background-color: var(--black-950);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+
+        .secure_connection {
+            margin-top: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: self-start;
+            gap: 10px;
+            border: 1px solid #e7eaee;
+            border-radius: 12px;
+            background-color: white;
+
+            .icon {
+                svg {
+                    stroke: rgb(44, 168, 127);
+                }
+            }
+
+            .secure_content {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                h6 {
+                    color: var(--black-950);
+                    margin: 0;
+                    font-size: 18px;
+                }
+
+                p {
+                    color: var(--black-400);
+                    margin: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,667 @@
+// Header Styles
+.header_main {
+    background: rgba(248, 249, 250, 0.7);
+    min-height: $header-height;
+    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
+    position: fixed;
+    left: $sidebar-width;
+    right: 0;
+    z-index: $z-index-header;
+    display: flex;
+    transition: $transition-fast;
+
+    &.collapsed {
+        left: $sidebar-collapsed-width;
+    }
+
+    .header_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 $padding-xl;
+        flex-grow: 1;
+
+        .header_left {
+            button {
+                padding: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: $btn-height-sm;
+                height: $btn-height-sm;
+                border-radius: $border-radius-lg;
+                overflow: hidden;
+                border: none;
+                transition: all $transition-fast;
+                background-color: transparent;
+                background: $bg-light;
+            }
+        }
+
+        .header_right {
+            ul {
+                margin-bottom: 0;
+                display: inline-flex;
+                gap: $spacing-sm;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+
+                li {
+                    button {
+                        padding: 0;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: $btn-height-sm;
+                        height: $btn-height-sm;
+                        border-radius: $border-radius-lg;
+                        overflow: hidden;
+                        border: none;
+                        background: $bg-light;
+
+                        .avatar {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    &.wallet-field {
+                        button {
+                            width: auto;
+                            padding: 0 $spacing-md;
+                            gap: $spacing-xs;
+                            background: $theme-primary-50;
+                            border: 1px solid $theme-primary-300;
+                            color: $theme-primary-600;
+                            font-weight: 500;
+                            font-size: 14px;
+
+                            .wallet-icon {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+
+                    &.notification-dropdown {
+                        position: relative;
+
+                        button {
+                            position: relative;
+
+                            .notification-badge {
+                                position: absolute;
+                                top: -2px;
+                                right: -2px;
+                                background: #ef4444;
+                                color: white;
+                                font-size: 10px;
+                                font-weight: 600;
+                                padding: 2px 6px;
+                                border-radius: 10px;
+                                min-width: 18px;
+                                height: 18px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 2px solid white;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                            }
+                        }
+
+                        .notification-dropdown-menu {
+                            position: absolute;
+                            top: calc(100% + $spacing-xs);
+                            right: 0;
+                            background: $bg-white;
+                            border: 1px solid $border-color;
+                            border-radius: $border-radius-md;
+                            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                            min-width: 380px;
+                            max-width: 400px;
+                            max-height: 520px;
+                            z-index: $z-index-dropdown;
+                            overflow: hidden;
+
+                            .notification-header {
+                                padding: $spacing-lg;
+                                border-bottom: 1px solid $border-light;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                background: $bg-light;
+
+                                h3 {
+                                    margin: 0;
+                                    font-size: $font-size-lg;
+                                    font-weight: $font-weight-bold;
+                                    color: $text-primary;
+                                }
+
+                                .mark-all-read {
+                                    width: auto;
+                                    background: none;
+                                    border: none;
+                                    color: $theme-primary-600;
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    cursor: pointer;
+                                    padding: $spacing-xs $spacing-sm;
+                                    border-radius: $border-radius-sm;
+                                    transition: all $transition-fast;
+
+                                    &:hover {
+                                        background: $theme-primary-50;
+                                        color: $theme-primary-700;
+                                    }
+                                }
+                            }
+
+                            .notification-list {
+                                max-height: 350px;
+                                overflow-y: auto;
+
+                                .notification-item {
+                                    padding: $spacing-md $spacing-lg;
+                                    border-bottom: 1px solid $border-light;
+                                    display: flex;
+                                    align-items: flex-start;
+                                    gap: $spacing-md;
+                                    cursor: pointer;
+                                    transition: background-color $transition-fast;
+                                    position: relative;
+
+                                    &:last-child {
+                                        border-bottom: none;
+                                    }
+
+                                    &:hover {
+                                        background: $bg-light;
+                                    }
+
+                                    &.unread {
+                                        background: rgba($theme-primary-50, 0.3);
+                                        border-left: 3px solid $theme-primary-500;
+
+                                        &:hover {
+                                            background: rgba($theme-primary-50, 0.5);
+                                        }
+                                    }
+
+                                    .notification-icon {
+                                        flex-shrink: 0;
+
+                                        .icon-circle {
+                                            width: 40px;
+                                            height: 40px;
+                                            border-radius: 50%;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            font-size: 18px;
+
+                                            &.order-icon {
+                                                background: rgba(34, 197, 94, 0.1);
+                                                color: #22c55e;
+                                            }
+
+                                            &.shipment-icon {
+                                                background: rgba(59, 130, 246, 0.1);
+                                                color: #3b82f6;
+                                            }
+
+                                            &.payment-icon {
+                                                background: rgba(16, 185, 129, 0.1);
+                                                color: #10b981;
+                                            }
+
+                                            &.system-icon {
+                                                background: rgba(107, 114, 128, 0.1);
+                                                color: #6b7280;
+                                            }
+                                        }
+                                    }
+
+                                    .notification-content {
+                                        flex: 1;
+                                        min-width: 0;
+
+                                        .notification-title {
+                                            font-size: $font-size-sm;
+                                            font-weight: $font-weight-semibold;
+                                            color: $text-primary;
+                                            margin-bottom: $spacing-xs;
+                                            line-height: 1.4;
+                                        }
+
+                                        .notification-message {
+                                            font-size: $font-size-xs;
+                                            color: $text-secondary;
+                                            line-height: 1.4;
+                                            margin-bottom: $spacing-xs;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 2;
+                                            line-clamp: 2;
+                                            -webkit-box-orient: vertical;
+                                            overflow: hidden;
+                                        }
+
+                                        .notification-time {
+                                            font-size: 11px;
+                                            color: $text-secondary;
+                                            font-weight: $font-weight-medium;
+                                        }
+                                    }
+
+                                    .notification-status {
+                                        flex-shrink: 0;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        width: 20px;
+
+                                        .unread-dot {
+                                            width: 8px;
+                                            height: 8px;
+                                            background: $theme-primary-500;
+                                            border-radius: 50%;
+                                            box-shadow: 0 0 0 2px rgba($theme-primary-500, 0.2);
+                                        }
+
+                                        .read-indicator {
+                                            width: 6px;
+                                            height: 6px;
+                                            background: $border-color;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .notification-footer {
+                                padding: $spacing-md $spacing-lg;
+                                border-top: 1px solid $border-light;
+                                background: $bg-light;
+                                text-align: center;
+
+                                .view-all-notifications {
+                                    background: $theme-primary-500;
+                                    color: white;
+                                    border: none;
+                                    padding: $spacing-sm $spacing-lg;
+                                    border-radius: $border-radius-sm;
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    cursor: pointer;
+                                    transition: all $transition-fast;
+                                    width: 100%;
+
+                                    &:hover {
+                                        background: $theme-primary-600;
+                                        transform: translateY(-1px);
+                                        box-shadow: 0 4px 8px rgba($theme-primary-500, 0.3);
+                                    }
+                                }
+                            }
+
+                            // Custom scrollbar for notification list
+                            .notification-list::-webkit-scrollbar {
+                                width: 4px;
+                            }
+
+                            .notification-list::-webkit-scrollbar-track {
+                                background: $bg-light;
+                            }
+
+                            .notification-list::-webkit-scrollbar-thumb {
+                                background: $border-color;
+                                border-radius: 2px;
+
+                                &:hover {
+                                    background: $text-secondary;
+                                }
+                            }
+                        }
+                    }
+
+                    &.profile-dropdown {
+                        position: relative;
+
+                        .profile-dropdown-menu {
+                            position: absolute;
+                            top: calc(100% + $spacing-xs);
+                            right: 0;
+                            background: $bg-white;
+                            border: 1px solid $border-color;
+                            border-radius: $border-radius-md;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                            min-width: 280px;
+                            z-index: $z-index-dropdown;
+                            overflow: hidden;
+
+                            .profile-section {
+                                padding: $spacing-lg;
+
+                                .profile-content {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: $spacing-md;
+                                    margin-bottom: $spacing-md;
+
+                                    .profile-avatar {
+                                        .avatar-image {
+                                            width: 50px;
+                                            height: 50px;
+                                            border-radius: 50%;
+                                            object-fit: cover;
+                                            border: 2px solid $border-light;
+                                            background: $bg-light;
+                                        }
+                                    }
+
+                                    .profile-details {
+                                        flex: 1;
+
+                                        .profile-name {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: $spacing-xs;
+                                            margin-bottom: $spacing-xs;
+
+                                            .name-text {
+                                                font-size: $font-size-md;
+                                                font-weight: $font-weight-bold;
+                                                color: $text-primary;
+                                            }
+
+                                            .vulcan-salute {
+                                                font-size: $font-size-sm;
+                                            }
+                                        }
+
+                                        .profile-email {
+                                            font-size: $font-size-xs;
+                                            color: $text-secondary;
+                                            font-weight: $font-weight-normal;
+                                        }
+                                    }
+                                }
+
+                                .profile-divider {
+                                    height: 1px;
+                                    background: $border-light;
+                                    width: 100%;
+                                }
+                            }
+
+                            .dropdown-actions {
+                                .dropdown-item {
+                                    padding: $spacing-sm $spacing-md;
+                                    cursor: pointer;
+                                    transition: background-color $transition-fast;
+                                    border-bottom: 1px solid $border-light;
+
+                                    &:last-child {
+                                        border-bottom: none;
+                                    }
+
+                                    &:hover {
+                                        background-color: $bg-light;
+                                    }
+
+                                    span {
+                                        font-size: 14px;
+                                        color: $text-primary;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Container Main
+.container_main {
+    position: relative;
+    top: $header-height;
+    margin-left: $sidebar-width;
+    min-height: calc(100vh - 135px);
+    transition: $transition-fast;
+
+    &.active {
+        margin-left: $sidebar-collapsed-width;
+    }
+
+    .content {
+        padding: $spacing-sm $padding-xl $padding-xl $padding-xl;
+    }
+}
+
+
+// Enhanced Responsive Design
+@media (max-width: 992px) {
+    .header_main {
+        .header_wrapper {
+            padding: 0 $padding-md;
+
+            .header_right {
+                ul {
+                    gap: $spacing-xs;
+
+                    li {
+                        &.wallet-field {
+                            display: none; // Hide wallet on tablet
+                        }
+
+                        &.notification-dropdown {
+                            .notification-dropdown-menu {
+                                min-width: 320px;
+                                max-width: 350px;
+                            }
+                        }
+
+                        &.profile-dropdown {
+                            .profile-dropdown-menu {
+                                min-width: 250px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header_main {
+        .header_wrapper {
+            padding: 0 $spacing-sm;
+
+            .header_left {
+                button {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            .header_right {
+                ul {
+                    gap: $spacing-xs;
+
+                    li {
+                        button {
+                            width: 40px;
+                            height: 40px;
+                        }
+
+                        &.notification-dropdown {
+                            .notification-dropdown-menu {
+                                right: -10px;
+                                min-width: 300px;
+                                max-width: 320px;
+
+                                .notification-header {
+                                    padding: $spacing-md;
+
+                                    h3 {
+                                        font-size: $font-size-md;
+                                    }
+                                }
+
+                                .notification-list {
+                                    .notification-item {
+                                        padding: $spacing-sm $spacing-md;
+
+                                        .notification-icon {
+                                            .icon-circle {
+                                                width: 35px;
+                                                height: 35px;
+                                                font-size: 16px;
+                                            }
+                                        }
+
+                                        .notification-content {
+                                            .notification-title {
+                                                font-size: $font-size-xs;
+                                            }
+
+                                            .notification-message {
+                                                font-size: 11px;
+                                            }
+
+                                            .notification-time {
+                                                font-size: 10px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &.profile-dropdown {
+                            .profile-dropdown-menu {
+                                right: -10px;
+                                min-width: 220px;
+
+                                .profile-section {
+                                    padding: $spacing-md;
+
+                                    .profile-content {
+                                        .profile-avatar {
+                                            .avatar-image {
+                                                width: 40px;
+                                                height: 40px;
+                                            }
+                                        }
+
+                                        .profile-details {
+                                            .profile-name {
+                                                .name-text {
+                                                    font-size: $font-size-sm;
+                                                }
+                                            }
+
+                                            .profile-email {
+                                                font-size: 11px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .dropdown-actions {
+                                    .dropdown-item {
+                                        padding: $spacing-xs $spacing-sm;
+
+                                        span {
+                                            font-size: $font-size-xs;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .header_main {
+        .header_wrapper {
+            padding: 0 $spacing-xs;
+
+            .header_left {
+                button {
+                    width: 36px;
+                    height: 36px;
+                }
+            }
+
+            .header_right {
+                ul {
+                    li {
+                        button {
+                            width: 36px;
+                            height: 36px;
+                        }
+
+                        &.notification-dropdown {
+                            .notification-dropdown-menu {
+                                right: -20px;
+                                min-width: 280px;
+                                max-width: 300px;
+                            }
+                        }
+
+                        &.profile-dropdown {
+                            .profile-dropdown-menu {
+                                right: -20px;
+                                min-width: 200px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container_main .content,
+    .header_main .header_wrapper {
+        padding-inline: 15px;
+    }
+
+    .header_main {
+        .header_wrapper {
+            .header_right {
+                ul {
+                    li {
+                        &.notification-dropdown {
+                            .notification-dropdown-menu {
+                                right: -30px;
+                                min-width: 260px;
+                                max-width: 280px;
+                            }
+                        }
+
+                        &.profile-dropdown {
+                            .profile-dropdown-menu {
+                                right: -30px;
+                                min-width: 180px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

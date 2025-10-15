@@ -1,0 +1,193 @@
+// Register Section Styles
+.register_section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $bg-gray;
+    margin: $margin-lg 0;
+
+    .register_main {
+        width: 480px;
+        max-width: 480px;
+        padding: $padding-xl;
+        background-color: $bg-white;
+        display: flex;
+        flex-direction: column;
+        gap: $padding-xl;
+        border: 1px solid $border-gray;
+        border-radius: $border-radius-xxl;
+
+        h1 {
+            font-size: $font-size-xxxl;
+            font-weight: $font-weight-bold;
+            color: $theme-primary-600;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+        }
+
+        .register_top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h6 {
+                font-size: $font-size-xl;
+                color: $text-primary;
+                margin: 0;
+                font-weight: $font-weight-medium;
+            }
+
+            a {
+                color: $theme-primary-600;
+                font-size: $font-size-sm;
+                line-height: $line-height-sm;
+                text-decoration: none;
+            }
+        }
+
+        .register_form {
+            .input_main {
+                margin-bottom: $padding-lg;
+                gap: 0;
+
+                .input_label {
+                    font-size: $font-size-sm;
+                    color: $text-secondary;
+                    margin: 0 0 $spacing-xs 0;
+                    font-weight: $font-weight-medium;
+
+                    .required_asterisk {
+                        color: $error;
+                        margin-left: 2px;
+                    }
+                }
+
+                .input_wrapper {
+                    position: relative;
+                    border: 1px solid $border-light;
+                    border-radius: $border-radius-md;
+                    transition: $transition-fast;
+
+                    &.focused {
+                        border-color: $theme-primary-600;
+                        box-shadow: 0 0 0 2px rgba($theme-primary-600, 0.1);
+                    }
+
+                    &.error {
+                        border-color: $error;
+                    }
+
+                    &.disabled {
+                        background-color: $bg-gray-light;
+                        cursor: not-allowed;
+                    }
+
+                    .input_field {
+                        width: 100%;
+                        height: $btn-height-md;
+                        padding: 0 $padding-md;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        font-size: $font-size-sm;
+                        color: $text-primary;
+                        border-radius: $border-radius-md;
+
+                        &::placeholder {
+                            color: $text-muted;
+                        }
+
+                        &:disabled {
+                            cursor: not-allowed;
+                        }
+                    }
+
+                    .password_toggle {
+                        position: absolute;
+                        right: $spacing-sm;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        color: $text-secondary;
+                        padding: $spacing-xs;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: $border-radius-sm;
+                        transition: $transition-fast;
+
+                        &:hover {
+                            background-color: $bg-gray-light;
+                            color: $text-primary;
+                        }
+                    }
+                }
+
+                .input_error {
+                    font-size: $font-size-xs;
+                    color: $error;
+                    display: block;
+                }
+            }
+
+            .submit_btn {
+                width: 100%;
+                margin-top: $padding-lg;
+                padding: 12px;
+                background-color: $theme-primary-600;
+                color: white;
+                border: none;
+                border-radius: $border-radius-md;
+                font-weight: $font-weight-medium;
+                font-size: $font-size-sm;
+                cursor: pointer;
+                transition: $transition-fast;
+                position: relative;
+                overflow: hidden;
+
+                &:hover:not(:disabled) {
+                    background-color: $theme-primary-700;
+                }
+
+                &:disabled {
+                    background-color: $text-muted;
+                    cursor: not-allowed;
+                }
+
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.3);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+// Responsive design
+@media (max-width: $breakpoint-sm) {
+    .register_section {
+        padding: $padding-md;
+
+        .register_main {
+            width: 100%;
+            max-width: 100%;
+            padding: $padding-lg;
+        }
+    }
+}

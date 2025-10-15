@@ -1,0 +1,1443 @@
+// Finance Admin COD Payouts Styles
+@import '../partials/variables';
+
+.finance_admin_cod_payouts {
+    .payouts_container {
+
+        // Summary Cards
+        .summary_cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: $spacing-lg;
+            margin-bottom: $spacing-xl;
+
+            .summary_card {
+                background: $bg-white;
+                border: 1px solid $border-gray-light;
+                border-radius: $border-radius-lg;
+                padding: $spacing-lg;
+                transition: all $transition-fast;
+                display: flex;
+                align-items: center;
+                gap: $spacing-md;
+
+                .card_icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: $border-radius-lg;
+                    background: $theme-primary-50;
+                    color: $theme-primary;
+
+                    &.pending {
+                        background: $warning-light;
+                        color: $warning;
+                    }
+
+                    &.completed {
+                        background: $success-light;
+                        color: $success;
+                    }
+
+                    &.active {
+                        background: $info-light;
+                        color: $info;
+                    }
+
+                    &.total {
+                        background: $info-light;
+                        color: $info;
+                    }
+                }
+
+                .card_content {
+                    flex: 1;
+
+                    h3 {
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-medium;
+                        color: $text-secondary;
+                        margin: 0 0 $spacing-xs 0;
+                    }
+
+                    .card_value {
+                        font-size: $font-size-xxl;
+                        font-weight: $font-weight-bold;
+                        color: $text-primary;
+                        margin: 0 0 $spacing-xs 0;
+                        line-height: 1;
+                    }
+
+                    .card_subtitle {
+                        font-size: $font-size-xs;
+                        color: $text-secondary;
+                        font-weight: $font-weight-medium;
+                        margin: 0;
+
+                        .trend_positive {
+                            color: $success;
+                            font-weight: $font-weight-semibold;
+                        }
+                    }
+                }
+            }
+        }
+
+        .payouts_header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: $spacing-lg;
+            margin-bottom: $spacing-xl;
+            padding: $spacing-lg;
+            background: $bg-white;
+            border: 1px solid $border-gray-light;
+            border-radius: $border-radius-lg;
+
+            .header_left {
+                flex: 1;
+                max-width: 400px;
+
+                .search_container {
+                    .search_input_wrapper {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+
+                        .search_icon {
+                            position: absolute;
+                            left: $spacing-md;
+                            color: $text-secondary;
+                            z-index: 1;
+                        }
+
+                        .search_input {
+                            width: 100%;
+                            padding: $spacing-md $spacing-md $spacing-md 40px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            background: $bg-white;
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+                            transition: all $transition-fast;
+
+                            &:focus {
+                                outline: none;
+                                border-color: $theme-primary;
+                                box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                            }
+
+                            &::placeholder {
+                                color: $text-secondary;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .header_right {
+                display: flex;
+                align-items: center;
+                gap: $spacing-lg;
+
+                .filter_controls {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-md;
+
+                    .option_select {
+                        min-width: 120px;
+
+                        .react-select__control {
+                            min-height: 40px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            background: $bg-white;
+                            box-shadow: none;
+                            transition: all $transition-fast;
+
+                            &:hover {
+                                border-color: $border-light;
+                            }
+
+                            &.react-select__control--is-focused {
+                                border-color: $theme-primary;
+                                box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                            }
+                        }
+
+                        .react-select__value-container {
+                            padding: 0 $spacing-sm;
+                        }
+
+                        .react-select__single-value {
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+                            font-weight: $font-weight-medium;
+                        }
+
+                        .react-select__placeholder {
+                            font-size: $font-size-sm;
+                            color: $text-secondary;
+                            font-weight: $font-weight-medium;
+                        }
+
+                        .react-select__indicator-separator {
+                            background-color: $border-gray-light;
+                        }
+
+                        .react-select__dropdown-indicator {
+                            color: $text-secondary;
+                            transition: all $transition-fast;
+
+                            &:hover {
+                                color: $text-primary;
+                            }
+                        }
+
+                        .react-select__menu {
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            box-shadow: $shadow-lg;
+                            margin-top: $spacing-xs;
+                        }
+
+                        .react-select__option {
+                            padding: $spacing-sm $spacing-md;
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+                            transition: all $transition-fast;
+
+                            &:hover {
+                                background: $theme-primary-50;
+                                color: $theme-primary;
+                            }
+
+                            &.react-select__option--is-selected {
+                                background: $theme-primary;
+                                color: $bg-white;
+                            }
+                        }
+                    }
+
+                    .more_filters_btn {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+                        padding: $spacing-sm $spacing-md;
+                        border: 1px solid $border-gray-light;
+                        border-radius: $border-radius-lg;
+                        background: $bg-white;
+                        color: $text-primary;
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-medium;
+                        transition: all $transition-fast;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: $theme-primary-50;
+                            border-color: $theme-primary;
+                            color: $theme-primary;
+                        }
+                    }
+                }
+
+                .action_buttons {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-sm;
+
+                    .ripple-button {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+                        padding: $spacing-sm $spacing-md;
+                        border: 1px solid $border-gray-light;
+                        border-radius: $border-radius-lg;
+                        background: $bg-white;
+                        color: $text-primary;
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-medium;
+                        transition: all $transition-fast;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: $theme-primary-50;
+                            border-color: $theme-primary;
+                            color: $theme-primary;
+                        }
+
+                        &.refresh_btn {
+                            &:hover {
+                                background: $info-light;
+                                border-color: $info;
+                                color: $info;
+                            }
+                        }
+
+                        &.export_btn {
+                            &:hover {
+                                background: $success-light;
+                                border-color: $success;
+                                color: $success;
+                            }
+                        }
+
+                        &.bulk_process_btn {
+                            background: $theme-primary;
+                            color: $bg-white;
+                            border-color: $theme-primary;
+                        }
+                    }
+                }
+            }
+        }
+
+        .payouts_cards_container {
+            background: $bg-white;
+            border: 1px solid $border-gray-light;
+            border-radius: $border-radius-lg;
+            overflow: hidden;
+
+            .payouts_cards_header {
+                padding: $spacing-lg;
+                border-bottom: 1px solid $border-gray-light;
+                background: $black-50;
+
+                h3 {
+                    font-size: $font-size-lg;
+                    font-weight: $font-weight-semibold;
+                    color: $text-primary;
+                    margin: 0;
+                }
+            }
+
+            .payouts_cards_grid {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-sm;
+                padding: $spacing-lg;
+
+                .payout_card {
+                    background: $bg-white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: $spacing-lg;
+                    transition: all $transition-fast;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-lg;
+
+                    &:hover {
+                        border-color: $theme-primary;
+                        box-shadow: $shadow-md;
+                    }
+
+                    .payout_card_left {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-md;
+                        min-width: 300px;
+
+                        .payout_icon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: $border-radius-lg;
+                            background: $theme-primary-50;
+                            color: $theme-primary;
+                            flex-shrink: 0;
+                        }
+
+                        .payout_info {
+                            flex: 1;
+
+                            .merchant_name {
+                                font-size: $font-size-md;
+                                font-weight: $font-weight-semibold;
+                                color: $text-primary;
+                                margin: 0 0 $spacing-xs 0;
+                            }
+
+                            .cycle_info {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                margin: 0 0 $spacing-xs 0;
+                                font-weight: $font-weight-medium;
+                            }
+
+                            .collection_period {
+                                font-size: $font-size-xs;
+                                color: $text-secondary;
+                                margin: 0 0 $spacing-xs 0;
+                            }
+
+                            .payout_date {
+                                font-size: $font-size-xs;
+                                color: $text-secondary;
+                                margin: 0;
+                            }
+                        }
+                    }
+
+                    .payout_card_center {
+                        flex: 1;
+                        min-width: 300px;
+
+                        .financial_details {
+                            display: flex;
+                            flex-direction: column;
+                            gap: $spacing-xs;
+
+                            .amount_item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .amount_label {
+                                    font-size: $font-size-sm;
+                                    color: $text-secondary;
+                                    font-weight: $font-weight-medium;
+                                }
+
+                                .amount_value {
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+                                    font-weight: $font-weight-semibold;
+
+                                    &.charges {
+                                        color: $error;
+                                    }
+
+                                    &.adjustment {
+                                        color: $success;
+                                    }
+
+                                    &.payout_amount {
+                                        color: $theme-primary;
+                                        font-size: $font-size-md;
+                                        font-weight: $font-weight-bold;
+                                    }
+                                }
+
+                                &.net_payout {
+                                    border-top: 1px solid $border-gray-light;
+                                    padding-top: $spacing-xs;
+                                    margin-top: $spacing-xs;
+                                }
+                            }
+                        }
+                    }
+
+                    .payout_card_right {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-md;
+
+                        .payout_status {
+                            text-align: center;
+
+                            .status_badge {
+                                display: inline-block;
+                                padding: $spacing-xs $spacing-sm;
+                                border-radius: $border-radius-md;
+                                font-size: $font-size-xs;
+                                font-weight: $font-weight-semibold;
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                                margin-bottom: $spacing-xs;
+
+                                &.pending {
+                                    background: $warning-light;
+                                    color: $warning;
+                                }
+
+                                &.processing {
+                                    background: $info-light;
+                                    color: $info;
+                                }
+
+                                &.completed {
+                                    background: $success-light;
+                                    color: $success;
+                                }
+
+                                &.on_hold {
+                                    background: $error-light;
+                                    color: $error;
+                                }
+                            }
+
+                            .payment_mode {
+                                font-size: $font-size-xs;
+                                color: $text-secondary;
+                                margin: 0;
+                                font-weight: $font-weight-medium;
+                            }
+                        }
+
+                        .payout_actions {
+                            display: flex;
+                            gap: $spacing-xs;
+
+                            .release_payment_btn {
+                                display: flex;
+                                align-items: center;
+                                gap: $spacing-xs;
+                                padding: $spacing-xs $spacing-sm;
+                                border: 1px solid $success;
+                                border-radius: $border-radius-lg;
+                                background: $success;
+                                color: $bg-white;
+                                font-size: $font-size-xs;
+                                font-weight: $font-weight-medium;
+                                transition: all $transition-fast;
+                                cursor: pointer;
+                            }
+
+                            .hold_payment_btn {
+                                display: flex;
+                                align-items: center;
+                                gap: $spacing-xs;
+                                padding: $spacing-xs $spacing-sm;
+                                border: 1px solid $error;
+                                border-radius: $border-radius-lg;
+                                background: $error;
+                                color: $bg-white;
+                                font-size: $font-size-xs;
+                                font-weight: $font-weight-medium;
+                                transition: all $transition-fast;
+                                cursor: pointer;
+                            }
+
+                            .view_details_btn {
+                                padding: $spacing-xs $spacing-sm;
+                                border: 1px solid $theme-primary;
+                                border-radius: $border-radius-lg;
+                                background: $theme-primary;
+                                color: $bg-white;
+                                font-size: $font-size-xs;
+                                font-weight: $font-weight-medium;
+                                transition: all $transition-fast;
+                                cursor: pointer;
+                            }
+
+                            .action_dropdown {
+                                position: relative;
+
+                                .more_options_btn {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 32px;
+                                    height: 32px;
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-lg;
+                                    background: $bg-white;
+                                    color: $text-secondary;
+                                    transition: all $transition-fast;
+                                    cursor: pointer;
+
+                                }
+
+                                .action_menu {
+                                    position: absolute;
+                                    top: 100%;
+                                    right: 0;
+                                    background: $bg-white;
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-lg;
+                                    box-shadow: $shadow-lg;
+                                    padding: $spacing-xs;
+                                    min-width: 160px;
+                                    z-index: 10;
+
+                                    .action_item {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: $spacing-sm;
+                                        width: 100%;
+                                        padding: $spacing-xs $spacing-sm;
+                                        border: none;
+                                        background: transparent;
+                                        color: $text-primary;
+                                        font-size: $font-size-xs;
+                                        font-weight: $font-weight-medium;
+                                        text-align: left;
+                                        border-radius: $border-radius-md;
+                                        transition: all $transition-fast;
+                                        cursor: pointer;
+
+                                        &.process_action {
+                                            color: $success;
+
+                                            &:hover {
+                                                background: $success-light;
+                                            }
+                                        }
+
+                                        &.delete_action {
+                                            color: $error;
+
+                                            &:hover {
+                                                background: $error-light;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .no_data_found {
+                padding: $spacing-xxl;
+                text-align: center;
+
+                h6 {
+                    font-size: $font-size-lg;
+                    color: $text-secondary;
+                    margin: 0;
+                }
+            }
+        }
+
+        .pagination_container {
+            margin-top: $spacing-xs;
+            padding: $spacing-lg;
+            background: $bg-white;
+            border: 1px solid $border-gray-light;
+            border-radius: $border-radius-lg;
+
+            .pagination_info {
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                gap: $spacing-lg;
+
+                .page_info {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-sm;
+
+                    span {
+                        font-size: $font-size-sm;
+                        color: $text-secondary;
+                        font-weight: $font-weight-medium;
+                    }
+
+                    .rows_select {
+                        min-width: 80px;
+
+                        .react-select__control {
+                            min-height: 32px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-md;
+                            background: $bg-white;
+                            box-shadow: none;
+
+                            &:hover {
+                                border-color: $border-light;
+                            }
+
+                            &.react-select__control--is-focused {
+                                border-color: $theme-primary;
+                                box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                            }
+                        }
+
+                        .react-select__value-container {
+                            padding: 0 $spacing-xs;
+                        }
+
+                        .react-select__single-value {
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+                            font-weight: $font-weight-medium;
+                        }
+
+                        .react-select__indicator-separator {
+                            background-color: $border-gray-light;
+                        }
+
+                        .react-select__dropdown-indicator {
+                            color: $text-secondary;
+                        }
+
+                        .react-select__menu {
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            box-shadow: $shadow-lg;
+                            margin-top: $spacing-xs;
+                        }
+
+                        .react-select__option {
+                            padding: $spacing-xs $spacing-sm;
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+
+                            &:hover {
+                                background: $theme-primary-50;
+                                color: $theme-primary;
+                            }
+
+                            &.react-select__option--is-selected {
+                                background: $theme-primary;
+                                color: $bg-white;
+                            }
+                        }
+                    }
+                }
+
+                .row_count {
+                    font-size: $font-size-sm;
+                    color: $text-secondary;
+                    font-weight: $font-weight-medium;
+                }
+
+                .pagination_controls {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-xs;
+
+                    .pagination_btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 32px;
+                        height: 32px;
+                        border: 1px solid $border-gray-light;
+                        border-radius: $border-radius-md;
+                        background: $bg-white;
+                        color: $text-secondary;
+                        transition: all $transition-fast;
+                        cursor: pointer;
+
+                        &:hover:not(:disabled) {
+                            background: $theme-primary-50;
+                            border-color: $theme-primary;
+                            color: $theme-primary;
+                        }
+
+                        &:disabled {
+                            opacity: 0.5;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Modal Styles
+    .payout_modal_content {
+        .modal_tab_navigation {
+            display: flex;
+            border-bottom: 1px solid $border-gray-light;
+            margin-bottom: $spacing-lg;
+
+            .tab_button {
+                display: flex;
+                align-items: center;
+                gap: $spacing-xs;
+                padding: $spacing-md $spacing-lg;
+                border: none;
+                background: transparent;
+                color: $text-secondary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-medium;
+                cursor: pointer;
+                transition: all $transition-fast;
+                border-bottom: 2px solid transparent;
+
+                &:hover {
+                    color: $text-primary;
+                    background: $black-500;
+                }
+
+                &.active {
+                    color: $theme-primary;
+                    border-bottom-color: $theme-primary;
+                    background: $theme-primary-50;
+                }
+            }
+        }
+
+        .modal_tab_content {
+            min-height: 400px;
+
+            .payout_details_tab {
+                .payout_info_section {
+                    h4 {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-sm;
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0 0 $spacing-lg 0;
+                    }
+
+                    .payout_info_fields {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: $spacing-lg;
+
+                        .field_content {
+                            display: flex;
+                            flex-direction: column;
+                            gap: $spacing-xs;
+
+                            label {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-medium;
+                                color: $text-primary;
+                            }
+
+                            .input_main {
+                                .input_wrapper {
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-lg;
+                                    transition: all $transition-fast;
+
+                                    &:hover {
+                                        border-color: $border-light;
+                                    }
+
+                                    &.focused {
+                                        border-color: $theme-primary;
+                                        box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                                    }
+
+                                    .input_field {
+                                        padding: $spacing-sm $spacing-md;
+                                        border: none;
+                                        background: transparent;
+                                        font-size: $font-size-sm;
+                                        color: $text-primary;
+
+                                        &:focus {
+                                            outline: none;
+                                        }
+
+                                        &:disabled {
+                                            background: $black-500;
+                                            color: $text-secondary;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .notes_textarea {
+                                padding: $spacing-sm $spacing-md;
+                                border: 1px solid $border-gray-light;
+                                border-radius: $border-radius-lg;
+                                background: $bg-white;
+                                font-size: $font-size-sm;
+                                color: $text-primary;
+                                resize: vertical;
+                                transition: all $transition-fast;
+
+                                &:focus {
+                                    outline: none;
+                                    border-color: $theme-primary;
+                                    box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                                }
+
+                                &:disabled {
+                                    background: $black-500;
+                                    color: $text-secondary;
+                                }
+                            }
+
+                            .option_select {
+                                .react-select__control {
+                                    min-height: 40px;
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-lg;
+                                    background: $bg-white;
+                                    box-shadow: none;
+
+                                    &:hover {
+                                        border-color: $border-light;
+                                    }
+
+                                    &.react-select__control--is-focused {
+                                        border-color: $theme-primary;
+                                        box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                                    }
+
+                                    &.react-select__control--is-disabled {
+                                        background: $black-500;
+                                        border-color: $border-gray-light;
+                                    }
+                                }
+
+                                .react-select__value-container {
+                                    padding: 0 $spacing-sm;
+                                }
+
+                                .react-select__single-value {
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+                                    font-weight: $font-weight-medium;
+                                }
+
+                                .react-select__placeholder {
+                                    font-size: $font-size-sm;
+                                    color: $text-secondary;
+                                    font-weight: $font-weight-medium;
+                                }
+
+                                .react-select__indicator-separator {
+                                    background-color: $border-gray-light;
+                                }
+
+                                .react-select__dropdown-indicator {
+                                    color: $text-secondary;
+                                }
+
+                                .react-select__menu {
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-lg;
+                                    box-shadow: $shadow-lg;
+                                    margin-top: $spacing-xs;
+                                }
+
+                                .react-select__option {
+                                    padding: $spacing-sm $spacing-md;
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+
+                                    &:hover {
+                                        background: $theme-primary-50;
+                                        color: $theme-primary;
+                                    }
+
+                                    &.react-select__option--is-selected {
+                                        background: $theme-primary;
+                                        color: $bg-white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bank_details_tab {
+                .bank_account_details_section {
+                    h4 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0 0 $spacing-lg 0;
+                    }
+
+                    .bank_details_grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: $spacing-lg;
+
+                        .bank_field_group {
+                            display: flex;
+                            flex-direction: column;
+                            gap: $spacing-lg;
+
+                            .bank_field {
+                                display: flex;
+                                flex-direction: column;
+                                gap: $spacing-xs;
+
+                                label {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-primary;
+
+                                    .required {
+                                        color: $error;
+                                        margin-left: $spacing-xs;
+                                    }
+                                }
+
+                                .input_main {
+                                    .input_wrapper {
+                                        border: 1px solid $border-gray-light;
+                                        border-radius: $border-radius-lg;
+                                        transition: all $transition-fast;
+
+                                        &:hover {
+                                            border-color: $border-light;
+                                        }
+
+                                        &.focused {
+                                            border-color: $theme-primary;
+                                            box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                                        }
+
+                                        .input_field {
+                                            padding: $spacing-sm $spacing-md;
+                                            border: none;
+                                            background: transparent;
+                                            font-size: $font-size-sm;
+                                            color: $text-primary;
+
+                                            &:focus {
+                                                outline: none;
+                                            }
+
+                                            &:disabled {
+                                                background: $black-500;
+                                                color: $text-secondary;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .orders_tab {
+                .orders_section {
+                    h4 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0 0 $spacing-lg 0;
+                    }
+
+                    .orders_cards {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                        gap: $spacing-md;
+
+                        .order_card {
+                            background: $bg-white;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            padding: $spacing-md;
+                            transition: all $transition-fast;
+
+                            &:hover {
+                                border-color: $theme-primary;
+                                box-shadow: $shadow-sm;
+                            }
+
+                            .order_header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: $spacing-sm;
+
+                                .order_id {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-semibold;
+                                    color: $text-primary;
+                                    margin: 0;
+                                }
+
+                                .order_status {
+                                    padding: $spacing-xs $spacing-sm;
+                                    border-radius: $border-radius-md;
+                                    font-size: $font-size-xs;
+                                    font-weight: $font-weight-semibold;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.5px;
+
+                                    &.completed {
+                                        background: $success-light;
+                                        color: $success;
+                                    }
+                                }
+                            }
+
+                            .order_footer {
+                                .order_amount {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-semibold;
+                                    color: $theme-primary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .summary_tab {
+                .summary_section {
+                    h4 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0 0 $spacing-lg 0;
+                    }
+
+                    .summary_cards {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: $spacing-md;
+                        margin-bottom: $spacing-lg;
+
+                        .summary_card {
+                            background: $bg-white;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            padding: $spacing-md;
+                            display: flex;
+                            align-items: center;
+                            gap: $spacing-sm;
+
+                            .card_icon {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 40px;
+                                height: 40px;
+                                border-radius: $border-radius-lg;
+
+                                &.total {
+                                    background: $info-light;
+                                    color: $info;
+                                }
+
+                                &.shipping {
+                                    background: $warning-light;
+                                    color: $warning;
+                                }
+
+                                &.payout {
+                                    background: $theme-primary-50;
+                                    color: $theme-primary;
+                                }
+
+                                &.risk {
+                                    background: $error-light;
+                                    color: $error;
+                                }
+                            }
+
+                            .card_content {
+                                flex: 1;
+
+                                h5 {
+                                    font-size: $font-size-xs;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-secondary;
+                                    margin: 0 0 $spacing-xs 0;
+                                }
+
+                                .card_value {
+                                    font-size: $font-size-lg;
+                                    font-weight: $font-weight-bold;
+                                    color: $text-primary;
+                                    margin: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    .processing_info {
+                        background: $black-500;
+                        border: 1px solid $border-gray-light;
+                        border-radius: $border-radius-lg;
+                        padding: $spacing-lg;
+
+                        h5 {
+                            font-size: $font-size-md;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                            margin: 0 0 $spacing-md 0;
+                        }
+
+                        .processing_details {
+                            display: flex;
+                            flex-direction: column;
+                            gap: $spacing-sm;
+
+                            .processing_item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .label {
+                                    font-size: $font-size-sm;
+                                    color: $text-secondary;
+                                    font-weight: $font-weight-medium;
+                                }
+
+                                .value {
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+                                    font-weight: $font-weight-semibold;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .modal_footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: $spacing-sm;
+            padding-top: $spacing-lg;
+            border-top: 1px solid $border-gray-light;
+            margin-top: $spacing-lg;
+
+            .ripple-button {
+                display: flex;
+                align-items: center;
+                gap: $spacing-xs;
+                padding: $spacing-sm $spacing-lg;
+                border: 1px solid $border-gray-light;
+                border-radius: $border-radius-lg;
+                background: $bg-white;
+                color: $text-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-medium;
+                transition: all $transition-fast;
+                cursor: pointer;
+
+                &:hover {
+                    background: $black-500;
+                }
+
+                &.save_btn {
+                    background: $theme-primary;
+                    color: $bg-white;
+                    border-color: $theme-primary;
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+    .finance_admin_cod_payouts {
+        .payouts_container {
+            .summary_cards {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .payouts_cards_grid {
+                .payout_card {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: $spacing-md;
+
+                    .payout_card_left,
+                    .payout_card_center,
+                    .payout_card_right {
+                        min-width: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .finance_admin_cod_payouts {
+        .payouts_container {
+            .summary_cards {
+                grid-template-columns: 1fr;
+            }
+
+            .payouts_header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: $spacing-md;
+
+                .header_left {
+                    max-width: none;
+                }
+
+                .header_right {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: $spacing-md;
+
+                    .filter_controls {
+                        justify-content: space-between;
+                    }
+
+                    .action_buttons {
+                        justify-content: space-between;
+                    }
+                }
+            }
+
+            .payouts_cards_grid {
+                padding: $spacing-md;
+
+                .payout_card {
+                    padding: $spacing-md;
+
+                    .payout_card_left {
+                        .payout_info {
+                            .merchant_name {
+                                font-size: $font-size-sm;
+                            }
+                        }
+                    }
+
+                    .payout_card_center {
+                        .financial_details {
+                            .amount_item {
+
+                                .amount_label,
+                                .amount_value {
+                                    font-size: $font-size-xs;
+                                }
+                            }
+                        }
+                    }
+
+                    .payout_card_right {
+                        .payout_actions {
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            gap: $spacing-xs;
+
+                            .release_payment_btn,
+                            .hold_payment_btn,
+                            .view_details_btn {
+                                flex: 1;
+                                min-width: 80px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .pagination_container {
+                .pagination_info {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: $spacing-md;
+
+                    .page_info {
+                        justify-content: center;
+                    }
+
+                    .pagination_controls {
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+
+        .payout_modal_content {
+            .modal_tab_navigation {
+                flex-wrap: wrap;
+
+                .tab_button {
+                    flex: 1;
+                    min-width: 120px;
+                }
+            }
+
+            .modal_tab_content {
+                .payout_details_tab {
+                    .payout_info_fields {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                .bank_details_tab {
+                    .bank_details_grid {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                .orders_tab {
+                    .orders_cards {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                .summary_tab {
+                    .summary_cards {
+                        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .finance_admin_cod_payouts {
+        .payouts_container {
+            .payouts_header {
+                padding: $spacing-md;
+
+                .header_right {
+                    .filter_controls {
+                        flex-direction: column;
+                        gap: $spacing-sm;
+                    }
+
+                    .action_buttons {
+                        flex-direction: column;
+                        gap: $spacing-sm;
+                    }
+                }
+            }
+
+            .payouts_cards_container {
+                .payouts_cards_grid {
+                    padding: $spacing-md;
+
+                    .payout_card {
+                        padding: $spacing-md;
+
+                        .payout_card_left {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: $spacing-sm;
+                        }
+
+                        .payout_card_right {
+                            .payout_actions {
+                                flex-direction: column;
+                                gap: $spacing-sm;
+
+                                .view_details_btn {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .payout_modal_content {
+            .modal_tab_navigation {
+                .tab_button {
+                    padding: $spacing-sm $spacing-md;
+                    font-size: $font-size-xs;
+                }
+            }
+
+            .modal_tab_content {
+                .summary_tab {
+                    .summary_cards {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            }
+        }
+    }
+}

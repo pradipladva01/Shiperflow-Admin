@@ -1,0 +1,53 @@
+// Main Admin SCSS File
+// This file imports all the partial SCSS files for better organization
+
+// Import variables first
+@import 'partials/variables';
+
+// Import all partials
+@import 'partials/sidebar';
+@import 'partials/header';
+@import 'partials/login';
+@import 'partials/register';
+@import 'partials/page-header';
+@import 'partials/dashboard';
+@import 'partials/shipment';
+@import 'partials/shopify';
+@import 'partials/shipping-charges';
+@import 'partials/super-admin-shipment-charges';
+@import 'partials/super-admin-merchant';
+@import 'partials/settings';
+@import 'partials/modals';
+@import 'partials/common-modal';
+@import 'partials/price-calculator';
+@import 'partials/super-admin-dashboard';
+@import 'partials/super-admin-settings';
+@import 'partials/finance-admin-merchant-management';
+@import 'partials/finance-admin-cod-payouts';
+@import 'partials/finance-admin-billing-ledger';
+
+// Media Queries
+@media (max-width:991px) {
+    .sidebar_main {
+        left: -80px;
+        width: 0px;
+    }
+
+    .header_main {
+        left: 0;
+    }
+
+    .container_main {
+        margin-left: 0;
+    }
+
+    .container_main .content {
+        padding-inline: 25px;
+    }
+
+    .sidebar_main.active {
+        width: 90px;
+        left: 0px;
+        background-color: white;
+    }
+}

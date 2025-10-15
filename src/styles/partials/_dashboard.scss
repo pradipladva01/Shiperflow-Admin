@@ -1,0 +1,433 @@
+// Dashboard Section Styles
+.dashboard_section {
+    .page_content {
+        .card_main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: $padding-sm;
+            margin-bottom: $padding-lg;
+
+            .card_body {
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+
+                .card_top {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-sm;
+
+                    .icons {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: $border-radius-md;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    h6 {
+                        margin: 0;
+                        color: $black-950;
+                    }
+                }
+
+                .card_bottom {
+                    margin-top: $spacing-sm;
+                    background-color: $bg-gray;
+                    border-radius: $border-radius-lg;
+                    padding: 16px;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-between;
+
+                    h3 {
+                        font-size: $font-size-md;
+                        margin: 0;
+                        font-weight: $font-weight-semibold;
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-medium;
+                    }
+                }
+            }
+        }
+
+        .order_flows {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: grid;
+            gap: $padding-lg;
+            margin-bottom: $padding-lg;
+
+            .order_card {
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+
+                h6 {
+                    margin-bottom: $spacing-sm;
+                    color: $black-950;
+                }
+
+                p {
+                    margin: 0;
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .charts_main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: $padding-lg;
+            margin-bottom: $padding-lg;
+
+            .orders_trend_chart,
+            .payment_split_chart {
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+
+                .chart_header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: $padding-lg;
+
+                    h6 {
+                        font-size: $font-size-xl;
+                        font-weight: $font-weight-semibold;
+                        color: $black-950;
+                        margin: 0;
+                    }
+
+                    .dropdown_main {
+                        position: relative;
+
+                        .chart_dropdown_btn {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: $spacing-sm;
+                            background-color: $bg-light;
+                            border: none;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .dropdown_menu {
+                            position: absolute;
+                            top: 100%;
+                            right: 0;
+                            border: 1px solid $border-card;
+                            background-color: $bg-white;
+                            border-radius: $spacing-sm;
+                            padding: $spacing-sm;
+                            min-width: 150px;
+                            z-index: 1;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+                            .dropdown_item {
+                                padding: $spacing-sm;
+                                border-radius: $spacing-sm;
+                                background-color: $bg-white;
+                                border: none;
+                                color: $theme-primary-600;
+                                cursor: pointer;
+                                width: 100%;
+                                text-align: left;
+                                transition: background-color 0.2s;
+
+                                &:hover {
+                                    background-color: $bg-light;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .chart_content {
+                    width: 100%;
+                }
+            }
+
+            .payment_split_chart {
+                .chart_header {
+                    h6 {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .dashboard_sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: $padding-lg;
+            margin-bottom: $padding-lg;
+
+            .top_products_section,
+            .cod_payout_section {
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+
+                .section_header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: $padding-lg;
+
+                    h6 {
+                        font-size: $font-size-xl;
+                        font-weight: $font-weight-semibold;
+                        color: $black-950;
+                        margin: 0;
+                    }
+
+                    .search_bar {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        background-color: $bg-light;
+                        border-radius: $border-radius-md;
+                        padding: $spacing-sm $spacing-md;
+                        min-width: 250px;
+
+                        svg {
+                            margin-right: $spacing-sm;
+                        }
+
+                        input {
+                            border: none;
+                            background: transparent;
+                            outline: none;
+                            font-size: $font-size-sm;
+                            color: $black-950;
+                            width: 100%;
+
+                            &::placeholder {
+                                color: $black-400;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .top_products_section {
+                .products_table {
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+
+                        thead {
+                            th {
+                                text-align: left;
+                                padding: $spacing-md 0;
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-semibold;
+                                color: $black-600;
+                                border-bottom: 1px solid $border-card;
+                            }
+                        }
+
+                        tbody {
+                            tr {
+                                border-bottom: 1px solid $border-light;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                td {
+                                    padding: $spacing-md 0;
+                                    font-size: $font-size-sm;
+                                    color: $black-950;
+
+                                    &.product_name {
+                                        font-weight: $font-weight-medium;
+                                    }
+
+                                    &.orders_count {
+                                        color: $black-600;
+                                    }
+
+                                    &.revenue_amount {
+                                        font-weight: $font-weight-semibold;
+                                        color: $theme-primary-600;
+                                    }
+
+                                    &.actions {
+                                        text-align: center;
+
+                                        .view_btn {
+                                            background: none;
+                                            border: none;
+                                            cursor: pointer;
+                                            padding: $spacing-xs;
+                                            border-radius: $border-radius-sm;
+                                            transition: background-color 0.2s;
+                                            width: 30px;
+                                            height: 30px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+
+                                            &:hover {
+                                                background-color: $bg-light;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .cod_payout_section {
+                .payout_content {
+                    .pending_balance_card {
+                        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                        color: white;
+                        padding: $padding-lg;
+                        border-radius: $border-radius-lg;
+                        text-align: center;
+                        margin-bottom: $padding-lg;
+
+                        .balance_label {
+                            font-size: $font-size-sm;
+                            opacity: 0.9;
+                            margin-bottom: $spacing-xs;
+                        }
+
+                        .balance_amount {
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-bold;
+                        }
+                    }
+
+                    .payout_date {
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: $padding-lg;
+
+                        .date_label {
+                            font-size: $font-size-sm;
+                            color: $black-600;
+                            margin-bottom: $spacing-xs;
+                        }
+
+                        .date_value {
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $theme-primary-600;
+                        }
+                    }
+
+                    .payout_details {
+                        .detail_row {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: $spacing-sm 0;
+                            border-bottom: 1px solid $border-light;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+                            .detail_label {
+                                font-size: $font-size-sm;
+                                color: $black-600;
+                            }
+
+                            .detail_value {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-semibold;
+                                color: $black-950;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .revenue_main {
+            display: flex;
+            gap: 20px;
+
+            .revenue_all_time {
+                width: 70%;
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+
+                .top_bar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    h6 {
+                        font-size: $font-size-xl;
+                        font-weight: $font-weight-semibold;
+                        color: $black-950;
+                    }
+
+                    .dropdown_main {
+                        position: relative;
+
+                        .revenue_all_time_btn {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: $spacing-sm;
+                            background-color: $bg-light;
+                        }
+
+                        .dropdown_menu {
+                            position: absolute;
+                            top: 100%;
+                            right: 0;
+                            border: 1px solid $border-card;
+                            background-color: $bg-white;
+                            border-radius: $spacing-sm;
+                            padding: $spacing-sm;
+                            min-width: 150px;
+                            z-index: 1;
+
+                            .dropdown_item {
+                                padding: $spacing-sm;
+                                border-radius: $spacing-sm;
+                                background-color: $bg-white;
+                                border: none;
+                                color: $theme-primary-600;
+                                cursor: pointer;
+                                width: 100%;
+                                text-align: left;
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+            .order_status {
+                width: 30%;
+                padding: $padding-xl;
+                border-radius: $border-radius-xl;
+                border: 1px solid $border-card;
+                background-color: $bg-white;
+            }
+        }
+    }
+}

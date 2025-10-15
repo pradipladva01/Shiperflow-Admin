@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --persian-red-50: #fef2f2;
+    --persian-red-100: #fee2e3;
+    --persian-red-200: #fecacc;
+    --persian-red-300: #fda4a7;
+    --persian-red-400: #f97075;
+    --persian-red-500: #f04349;
+    --persian-red-600: #d72127;
+    --persian-red-700: #ba1b20;
+    --persian-red-800: #9a1a1e;
+    --persian-red-900: #801c1f;
+    --persian-red-950: #450a0c;
+
+    /* Theme Primary Colors */
+    --theme-primary: #B22222;
+    --theme-primary-50: #fef2f2;
+    --theme-primary-100: #fee2e2;
+    --theme-primary-200: #fecaca;
+    --theme-primary-300: #fca5a5;
+    --theme-primary-400: #f87171;
+    --theme-primary-500: #ef4444;
+    --theme-primary-600: #B22222;
+    --theme-primary-700: #991b1b;
+    --theme-primary-800: #7f1d1d;
+    --theme-primary-900: #450a0a;
+    --theme-primary-950: #2d0a0a;
+
+    --black-50: #f6f6f6;
+    --black-100: #e7e7e7;
+    --black-200: #d1d1d1;
+    --black-300: #b0b0b0;
+    --black-400: #888888;
+    --black-500: #6d6d6d;
+    --black-600: #5d5d5d;
+    --black-700: #4f4f4f;
+    --black-800: #454545;
+    --black-900: #3d3d3d;
+    --black-950: #000000;
+}
+
+body {
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 24px !important;
+    background: #f8f9fa !important;
+    font-family: "Poppins", sans-serif;
+
+}
+
+a:hover,
+a:focus,
+
+a:active {
+    /* color: inherit !important; */
+    text-decoration: none !important;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

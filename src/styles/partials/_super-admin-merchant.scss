@@ -1,0 +1,3221 @@
+.super_admin_merchant {
+    .filter_controls {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        .option_select {
+            min-width: 120px;
+        }
+
+        .action_buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .export_btn,
+            .import_btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 16px;
+                border: 1px solid #D1D5DB;
+                border-radius: 8px;
+                background: white;
+                color: #374151;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: #F9FAFB;
+                    border-color: #9CA3AF;
+                }
+            }
+        }
+    }
+
+    // Action Dropdown Styles
+    .action_dropdown {
+        position: relative;
+        display: inline-block;
+
+        .action_trigger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            background: white;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #F3F4F6;
+                border-color: #9CA3AF;
+                color: #374151;
+            }
+        }
+
+        .action_menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 4px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 180px;
+            overflow: hidden;
+
+            .action_item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+                padding: 12px 16px;
+                border: none;
+                background: white;
+                color: #374151;
+                font-size: 14px;
+                text-align: left;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    background: #F3F4F6;
+                }
+
+                &:first-child {
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                }
+
+                &:last-child {
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                }
+
+                svg {
+                    color: #6B7280;
+                }
+            }
+        }
+    }
+
+    // Checkbox Styles
+    .checkbox_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+
+        .form-check-input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #3B82F6;
+        }
+    }
+
+    // Responsive Design
+    @media (max-width: 1200px) {
+        .merchants_container {
+            .tab_header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+
+                .header_left {
+                    .search_container {
+                        max-width: 100%;
+                    }
+                }
+
+                .header_right {
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    gap: 16px;
+
+                    .filter_controls {
+                        flex-wrap: wrap;
+                    }
+
+                    .action_buttons {
+                        flex-wrap: wrap;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .merchants_container {
+            .tab_header {
+                padding: 20px;
+
+                .header_left {
+                    h1 {
+                        font-size: 24px;
+                    }
+                }
+
+                .header_right {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 16px;
+
+                    .filter_controls {
+                        justify-content: space-between;
+                    }
+
+                    .action_buttons {
+                        justify-content: space-between;
+                    }
+                }
+            }
+
+            .table-responsive {
+                .merchant_table_wrapper {
+                    .merchant_table {
+                        font-size: 12px;
+
+                        thead tr th,
+                        tbody tr td {
+                            padding: 12px 8px;
+                        }
+                    }
+                }
+            }
+
+            .pagination_container {
+                padding: 16px 20px;
+
+                .pagination_info {
+                    flex-direction: column;
+                    gap: 16px;
+                    align-items: center;
+
+                    .page_info {
+                        order: 2;
+                    }
+
+                    .row_count {
+                        order: 1;
+                    }
+
+                    .pagination_controls {
+                        order: 3;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Merchant View Details Styles
+.merchant_view_details {
+    .merchant_header {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 24px 0;
+        border-bottom: 1px solid $border-gray-light;
+        margin-bottom: 24px;
+
+        .header_left {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 20px;
+
+            .back_button {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                border: 1px solid $border-gray-light;
+                border-radius: $border-radius-lg;
+                background: white;
+                color: $text-secondary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-medium;
+                cursor: pointer;
+                transition: all $transition-fast;
+
+                &:hover {
+                    background: $bg-gray-light;
+                    border-color: $border-light;
+                    color: $text-primary;
+                }
+            }
+
+            .merchant_info {
+                .merchant_name_section {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 8px;
+
+                    h1 {
+                        font-size: $font-size-xxl;
+                        font-weight: $font-weight-bold;
+                        color: $text-primary;
+                        margin: 0;
+                    }
+
+                    .tier_badge {
+                        padding: 4px 12px;
+                        border-radius: $border-radius-md;
+                        font-size: $font-size-xs;
+                        font-weight: $font-weight-semibold;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                }
+
+                .merchant_id {
+                    font-size: $font-size-sm;
+                    color: $text-secondary;
+                    margin: 0;
+                }
+            }
+        }
+
+        .header_right {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            justify-content: end;
+
+            .status_section {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+                .status_label {
+                    font-size: $font-size-sm;
+                    color: $text-secondary;
+                    font-weight: $font-weight-medium;
+                }
+
+                .status_toggle {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+
+                    .status_badge {
+                        padding: 6px 12px;
+                        border-radius: $border-radius-md;
+                        font-size: $font-size-xs;
+                        font-weight: $font-weight-semibold;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+
+                    .toggle_switch {
+                        position: relative;
+                        width: 44px;
+                        height: 24px;
+
+                        .toggle_input {
+                            opacity: 0;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            z-index: 2;
+                            cursor: pointer;
+                            margin: 0;
+
+                            &:checked+.toggle_slider {
+                                background-color: $success;
+
+                                &:before {
+                                    transform: translateX(20px);
+                                }
+                            }
+                        }
+
+                        .toggle_slider {
+                            position: absolute;
+                            cursor: pointer;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background-color: $border-light;
+                            transition: $transition-fast;
+                            border-radius: 24px;
+                            z-index: 1;
+
+                            &:before {
+                                position: absolute;
+                                content: "";
+                                height: 18px;
+                                width: 18px;
+                                left: 3px;
+                                bottom: 3px;
+                                background-color: white;
+                                transition: $transition-fast;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .action_buttons {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+                .action_btn {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 16px;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    background: white;
+                    color: $text-secondary;
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-medium;
+                    cursor: pointer;
+                    transition: all $transition-fast;
+
+                    &:hover {
+                        background: $bg-gray-light;
+                        border-color: $border-light;
+                        color: $text-primary;
+                    }
+
+                    &.suspend_btn:hover {
+                        background: $error-light;
+                        border-color: $error;
+                        color: $error;
+                    }
+
+                    &.reset_btn:hover {
+                        background: $warning-light;
+                        border-color: $warning;
+                        color: $warning;
+                    }
+
+                    &.impersonate_btn:hover {
+                        background: $info-light;
+                        border-color: $info;
+                        color: $info;
+                    }
+
+                    &.notify_btn:hover {
+                        background: $theme-primary-100;
+                        border-color: $theme-primary;
+                        color: $theme-primary;
+                    }
+                }
+            }
+        }
+    }
+
+    .tab_navigation {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $border-gray-light;
+        margin-bottom: 24px;
+        white-space: nowrap;
+        overflow: scroll;
+
+        .tab_button {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: $text-secondary;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all $transition-fast;
+
+            &:hover {
+                color: $text-primary;
+                background: $bg-gray-light;
+            }
+
+            &.active {
+                color: $theme-primary;
+                border-bottom-color: $theme-primary;
+                background: $theme-primary-50;
+            }
+        }
+    }
+
+    .tab_content {
+        .overview_content {
+            .metrics_cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+                margin-bottom: 32px;
+
+                .metric_card {
+                    text-align: left;
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 20px;
+                    transition: all $transition-fast;
+
+                    .metric_header {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 12px;
+
+                        .metric_icon {
+                            color: $theme-primary;
+                        }
+
+                        .metric_title {
+                            font-size: $font-size-sm;
+                            color: $text-secondary;
+                            font-weight: $font-weight-medium;
+                        }
+                    }
+
+                    .metric_value {
+                        font-size: $font-size-xl;
+                        font-weight: $font-weight-bold;
+                        color: $text-primary;
+                        margin-bottom: 8px;
+                    }
+
+                    .metric_change {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-size: $font-size-xs;
+                        font-weight: $font-weight-medium;
+
+                        &.positive {
+                            color: $success;
+                        }
+
+                        &.negative {
+                            color: $error;
+                        }
+
+                        &.neutral {
+                            color: $text-secondary;
+                        }
+                    }
+                }
+            }
+
+            .charts_section {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 24px;
+                margin-bottom: 32px;
+
+                .chart_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .chart_header {
+                        margin-bottom: 20px;
+
+                        h3 {
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                            margin: 0;
+                            text-align: left;
+                        }
+                    }
+
+                    .chart_placeholder {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        height: 200px;
+                        background: $bg-gray-light;
+                        border-radius: $border-radius-lg;
+                        text-align: center;
+                        color: $text-secondary;
+
+                        .chart_icon {
+                            color: $border-light;
+                            margin-bottom: 12px;
+                        }
+
+                        p {
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-medium;
+                            margin-bottom: 4px;
+                        }
+
+                        span {
+                            font-size: $font-size-xs;
+                        }
+                    }
+                }
+            }
+
+            .recent_orders_section {
+                .section_header {
+                    margin-bottom: 20px;
+
+                    h3 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0;
+                        text-align: left;
+                    }
+                }
+
+                .table_container {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    overflow-x: scroll;
+
+                    .orders_table {
+                        width: 100%;
+                        border-collapse: collapse;
+
+                        thead {
+                            background: $bg-gray-light;
+
+                            tr th {
+                                padding: 16px 20px;
+                                text-align: left;
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-semibold;
+                                color: $text-primary;
+                                border-bottom: 1px solid $border-gray-light;
+                                white-space: nowrap;
+                            }
+                        }
+
+                        tbody {
+                            tr {
+                                border-bottom: 1px solid $border-gray-light;
+                                transition: background-color $transition-fast;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                td {
+                                    padding: 16px 20px;
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+                                    white-space: nowrap;
+
+                                    .status_badge {
+                                        padding: 4px 8px;
+                                        border-radius: $border-radius-sm;
+                                        font-size: $font-size-xs;
+                                        font-weight: $font-weight-medium;
+                                        text-transform: uppercase;
+                                        letter-spacing: 0.5px;
+                                    }
+
+                                    .warning_icon {
+                                        color: $warning;
+                                        margin-left: 6px;
+                                    }
+
+                                    &.order_id {
+                                        font-weight: $font-weight-semibold;
+                                        color: $theme-primary;
+                                    }
+
+                                    &.order_date {
+                                        color: $text-secondary;
+                                    }
+
+                                    &.courier {
+                                        font-weight: $font-weight-medium;
+                                    }
+
+                                    &.declared_weight,
+                                    &.charged_weight {
+                                        font-family: monospace;
+                                        font-size: $font-size-xs;
+                                    }
+
+                                    &.cod_amount {
+                                        font-weight: $font-weight-semibold;
+                                        color: $success;
+                                    }
+
+                                    &.extra_charges {
+                                        color: $text-secondary;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .billing_content {
+            .billing_section {
+                margin-bottom: 32px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .section_header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+
+                    h3 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0;
+                    }
+
+                    .add_adjustment_btn {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 10px 16px;
+                        border: 1px solid $theme-primary;
+                        border-radius: $border-radius-lg;
+                        background: $theme-primary;
+                        color: white;
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-medium;
+                        cursor: pointer;
+                        transition: all $transition-fast;
+                    }
+                }
+
+                // Bank Details Card
+                .bank_details_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .bank_info {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 24px;
+
+                        .bank_field {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 8px;
+
+                            label {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                font-weight: $font-weight-medium;
+                            }
+
+                            .bank_value {
+                                font-size: $font-size-md;
+                                color: $text-primary;
+                                font-weight: $font-weight-semibold;
+                                font-family: monospace;
+                                background: $bg-gray-light;
+                                padding: 8px 12px;
+                                border-radius: $border-radius-md;
+                                border: 1px solid $border-gray-light;
+                            }
+                        }
+                    }
+                }
+
+                // COD Cycle Card
+                .cod_cycle_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .cod_info {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        .cod_field {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 8px;
+
+                            label {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                font-weight: $font-weight-medium;
+                            }
+
+                            .cod_value {
+                                font-size: $font-size-lg;
+                                color: $text-primary;
+                                font-weight: $font-weight-semibold;
+                            }
+
+                            .cod_select_wrapper {
+                                .cod_cycle_select {
+                                    .cod-select__control {
+                                        min-height: 40px;
+                                        border: 1px solid $border-gray-light;
+                                        border-radius: $border-radius-md;
+                                        background: white;
+                                        box-shadow: none;
+                                        transition: all $transition-fast;
+
+                                        &:hover {
+                                            border-color: $border-light;
+                                        }
+
+                                        &.cod-select__control--is-focused {
+                                            border-color: $theme-primary-500;
+                                            box-shadow: 0 0 0 1px rgba($theme-primary-500, 0.1);
+                                        }
+                                    }
+
+                                    .cod-select__value-container {
+                                        padding: 0 12px;
+                                    }
+
+                                    .cod-select__single-value {
+                                        font-size: $font-size-lg;
+                                        color: $text-primary;
+                                        font-weight: $font-weight-semibold;
+                                    }
+
+                                    .cod-select__placeholder {
+                                        font-size: $font-size-lg;
+                                        color: $text-secondary;
+                                        font-weight: $font-weight-medium;
+                                    }
+
+                                    .cod-select__indicator-separator {
+                                        background-color: $border-gray-light;
+                                    }
+
+                                    .cod-select__dropdown-indicator {
+                                        color: $text-secondary;
+                                        transition: all $transition-fast;
+
+                                        &:hover {
+                                            color: $text-primary;
+                                        }
+                                    }
+
+                                    .cod-select__menu {
+                                        border: 1px solid $border-gray-light;
+                                        border-radius: $border-radius-md;
+                                        box-shadow: $shadow-lg;
+                                        margin-top: 4px;
+                                    }
+
+                                    .cod-select__option {
+                                        padding: 12px 16px;
+                                        font-size: $font-size-md;
+                                        color: $text-primary;
+                                        transition: all $transition-fast;
+
+                                        &:hover {
+                                            background-color: $bg-gray-light;
+                                        }
+
+                                        &.cod-select__option--is-selected {
+                                            background-color: rgba($theme-primary-500, 0.1);
+                                            color: $theme-primary-500;
+                                            font-weight: $font-weight-medium;
+                                        }
+
+                                        &.cod-select__option--is-focused {
+                                            background-color: $bg-gray-light;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .update_cod_btn {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px 16px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            background: white;
+                            color: $text-secondary;
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-medium;
+                            cursor: pointer;
+                            transition: all $transition-fast;
+                            align-self: flex-start;
+
+                        }
+                    }
+                }
+
+                // Payout Card
+                .payout_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .payout_info {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 16px;
+
+                        .payout_field {
+                            display: flex;
+                            justify-content: space-between;
+                            width: 100%;
+                            gap: 8px;
+
+                            label {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                font-weight: $font-weight-medium;
+                                text-align: left;
+                            }
+
+                            .payout_value {
+                                font-size: $font-size-md;
+                                color: $text-primary;
+                                font-weight: $font-weight-semibold;
+
+                                &.pending {
+                                    color: $warning;
+                                    font-size: $font-size-lg;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Adjustments Card
+                .adjustments_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    overflow: hidden;
+                    transition: all $transition-fast;
+
+                    .adjustments_table {
+                        .adjustment_header {
+                            display: grid;
+                            grid-template-columns: 1fr 2fr 1fr 1fr;
+                            gap: 20px;
+                            padding: 16px 24px;
+                            background: $bg-gray-light;
+                            border-bottom: 1px solid $border-gray-light;
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                        }
+
+                        .adjustment_row {
+                            display: grid;
+                            grid-template-columns: 1fr 2fr 1fr 1fr;
+                            gap: 20px;
+                            padding: 16px 24px;
+                            border-bottom: 1px solid $border-gray-light;
+                            transition: background-color $transition-fast;
+
+                            &:hover {
+                                background: $bg-gray-light;
+                            }
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+                            .adjustment_type {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-semibold;
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+
+                                &.credit {
+                                    color: $success;
+                                }
+
+                                &.debit {
+                                    color: $error;
+                                }
+                            }
+
+                            .adjustment_description {
+                                font-size: $font-size-sm;
+                                color: $text-primary;
+                            }
+
+                            .adjustment_date {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                            }
+
+                            .adjustment_amount {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-semibold;
+                                font-family: monospace;
+
+                                &.credit {
+                                    color: $success;
+                                }
+
+                                &.debit {
+                                    color: $error;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // GST Invoices Card
+                .gst_invoices_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .invoices_list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+
+                        .invoice_item {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 16px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            transition: all $transition-fast;
+
+                            .invoice_info {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+
+                                .invoice_header {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 12px;
+
+                                    .invoice_number {
+                                        font-size: $font-size-md;
+                                        font-weight: $font-weight-semibold;
+                                        color: $theme-primary;
+                                    }
+
+                                    .invoice_month {
+                                        font-size: $font-size-sm;
+                                        color: $text-secondary;
+                                    }
+                                }
+
+                                .invoice_details {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 16px;
+
+                                    .invoice_amount {
+                                        font-size: $font-size-md;
+                                        font-weight: $font-weight-semibold;
+                                        color: $text-primary;
+                                    }
+
+                                    .invoice_status {
+                                        padding: 4px 8px;
+                                        border-radius: $border-radius-sm;
+                                        font-size: $font-size-xs;
+                                        font-weight: $font-weight-semibold;
+                                        text-transform: uppercase;
+                                        letter-spacing: 0.5px;
+
+                                        &.paid {
+                                            background: $success-light;
+                                            color: $success;
+                                        }
+
+                                        &.pending {
+                                            background: $warning-light;
+                                            color: $warning;
+                                        }
+
+                                        &.overdue {
+                                            background: $error-light;
+                                            color: $error;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .download_invoice_btn {
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                padding: 8px 16px;
+                                border: 1px solid $border-gray-light;
+                                border-radius: $border-radius-lg;
+                                background: white;
+                                color: $text-secondary;
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-medium;
+                                cursor: pointer;
+                                transition: all $transition-fast;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Billing Row Layout
+            .billing_row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                margin-bottom: 32px;
+            }
+
+            // Tax Rules Configuration Section
+            .tax_rules_section {
+                .section_header {
+                    .section_title {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+
+                        .section_icon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 32px;
+                            height: 32px;
+                            background: $theme-primary-100;
+                            border-radius: $border-radius-md;
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $theme-primary-600;
+                        }
+
+                        h3 {
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                            margin: 0;
+                        }
+                    }
+                }
+
+                .tax_rules_card {
+                    background: $bg-white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: $spacing-xl;
+
+                    .tax_rules_content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        .tax_field {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+                            align-items: self-start;
+
+                            label {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-medium;
+                                color: $text-primary;
+                                text-align: left;
+                            }
+
+                            .tax_input {
+                                width: 100%;
+                                padding: 12px 16px;
+                                border: 1px solid $border-gray-light;
+                                border-radius: $border-radius-md;
+                                background: $bg-white;
+                                font-size: $font-size-sm;
+                                color: $text-primary;
+                                transition: all $transition-fast;
+
+                                &:focus {
+                                    outline: none;
+                                    border-color: $theme-primary;
+                                    box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+                                }
+
+                                &::placeholder {
+                                    color: $text-secondary;
+                                }
+                            }
+
+                            .tax_select_wrapper {
+                                width: 100%;
+
+                                .option_select {
+                                    text-align: left;
+
+                                    .react-select__control {
+                                        border: 1px solid $border-gray-light;
+                                        border-radius: $border-radius-md;
+                                        min-height: 44px;
+                                        box-shadow: none;
+
+                                        &:hover {
+                                            border-color: $border-gray-light;
+                                        }
+
+                                        &.react-select__control--is-focused {
+                                            border-color: $theme-primary;
+                                            box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+                                        }
+                                    }
+
+                                    .react-select__value-container {
+                                        padding: 0 12px;
+                                    }
+
+                                    .react-select__single-value {
+                                        color: $text-primary;
+                                        font-size: $font-size-sm;
+                                    }
+
+                                    .react-select__placeholder {
+                                        color: $text-secondary;
+                                        font-size: $font-size-sm;
+                                    }
+
+                                    .react-select__indicator-separator {
+                                        background-color: $border-gray-light;
+                                    }
+
+                                    .react-select__dropdown-indicator {
+                                        color: $text-secondary;
+
+                                        &:hover {
+                                            color: $text-primary;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .toggle_field {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                gap: 16px;
+
+                                .toggle_label {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-primary;
+                                    margin: 0;
+                                    flex: 1;
+                                }
+
+                                .toggle_switch {
+                                    position: relative;
+                                    display: inline-block;
+                                    width: 48px;
+                                    height: 24px;
+
+                                    .toggle_input {
+                                        opacity: 0;
+                                        width: 0;
+                                        height: 0;
+
+                                        &:checked+.toggle_slider {
+                                            background-color: $theme-primary;
+
+                                            &:before {
+                                                transform: translateX(24px);
+                                            }
+                                        }
+                                    }
+
+                                    .toggle_slider {
+                                        position: absolute;
+                                        cursor: pointer;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        bottom: 0;
+                                        background-color: $border-gray-light;
+                                        transition: $transition-fast;
+                                        border-radius: 24px;
+
+                                        &:before {
+                                            position: absolute;
+                                            content: "";
+                                            height: 18px;
+                                            width: 18px;
+                                            left: 3px;
+                                            bottom: 3px;
+                                            background-color: white;
+                                            transition: $transition-fast;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .field_description {
+                                font-size: $font-size-xs;
+                                color: $text-secondary;
+                                text-align: left;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Payout Cycle Configuration Section
+            .payout_cycle_section {
+                .section_header {
+                    .section_title {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+
+                        .section_icon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 32px;
+                            height: 32px;
+                            background: $theme-primary-100;
+                            border-radius: $border-radius-md;
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $theme-primary-600;
+                        }
+
+                        h3 {
+                            font-size: $font-size-lg;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                            margin: 0;
+                        }
+                    }
+                }
+
+                .payout_cycle_card {
+                    background: $bg-white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: $spacing-xl;
+
+                    .payout_cycle_content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        .payout_field {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+
+                            label {
+                                font-size: $font-size-sm;
+                                font-weight: $font-weight-medium;
+                                color: $text-primary;
+                                text-align: left;
+                            }
+
+                            .date_input {
+                                width: 100%;
+                                padding: 12px 16px;
+                                border: 1px solid $border-gray-light;
+                                border-radius: $border-radius-md;
+                                background: $bg-white;
+                                font-size: $font-size-sm;
+                                color: $text-primary;
+                                transition: all $transition-fast;
+
+                                &:focus {
+                                    outline: none;
+                                    border-color: $theme-primary;
+                                    box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+                                }
+
+                                &::placeholder {
+                                    color: $text-secondary;
+                                }
+                            }
+
+                            .date_inputs_wrapper {
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                gap: 12px;
+                            }
+
+                            .payout_select_wrapper {
+                                .option_select {
+                                    text-align: left;
+
+                                    .react-select__control {
+                                        border: 1px solid $border-gray-light;
+                                        border-radius: $border-radius-md;
+                                        min-height: 44px;
+                                        box-shadow: none;
+
+                                        &:hover {
+                                            border-color: $border-gray-light;
+                                        }
+
+                                        &.react-select__control--is-focused {
+                                            border-color: $theme-primary;
+                                            box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+                                        }
+                                    }
+
+                                    .react-select__value-container {
+                                        padding: 0 12px;
+                                    }
+
+                                    .react-select__single-value {
+                                        color: $text-primary;
+                                        font-size: $font-size-sm;
+                                    }
+
+                                    .react-select__placeholder {
+                                        color: $text-secondary;
+                                        font-size: $font-size-sm;
+                                    }
+
+                                    .react-select__indicator-separator {
+                                        background-color: $border-gray-light;
+                                    }
+
+                                    .react-select__dropdown-indicator {
+                                        color: $text-secondary;
+
+                                        &:hover {
+                                            color: $text-primary;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .toggle_field {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                gap: 16px;
+
+                                .toggle_label {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-primary;
+                                    margin: 0;
+                                    flex: 1;
+                                }
+
+                                .toggle_switch {
+                                    position: relative;
+                                    display: inline-block;
+                                    width: 48px;
+                                    height: 24px;
+
+                                    .toggle_input {
+                                        opacity: 0;
+                                        width: 0;
+                                        height: 0;
+
+                                        &:checked+.toggle_slider {
+                                            background-color: $theme-primary;
+
+                                            &:before {
+                                                transform: translateX(24px);
+                                            }
+                                        }
+                                    }
+
+                                    .toggle_slider {
+                                        position: absolute;
+                                        cursor: pointer;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        bottom: 0;
+                                        background-color: $border-gray-light;
+                                        transition: $transition-fast;
+                                        border-radius: 24px;
+
+                                        &:before {
+                                            position: absolute;
+                                            content: "";
+                                            height: 18px;
+                                            width: 18px;
+                                            left: 3px;
+                                            bottom: 3px;
+                                            background-color: white;
+                                            transition: $transition-fast;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .field_description {
+                                font-size: $font-size-xs;
+                                color: $text-secondary;
+                                margin-top: 4px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .integration_content {
+            .integration_card {
+                background-color: $bg-white;
+                border: 1px solid $border-card;
+                border-radius: $border-radius-xl;
+                padding: $spacing-lg;
+
+                .integration_header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: $spacing-lg;
+                    padding-bottom: $spacing-md;
+                    border-bottom: 1px solid $border-gray-light;
+
+                    .integration_info {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-md;
+
+                        .integration_icon {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: $border-radius-md;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+
+                            &.shopify {
+                                background-color: #96bf48;
+                            }
+
+                            &.shiprocket {
+                                background-color: #3b82f6;
+                            }
+
+                            &.razorpay {
+                                background-color: #339af0;
+                            }
+
+                            &.smtp {
+                                background-color: #51cf66;
+                            }
+
+                            svg {
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+
+                        .integration_title {
+                            text-align: start;
+
+                            h6 {
+                                font-size: $font-size-lg;
+                                font-weight: $font-weight-bold;
+                                color: $text-primary;
+                                margin: 0 0 $spacing-xs 0;
+                            }
+
+                            p {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                margin: 0;
+                            }
+                        }
+                    }
+
+                    .status_badge {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+                        padding: $spacing-xs $spacing-sm;
+                        border-radius: $border-radius-sm;
+                        font-size: $font-size-xs;
+                        font-weight: $font-weight-medium;
+                        text-transform: capitalize;
+
+                        &.connected {
+                            background-color: $success-light;
+                            color: $success;
+                        }
+
+                        &.error {
+                            background-color: $error-light;
+                            color: $error;
+                        }
+
+                        &.disconnected {
+                            background-color: $warning-light;
+                            color: $warning;
+                        }
+
+                        .status_icon {
+                            width: 12px;
+                            height: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+
+                .integration_fields {
+                    display: flex;
+                    flex-direction: column;
+                    gap: $spacing-md;
+                    margin-bottom: $spacing-lg;
+
+                    .input_main {
+                        display: flex;
+                        flex-direction: column;
+                        gap: $spacing-xs;
+
+                        label {
+                            font-size: $font-size-sm;
+                            color: $text-primary;
+                            font-weight: $font-weight-medium;
+                            margin: 0;
+                            text-align: start;
+                        }
+
+                        input {
+                            border: 1px solid $border-gray-light;
+                            height: $btn-height-md;
+                            color: $text-primary;
+                            font-size: $font-size-sm;
+                            border-radius: $border-radius-lg;
+                            padding: 0 $spacing-lg;
+                            background-color: $bg-white;
+                            transition: $transition-fast;
+                            width: 100%;
+
+                            &:focus {
+                                outline: none;
+                                box-shadow: none;
+                                border-color: $theme-primary-500;
+                            }
+
+                            &:hover {
+                                border-color: $border-gray;
+                            }
+                        }
+
+                        .password_input_wrapper {
+                            position: relative;
+
+                            input {
+                                padding-right: 40px;
+                            }
+
+                            .toggle_password {
+                                position: absolute;
+                                right: $spacing-sm;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                cursor: pointer;
+                                color: $text-secondary;
+                                font-size: $font-size-md;
+                                user-select: none;
+
+                                &:hover {
+                                    color: $text-primary;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .integration_footer {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    padding-top: $spacing-md;
+                    border-top: 1px solid $border-gray-light;
+                    gap: $spacing-sm;
+
+                    .last_tested {
+                        font-size: $font-size-sm;
+                        color: $text-secondary;
+                    }
+
+                    .integration_actions {
+                        justify-content: end;
+                        width: 100%;
+                        display: flex;
+                        gap: $spacing-sm;
+
+                        .test_btn {
+                            background-color: $bg-white;
+                            border: 1px solid $border-gray-light;
+                            color: $text-primary;
+                            padding: $spacing-sm $spacing-md;
+                            border-radius: $border-radius-lg;
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-medium;
+                            cursor: pointer;
+                            transition: $transition-fast;
+
+                            &:hover {
+                                background-color: $bg-gray-light;
+                                border-color: $border-gray;
+                            }
+                        }
+
+                        .save_btn {
+                            background-color: $theme-primary-600;
+                            color: $bg-white;
+                            padding: $spacing-sm $spacing-md;
+                            border-radius: $border-radius-lg;
+                            border: none;
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-medium;
+                            cursor: pointer;
+                            transition: $transition-fast;
+
+                            &:hover {
+                                background-color: $theme-primary-700;
+                            }
+
+                            &:disabled {
+                                opacity: 0.5;
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .orders_content {
+            .pricing_plans_section {
+
+                .section_header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 25px;
+                    padding-bottom: 15px;
+                    border-bottom: 2px solid #f0f0f0;
+
+                    h2 {
+                        font-size: 22px;
+                        color: #1e293b;
+                        margin: 0;
+                        font-weight: 600;
+                    }
+
+                    .tab_selector {
+                        .tab_button {
+                            padding: 8px 16px;
+                            border: 1px solid #d1d5db;
+                            background: white;
+                            color: #6b7280;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 14px;
+                            font-weight: 500;
+                            transition: all 0.2s ease;
+
+                            &.active {
+                                background: var(--theme-primary);
+                                color: white;
+                                border-color: var(--theme-primary);
+                            }
+
+                            &:hover:not(.active) {
+                                background: #f9fafb;
+                                border-color: #9ca3af;
+                            }
+                        }
+                    }
+                }
+
+                .pricing_table_container {
+                    overflow-x: auto;
+                    border-radius: 8px;
+                    border: 1px solid #e2e8f0;
+
+                    .pricing_table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 13px;
+
+                        thead {
+                            background: #f8fafc;
+
+                            th {
+                                padding: 12px 8px;
+                                text-align: left;
+                                font-weight: 600;
+                                color: #374151;
+                                border-bottom: 1px solid #e2e8f0;
+                                white-space: nowrap;
+                                font-size: 12px;
+                            }
+                        }
+
+                        tbody {
+                            tr {
+                                border-bottom: 1px solid #f1f5f9;
+
+                                &:hover {
+                                    background: #f8fafc;
+                                }
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                td {
+                                    padding: 12px 8px;
+                                    color: #374151;
+                                    font-size: 12px;
+                                    white-space: nowrap;
+
+                                    .type_badge {
+                                        padding: 4px 8px;
+                                        border-radius: 4px;
+                                        font-size: 11px;
+                                        font-weight: 500;
+                                        text-transform: uppercase;
+
+                                        &.fwd {
+                                            background: var(--theme-primary-100);
+                                            color: var(--theme-primary-700);
+                                        }
+
+                                        &.rto {
+                                            background: #fee2e2;
+                                            color: #dc2626;
+                                        }
+
+                                        &.add_wt {
+                                            background: #fef3c7;
+                                            color: #d97706;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .overview_content,
+        .billing_content,
+        .orders_content,
+        .disputes_content,
+        .shipping_content,
+        .notes_content,
+        .integration_content {
+            background: white;
+            border: 1px solid $border-gray-light;
+            border-radius: $border-radius-lg;
+            padding: 24px;
+            text-align: center;
+
+            h3 {
+                font-size: $font-size-lg;
+                font-weight: $font-weight-semibold;
+                color: $text-primary;
+                margin-bottom: 12px;
+                text-align: left;
+            }
+
+            p {
+                color: $text-secondary;
+                font-size: $font-size-sm;
+            }
+        }
+
+        // Shipping Settings Styles
+        .shipping_content {
+            .shipping_section {
+                margin-bottom: 32px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .section_header {
+                    text-align: left;
+                    margin-bottom: 20px;
+
+                    h3 {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-semibold;
+                        color: $text-primary;
+                        margin: 0 0 8px 0;
+                    }
+
+                    .section_description {
+                        font-size: $font-size-sm;
+                        color: $text-secondary;
+                        margin: 0;
+                        line-height: 1.5;
+                    }
+                }
+
+                // Courier Priority Card
+                .courier_priority_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+
+                    .courier_list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+
+                        .courier_item {
+                            display: flex;
+                            align-items: center;
+                            gap: 16px;
+                            padding: 16px;
+                            border: 1px solid $border-gray-light;
+                            border-radius: $border-radius-lg;
+                            background: $bg-gray-light;
+                            transition: all $transition-fast;
+
+                            .courier_drag_handle {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 32px;
+                                height: 32px;
+                                color: $text-secondary;
+                                cursor: grab;
+
+                                &:active {
+                                    cursor: grabbing;
+                                }
+                            }
+
+                            .courier_info {
+                                display: flex;
+                                align-items: center;
+                                gap: 12px;
+                                flex: 1;
+
+                                .courier_priority {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-semibold;
+                                    color: $theme-primary;
+                                    background: $theme-primary-100;
+                                    padding: 4px 8px;
+                                    border-radius: $border-radius-sm;
+                                    min-width: 40px;
+                                    text-align: center;
+                                }
+
+                                .courier_name {
+                                    font-size: $font-size-md;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-primary;
+                                }
+                            }
+
+                            .courier_controls {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 4px;
+
+                                .priority_btn {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 28px;
+                                    height: 28px;
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-sm;
+                                    background: white;
+                                    color: $text-secondary;
+                                    cursor: pointer;
+                                    transition: all $transition-fast;
+
+                                    &:hover:not(:disabled) {
+                                        background: $theme-primary-50;
+                                        border-color: $theme-primary;
+                                        color: $theme-primary;
+                                    }
+
+                                    &:disabled {
+                                        opacity: 0.5;
+                                        cursor: not-allowed;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // COD Settings Card
+                .cod_settings_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    padding: 24px;
+                    transition: all $transition-fast;
+
+                    .cod_toggle_section {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .cod_info {
+                            h4 {
+                                font-size: $font-size-md;
+                                font-weight: $font-weight-semibold;
+                                color: $text-primary;
+                                margin: 0 0 4px 0;
+                                text-align: left;
+                            }
+
+                            p {
+                                font-size: $font-size-sm;
+                                color: $text-secondary;
+                                margin: 0;
+                            }
+                        }
+
+                        .cod_toggle {
+                            position: relative;
+                            width: 44px;
+                            height: 24px;
+
+                            .toggle_input {
+                                opacity: 0;
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                z-index: 2;
+                                cursor: pointer;
+                                margin: 0;
+
+                                &:checked+.toggle_slider {
+                                    background-color: $success;
+
+                                    &:before {
+                                        transform: translateX(20px);
+                                    }
+                                }
+                            }
+
+                            .toggle_slider {
+                                position: absolute;
+                                cursor: pointer;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: $border-light;
+                                transition: $transition-fast;
+                                border-radius: 24px;
+                                z-index: 1;
+
+                                &:before {
+                                    position: absolute;
+                                    content: "";
+                                    height: 18px;
+                                    width: 18px;
+                                    left: 3px;
+                                    bottom: 3px;
+                                    background-color: white;
+                                    transition: $transition-fast;
+                                    border-radius: 50%;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Shipping Charges Card
+                .shipping_charges_card {
+                    background: white;
+                    border: 1px solid $border-gray-light;
+                    border-radius: $border-radius-lg;
+                    overflow: hidden;
+                    transition: all $transition-fast;
+
+                    .charges_table {
+                        .charges_header {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                            gap: 20px;
+                            padding: 16px 24px;
+                            background: $bg-gray-light;
+                            border-bottom: 1px solid $border-gray-light;
+                            font-size: $font-size-sm;
+                            font-weight: $font-weight-semibold;
+                            color: $text-primary;
+                        }
+
+                        .charges_row {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                            gap: 20px;
+                            padding: 16px 24px;
+                            border-bottom: 1px solid $border-gray-light;
+                            transition: background-color $transition-fast;
+
+                            &:hover {
+                                background: $bg-gray-light;
+                            }
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+                            .zone_cell {
+                                display: flex;
+                                align-items: center;
+
+                                .zone_name {
+                                    font-size: $font-size-sm;
+                                    font-weight: $font-weight-medium;
+                                    color: $text-primary;
+                                }
+                            }
+
+                            .charge_input_cell {
+                                display: flex;
+                                align-items: center;
+
+                                .charge_input {
+                                    width: 100%;
+                                    padding: 8px 12px;
+                                    border: 1px solid $border-gray-light;
+                                    border-radius: $border-radius-md;
+                                    background: white;
+                                    font-size: $font-size-sm;
+                                    color: $text-primary;
+                                    text-align: center;
+                                    transition: all $transition-fast;
+
+                                    &:focus {
+                                        outline: none;
+                                        border-color: $theme-primary;
+                                        box-shadow: 0 0 0 1px rgba($theme-primary, 0.1);
+                                    }
+
+                                    &:hover {
+                                        border-color: $border-light;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Save Settings Button
+            .shipping_actions {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 32px;
+
+                .save_settings_btn {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 12px 24px;
+                    border: 1px solid $theme-primary;
+                    border-radius: $border-radius-lg;
+                    background: $theme-primary;
+                    color: white;
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-medium;
+                    cursor: pointer;
+                    transition: all $transition-fast;
+
+                    &:hover:not(:disabled) {
+                        background: darken($theme-primary, 10%);
+                        border-color: darken($theme-primary, 10%);
+                    }
+
+                    &:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+
+    // Responsive Design
+    @media (max-width: 1200px) {
+        .merchant_header {
+            flex-direction: column;
+            gap: 20px;
+            align-items: stretch;
+
+            .header_left {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .header_right {
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 16px;
+
+                .action_buttons {
+                    flex-wrap: wrap;
+                }
+            }
+        }
+
+        .metrics_cards {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .charts_section {
+            grid-template-columns: 1fr;
+        }
+
+        .billing_content {
+            .billing_row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            // Tax Rules and Payout Cycle Responsive Styles
+            .tax_rules_section,
+            .payout_cycle_section {
+
+                .tax_rules_card,
+                .payout_cycle_card {
+                    padding: $spacing-lg;
+
+                    .tax_rules_content,
+                    .payout_cycle_content {
+                        gap: 16px;
+
+                        .tax_field,
+                        .payout_field {
+                            .toggle_field {
+                                align-items: flex-start;
+                                gap: 12px;
+
+                                .toggle_label {
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            .date_inputs_wrapper {
+                                grid-template-columns: 1fr;
+                                gap: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .billing_section {
+                .bank_details_card {
+                    .bank_info {
+                        grid-template-columns: 1fr;
+                        gap: 16px;
+                    }
+                }
+
+                .adjustments_card {
+                    .adjustments_table {
+
+                        .adjustment_header,
+                        .adjustment_row {
+                            grid-template-columns: 1fr;
+                            gap: 12px;
+                            text-align: left;
+
+                            span {
+                                display: block;
+                                margin-bottom: 4px;
+
+                                &:before {
+                                    content: attr(data-label) ": ";
+                                    font-weight: $font-weight-semibold;
+                                    color: $text-secondary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .merchant_header {
+            padding: 16px 0;
+
+            .header_left {
+                .merchant_info {
+                    .merchant_name_section {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 8px;
+
+                        h1 {
+                            font-size: $font-size-xl;
+                        }
+                    }
+                }
+            }
+
+            .header_right {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+
+                .status_section {
+                    justify-content: space-between;
+                }
+
+                .action_buttons {
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        .tab_navigation {
+            overflow-x: auto;
+            white-space: nowrap;
+
+            .tab_button {
+                padding: 12px 16px;
+                font-size: $font-size-xs;
+            }
+        }
+
+        .metrics_cards {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .charts_section {
+            .chart_card {
+                padding: 16px;
+
+                .chart_placeholder {
+                    height: 150px;
+                }
+            }
+        }
+
+        .recent_orders_section {
+            .table_container {
+                overflow-x: auto;
+
+                .orders_table {
+                    min-width: 600px;
+
+                    thead tr th,
+                    tbody tr td {
+                        padding: 12px 16px;
+                        font-size: $font-size-xs;
+                    }
+                }
+            }
+        }
+
+        .billing_content {
+            .billing_section {
+                margin-bottom: 24px;
+
+                .section_header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 16px;
+
+                    .add_adjustment_btn {
+                        align-self: stretch;
+                        justify-content: center;
+                    }
+                }
+
+                .bank_details_card,
+                .cod_cycle_card,
+                .payout_card,
+                .adjustments_card,
+                .gst_invoices_card {
+                    padding: 16px;
+                }
+
+                .gst_invoices_card {
+                    .invoices_list {
+                        .invoice_item {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 12px;
+
+                            .download_invoice_btn {
+                                align-self: stretch;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .billing_row {
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            // Tax Rules and Payout Cycle Mobile Responsive Styles
+            .tax_rules_section,
+            .payout_cycle_section {
+                .section_header {
+                    .section_title {
+                        .section_icon {
+                            width: 28px;
+                            height: 28px;
+                            font-size: $font-size-md;
+                        }
+
+                        h3 {
+                            font-size: $font-size-md;
+                        }
+                    }
+                }
+
+                .tax_rules_card,
+                .payout_cycle_card {
+                    padding: 16px;
+
+                    .tax_rules_content,
+                    .payout_cycle_content {
+                        gap: 16px;
+
+                        .tax_field,
+                        .payout_field {
+                            gap: 6px;
+
+                            label {
+                                font-size: $font-size-xs;
+                            }
+
+                            .tax_input,
+                            .date_input {
+                                padding: 10px 12px;
+                                font-size: $font-size-xs;
+                            }
+
+                            .toggle_field {
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 8px;
+
+                                .toggle_label {
+                                    font-size: $font-size-xs;
+                                    margin-bottom: 0;
+                                }
+
+                                .toggle_switch {
+                                    width: 40px;
+                                    height: 20px;
+
+                                    .toggle_slider {
+                                        &:before {
+                                            height: 14px;
+                                            width: 14px;
+                                            left: 3px;
+                                            bottom: 3px;
+                                        }
+                                    }
+
+                                    .toggle_input:checked+.toggle_slider:before {
+                                        transform: translateX(20px);
+                                    }
+                                }
+                            }
+
+                            .field_description {
+                                font-size: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Shipping Settings Responsive
+            .shipping_content {
+                .shipping_section {
+                    margin-bottom: 24px;
+
+                    .courier_priority_card,
+                    .cod_settings_card,
+                    .shipping_charges_card {
+                        padding: 16px;
+                    }
+
+                    .courier_priority_card {
+                        .courier_list {
+                            .courier_item {
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 12px;
+                                padding: 12px;
+
+                                .courier_info {
+                                    width: 100%;
+                                    justify-content: space-between;
+                                }
+
+                                .courier_controls {
+                                    flex-direction: row;
+                                    align-self: flex-end;
+                                }
+                            }
+                        }
+                    }
+
+                    .cod_settings_card {
+                        .cod_toggle_section {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 16px;
+
+                            .cod_toggle {
+                                align-self: flex-end;
+                            }
+                        }
+                    }
+
+                    .shipping_charges_card {
+                        .charges_table {
+
+                            .charges_header,
+                            .charges_row {
+                                grid-template-columns: 1fr;
+                                gap: 12px;
+                                text-align: left;
+
+                                span,
+                                div {
+                                    display: block;
+                                    margin-bottom: 4px;
+
+                                    &:before {
+                                        content: attr(data-label) ": ";
+                                        font-weight: $font-weight-semibold;
+                                        color: $text-secondary;
+                                    }
+                                }
+
+                                .charges_header span {
+                                    &:before {
+                                        content: "";
+                                    }
+
+                                    font-weight: $font-weight-semibold;
+                                    color: $text-primary;
+                                    margin-bottom: 8px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .shipping_actions {
+                    justify-content: center;
+                    margin-top: 24px;
+
+                    .save_settings_btn {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+
+    // Disputes & Risk Styles
+    .disputes_content {
+        .risk_assessment_section {
+            margin-bottom: 2rem;
+
+            .risk_assessment_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .risk_score_section {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    margin-bottom: 1.5rem;
+
+                    .risk_score {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 0.25rem;
+
+                        .score_value {
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            color: $theme-primary-500;
+                        }
+
+                        .score_max {
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                            color: $text-muted;
+                        }
+                    }
+
+                    .risk_progress {
+                        flex: 1;
+
+                        .progress_bar {
+                            width: 100%;
+                            height: 8px;
+                            background: #E5E7EB;
+                            border-radius: 4px;
+                            overflow: hidden;
+                            margin-bottom: 0.5rem;
+
+                            .progress_fill {
+                                height: 100%;
+                                transition: width 0.3s ease;
+                            }
+                        }
+
+                        .risk_level {
+                            font-size: 0.875rem;
+                            font-weight: 500;
+                            color: $text-muted;
+                        }
+                    }
+                }
+
+                .risk_metrics {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1rem;
+
+                    .risk_metric {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 0.75rem;
+                        background: #F9FAFB;
+                        border-radius: 8px;
+
+                        .metric_label {
+                            font-size: 0.875rem;
+                            color: $text-muted;
+                        }
+
+                        .metric_value {
+                            font-size: 0.875rem;
+                            font-weight: 600;
+                            color: $text-primary;
+                        }
+                    }
+                }
+            }
+        }
+
+        .disputes_management_section {
+            margin-bottom: 30px;
+            text-align: left;
+
+            .disputes_table_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .disputes_table {
+                    .disputes_header {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1fr 1fr 2fr;
+                        gap: 1rem;
+                        padding: 1rem 0;
+                        border-bottom: 2px solid #E5E7EB;
+                        font-weight: 600;
+                        color: $text-primary;
+                    }
+
+                    .dispute_row {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1fr 1fr 2fr;
+                        gap: 1rem;
+                        padding: 1rem 0;
+                        border-bottom: 1px solid #E5E7EB;
+                        align-items: center;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        .dispute_id {
+                            font-weight: 600;
+                            color: $theme-primary-500;
+                        }
+
+                        .order_id {
+
+                            font-size: 0.875rem;
+                        }
+
+                        .dispute_type {
+                            font-size: 0.875rem;
+                        }
+
+                        .declared_weight,
+                        .charged_weight {
+                            font-size: 0.875rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.25rem;
+
+                            .warning_icon {
+                                color: #F59E0B;
+                            }
+                        }
+
+                        .extra_charges {
+                            font-weight: 500;
+                            color: $text-primary;
+                        }
+
+                        .dispute_status {
+                            padding: 0.25rem 0.75rem;
+                            border-radius: 20px;
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            text-align: center;
+
+                            &.open {
+                                background: #FEE2E2;
+                                color: #DC2626;
+                            }
+
+                            &.resolved {
+                                background: #D1FAE5;
+                                color: #059669;
+                            }
+                        }
+
+                        .dispute_actions {
+                            display: flex;
+                            gap: 0.5rem;
+                            flex-wrap: wrap;
+
+                            .action_btn {
+                                padding: 0.375rem 0.75rem;
+                                font-size: 0.75rem;
+                                border-radius: 6px;
+                                border: none;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+
+                                &.resolve_btn {
+                                    background: #3B82F6;
+                                    color: white;
+                                }
+
+                                &.penalty_btn {
+                                    background: #F59E0B;
+                                    color: white;
+
+                                    &:hover {
+                                        background: #D97706;
+                                    }
+                                }
+
+                                &.refund_btn {
+                                    background: #10B981;
+                                    color: white;
+
+                                    &:hover {
+                                        background: #059669;
+                                    }
+                                }
+                            }
+
+                            .no_actions {
+                                color: $text-muted;
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .internal_notes_section {
+            .section_header {
+                text-align: left;
+            }
+
+            .internal_notes_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .notes_textarea {
+                    width: 100%;
+                    min-height: 120px;
+                    padding: 1rem;
+                    border: 2px solid #E5E7EB;
+                    border-radius: 8px;
+                    font-size: 0.875rem;
+                    font-family: inherit;
+                    resize: vertical;
+                    transition: border-color 0.2s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: $theme-primary-500;
+                    }
+
+                    &::placeholder {
+                        color: $text-muted;
+                    }
+                }
+
+                .notes_actions {
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+
+                    .save_notes_btn {
+                        background: $theme-primary-500;
+                        color: white;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 8px;
+                        border: none;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: background-color 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        &:hover:not(:disabled) {
+                            background: darken($theme-primary-500, 10%);
+                        }
+
+                        &:disabled {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Disputes Modal Styles
+    .modal_overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 1rem;
+
+        .disputes_modal {
+            background: $bg-white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+            .modal_header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1.5rem 1.5rem 0 1.5rem;
+                border-bottom: 1px solid #E5E7EB;
+
+                h3 {
+                    margin: 0;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: $text-primary;
+                }
+
+                .modal_close_btn {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    color: $text-muted;
+                    cursor: pointer;
+                    padding: 0;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover {
+                        color: $text-primary;
+                    }
+                }
+            }
+
+            .modal_body {
+                padding: 1.5rem;
+
+                .modal_description {
+                    margin: 0 0 1.5rem 0;
+                    color: $text-muted;
+                    font-size: 0.875rem;
+                }
+
+                .modal_input_section {
+                    .modal_label {
+                        display: block;
+                        margin-bottom: 0.5rem;
+                        font-weight: 500;
+                        color: $text-primary;
+                        font-size: 0.875rem;
+                    }
+
+                    .modal_input {
+                        width: 100%;
+                        padding: 0.75rem;
+                        border: 2px solid #E5E7EB;
+                        border-radius: 8px;
+                        font-size: 0.875rem;
+                        transition: border-color 0.2s ease;
+
+                        &:focus {
+                            outline: none;
+                            border-color: $theme-primary-500;
+                        }
+
+                        &::placeholder {
+                            color: $text-muted;
+                        }
+                    }
+                }
+            }
+
+            .modal_footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 1rem;
+                padding: 0 1.5rem 1.5rem 1.5rem;
+
+                .modal_cancel_btn {
+                    background: #F3F4F6;
+                    color: $text-primary;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background: #E5E7EB;
+                    }
+                }
+
+                .modal_submit_btn {
+                    background: $theme-primary-500;
+                    color: white;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+                }
+            }
+        }
+    }
+
+    // Notes & Audit Styles
+    .notes_content {
+        .internal_notes_section {
+            margin-bottom: 2rem;
+
+            .section_header {
+                h3 {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            .internal_notes_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .notes_textarea {
+                    width: 100%;
+                    min-height: 100px;
+                    padding: 1rem;
+                    border: 2px solid #E5E7EB;
+                    border-radius: 8px;
+                    font-size: 0.875rem;
+                    font-family: inherit;
+                    resize: vertical;
+                    transition: border-color 0.2s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: $theme-primary-500;
+                    }
+
+                    &::placeholder {
+                        color: $text-muted;
+                    }
+                }
+
+                .notes_actions {
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+
+                    .save_note_btn {
+                        background: $theme-primary-500;
+                        color: white;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 8px;
+                        border: none;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: background-color 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        &:hover:not(:disabled) {
+                            background: darken($theme-primary-500, 10%);
+                        }
+
+                        &:disabled {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+
+        .notes_history_section {
+            margin-bottom: 2rem;
+
+            .notes_history_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .notes_list {
+                    .note_item {
+                        padding: 1rem 0;
+                        border-bottom: 1px solid #E5E7EB;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        .note_content {
+                            .note_text {
+                                margin: 0 0 0.75rem 0;
+                                color: $text-primary;
+                                font-size: 0.875rem;
+                                line-height: 1.5;
+                            }
+
+                            .note_meta {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                font-size: 0.75rem;
+                                color: $text-muted;
+
+                                .note_admin {
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .audit_log_section {
+            .section_header {
+                h3 {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+
+            .audit_log_card {
+                background: $bg-white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .audit_table {
+                    .audit_header {
+                        display: grid;
+                        grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr 1.5fr;
+                        gap: 1rem;
+                        padding: 1rem 0;
+                        border-bottom: 2px solid #E5E7EB;
+                        font-weight: 600;
+                        color: $text-primary;
+                        font-size: 0.875rem;
+                    }
+
+                    .audit_row {
+                        display: grid;
+                        grid-template-columns: 1.5fr 1fr 1.5fr 1.5fr 1.5fr;
+                        gap: 1rem;
+                        padding: 1rem 0;
+                        border-bottom: 1px solid #E5E7EB;
+                        align-items: center;
+                        font-size: 0.875rem;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        .audit_datetime {
+
+                            color: $text-primary;
+                        }
+
+                        .audit_staff {
+                            color: $text-primary;
+                            font-weight: 500;
+                        }
+
+                        .audit_action {
+                            padding: 0.25rem 0.75rem;
+                            border-radius: 8px;
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                            text-align: center;
+
+                            &.update {
+                                background: #D1FAE5;
+                                color: #059669;
+                            }
+
+                            &.status {
+                                background: #DBEAFE;
+                                color: #2563EB;
+                            }
+
+                            &.create {
+                                background: #FEF3C7;
+                                color: #D97706;
+                            }
+
+                            &.delete {
+                                background: #FEE2E2;
+                                color: #DC2626;
+                            }
+                        }
+
+                        .audit_old_value,
+                        .audit_new_value {
+
+                            font-size: 0.75rem;
+                            color: $text-muted;
+                            word-break: break-word;
+                        }
+
+                        .audit_new_value {
+                            color: $text-primary;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
