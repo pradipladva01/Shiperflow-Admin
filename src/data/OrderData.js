@@ -1,6 +1,7 @@
 export const shipmentsOrderData = [
   {
     id: "ORD100000000",
+    channel: "Custom Order",
     shopifyId: "#1042",
     date: "2021-12-16",
     customer: "Raj Verma",
@@ -15,6 +16,7 @@ export const shipmentsOrderData = [
   },
   {
     id: "ORD100100000",
+    channel: "Custom Order",
     shopifyId: "#1042",
     date: "2021-12-16",
     customerName: "Raj Verma",
@@ -37,6 +39,7 @@ export const shipmentsOrderData = [
   },
   {
     id: "ORD100000001",
+    channel: "Custom Order",
     shopifyId: "#1043",
     date: "2023-10-07",
     customer: "Aman Sharma",
@@ -51,6 +54,7 @@ export const shipmentsOrderData = [
   },
   {
     id: "ORD100000002",
+    channel: "Custom Order",
     shopifyId: "#1044",
     date: "2023-12-10",
     customer: "Priya Mehta",
@@ -65,6 +69,7 @@ export const shipmentsOrderData = [
   },
   {
     id: "ORD100000003",
+    channel: "Custom Order",
     shopifyId: "#1045",
     date: "2022-05-31",
     customer: "Priya Mehta",
@@ -79,6 +84,7 @@ export const shipmentsOrderData = [
   },
   {
     id: "ORD100000004",
+    channel: "Custom Order",
     shopifyId: "#1046",
     date: "2022-09-23",
     customer: "Sneha Kapoor",

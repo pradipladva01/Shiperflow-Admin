@@ -506,7 +506,7 @@ const SuperAdminShipments = () => {
           <div className="table-responsive">
             {displayOrders.length > 0 && (
               <div className="bulk_actions">
-                {["all", "booked", "pending"].includes(activeTab) && (
+                {["all", "booked", "pending-pickup"].includes(activeTab) && (
                   <>
                     <span>{selectedOrders.length} selected</span>
                     <RippleButton
@@ -563,6 +563,7 @@ const SuperAdminShipments = () => {
                       </RippleButton>
                     </th>
                     <th>Order ID</th>
+                    <th>Channel</th>
                     <th>Shopify ID</th>
                     <th>Date</th>
                     <th>Customer</th>
@@ -593,6 +594,7 @@ const SuperAdminShipments = () => {
                           </RippleButton>
                         </td>
                         <td className="order_id">{order.id}</td>
+                        <td>{order.channel}</td>
                         <td>{order.shopifyId}</td>
                         <td>{new Date(order.date).toLocaleDateString()}</td>
                         <td>{order.customer}</td>

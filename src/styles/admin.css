@@ -4965,6 +4965,24 @@
   background: #F9FAFB;
   border-color: #9CA3AF;
 }
+.super_admin_merchant .filter_controls .action_buttons .add_merchant_btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  border: 1px solid #B22222;
+  border-radius: 8px;
+  background: #B22222;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.super_admin_merchant .filter_controls .action_buttons .add_merchant_btn:hover {
+  background: #991b1b;
+  border-color: #991b1b;
+}
 .super_admin_merchant .action_dropdown {
   position: relative;
   display: inline-block;

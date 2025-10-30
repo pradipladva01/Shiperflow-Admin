@@ -25,6 +25,8 @@ const navTabs = [
   { key: "booked", label: "Booked" },
   { key: "cancelled", label: "Cancelled" },
   { key: "syncError", label: "Sync Error" },
+  { key: "failed-orders", label: "Failed Orders" },
+  { key: "not-shipped", label: "Not Shipped" },
 ];
 
 const channelOptions = [{ value: "custom-order", label: "Custom Order" }];

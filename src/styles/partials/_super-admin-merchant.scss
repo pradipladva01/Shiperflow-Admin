@@ -35,6 +35,26 @@
                     border-color: #9CA3AF;
                 }
             }
+
+            .add_merchant_btn {
+                display: flex;
+                align-items: center;
+                gap: $spacing-xs;
+                padding: $spacing-sm $spacing-md;
+                border: 1px solid $theme-primary;
+                border-radius: $border-radius-lg;
+                background: $theme-primary;
+                color: $bg-white;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-medium;
+                cursor: pointer;
+                transition: all $transition-fast;
+
+                &:hover {
+                    background: $theme-primary-700;
+                    border-color: $theme-primary-700;
+                }
+            }
         }
     }
 
