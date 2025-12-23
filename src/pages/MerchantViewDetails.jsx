@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import axios from "axios";
 import {
   ArrowLeft,
   UserX,
@@ -304,6 +305,7 @@ const recentOrders = [
 const pricingData = [
   {
     courier: "Surface Xpressbees 0.5 K.G",
+    weight: "0.5 K.G",
     type: "FWD",
     withinCity: 45,
     withinState: 45,
@@ -316,6 +318,7 @@ const pricingData = [
   },
   {
     courier: "Surface Xpressbees 0.5 K.G",
+    weight: "0.5 K.G",
     type: "RTO",
     withinCity: 21,
     withinState: 21,
@@ -328,6 +331,7 @@ const pricingData = [
   },
   {
     courier: "Surface Xpressbees 0.5 K.G",
+    weight: "0.5 K.G",
     type: "Add Wt.",
     withinCity: 35,
     withinState: 35,
@@ -340,6 +344,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 1 K.G",
+    weight: "1 K.G",
     type: "FWD",
     withinCity: 65,
     withinState: 65,
@@ -352,6 +357,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 1 K.G",
+    weight: "1 K.G",
     type: "RTO",
     withinCity: 21,
     withinState: 21,
@@ -364,6 +370,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 1 K.G",
+    weight: "1 K.G",
     type: "Add Wt.",
     withinCity: 45,
     withinState: 45,
@@ -376,6 +383,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 2 K.G",
+    weight: "2 K.G",
     type: "FWD",
     withinCity: 79,
     withinState: 79,
@@ -388,6 +396,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 2 K.G",
+    weight: "2 K.G",
     type: "RTO",
     withinCity: 21,
     withinState: 21,
@@ -400,6 +409,7 @@ const pricingData = [
   },
   {
     courier: "Xpressbees 2 K.G",
+    weight: "2 K.G",
     type: "Add Wt.",
     withinCity: 30,
     withinState: 30,
@@ -429,6 +439,7 @@ const MerchantViewDetails = () => {
     merchantDetails.shippingSettings.customShippingCharges
   );
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoadingCouriers, setIsLoadingCouriers] = useState(false);
 
   // Disputes & Risk State
   const [disputesModalOpen, setDisputesModalOpen] = useState(false);
@@ -459,7 +470,7 @@ const MerchantViewDetails = () => {
   const tabs = [
     { id: "overview", label: "Overview" },
     { id: "billing", label: "Billing & Finance" },
-    { id: "orders", label: "Orders & Shipments" },
+    { id: "rateCard", label: "Rate Card" },
     { id: "orderList", label: "Order List" },
     { id: "shipping", label: "Shipping Settings" },
     { id: "disputes", label: "Disputes & Risk" },
@@ -478,6 +489,51 @@ const MerchantViewDetails = () => {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-IN");
   };
+
+  // Fetch couriers from API
+  useEffect(() => {
+    const fetchCouriers = async () => {
+      setIsLoadingCouriers(true);
+      try {
+        const response = await axios.get(
+          "https://capi.fship.in/api/getallcourier"
+        );
+
+        if (response.data && Array.isArray(response.data)) {
+          const couriers = response.data.map((courier, index) => ({
+            id: courier.id || courier.courier_id || index + 1,
+            name:
+              courier.name ||
+              courier.courier_name ||
+              courier.courierName ||
+              "Unknown",
+            priority: index + 1,
+          }));
+          setCourierPriority(couriers);
+        } else if (response.data?.data && Array.isArray(response.data.data)) {
+          // Handle nested data structure
+          const couriers = response.data.data.map((courier, index) => ({
+            id: courier.id || courier.courier_id || index + 1,
+            name:
+              courier.name ||
+              courier.courier_name ||
+              courier.courierName ||
+              "Unknown",
+            priority: index + 1,
+          }));
+          setCourierPriority(couriers);
+        }
+      } catch (error) {
+        console.error("Error fetching couriers:", error);
+        // Keep existing courierPriority if API fails
+      } finally {
+        setIsLoadingCouriers(false);
+      }
+    };
+
+    // Fetch couriers when component mounts
+    fetchCouriers();
+  }, []);
 
   const getStatusBadgeColor = (status) => {
     switch (status) {
@@ -1283,7 +1339,7 @@ const MerchantViewDetails = () => {
           </div>
         )}
 
-        {activeTab === "orders" && (
+        {activeTab === "rateCard" && (
           <div className="orders_content">
             <div className="pricing_plans_section">
               <div className="section_header">
@@ -1305,6 +1361,7 @@ const MerchantViewDetails = () => {
                   <thead>
                     <tr>
                       <th>COURIER</th>
+                      <th>WEIGHT</th>
                       <th>TYPE</th>
                       <th>WITHIN CITY</th>
                       <th>WITHIN STATE</th>
@@ -1320,6 +1377,7 @@ const MerchantViewDetails = () => {
                     {pricingData.map((item, index) => (
                       <tr key={index}>
                         <td>{item.courier}</td>
+                        <td>{item.weight}</td>
                         <td>
                           <span
                             className={`type_badge ${item.type
@@ -1361,9 +1419,13 @@ const MerchantViewDetails = () => {
                   will be selected first for new bookings.
                 </p>
               </div>
-              <div className="courier_priority_card">
-                <div className="courier_list">
-                  {courierPriority.map((courier, index) => (
+              <div className="courier_list">
+                {isLoadingCouriers ? (
+                  <div className="loading_message">Loading couriers...</div>
+                ) : courierPriority.length === 0 ? (
+                  <div className="empty_message">No couriers found</div>
+                ) : (
+                  courierPriority.map((courier, index) => (
                     <div key={courier.id} className="courier_item">
                       <div className="courier_drag_handle">
                         <GripVertical size={16} />
@@ -1395,8 +1457,8 @@ const MerchantViewDetails = () => {
                         </button>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  ))
+                )}
               </div>
             </div>
 

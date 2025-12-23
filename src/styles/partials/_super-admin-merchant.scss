@@ -1944,93 +1944,93 @@
                     padding: 24px;
                     transition: all $transition-fast;
 
-
-                    .courier_list {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 12px;
-
-                        .courier_item {
-                            display: flex;
-                            align-items: center;
-                            gap: 16px;
-                            padding: 16px;
-                            border: 1px solid $border-gray-light;
-                            border-radius: $border-radius-lg;
-                            background: $bg-gray-light;
-                            transition: all $transition-fast;
-
-                            .courier_drag_handle {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 32px;
-                                height: 32px;
-                                color: $text-secondary;
-                                cursor: grab;
-
-                                &:active {
-                                    cursor: grabbing;
-                                }
-                            }
-
-                            .courier_info {
-                                display: flex;
-                                align-items: center;
-                                gap: 12px;
-                                flex: 1;
-
-                                .courier_priority {
-                                    font-size: $font-size-sm;
-                                    font-weight: $font-weight-semibold;
-                                    color: $theme-primary;
-                                    background: $theme-primary-100;
-                                    padding: 4px 8px;
-                                    border-radius: $border-radius-sm;
-                                    min-width: 40px;
-                                    text-align: center;
-                                }
-
-                                .courier_name {
-                                    font-size: $font-size-md;
-                                    font-weight: $font-weight-medium;
-                                    color: $text-primary;
-                                }
-                            }
-
-                            .courier_controls {
-                                display: flex;
-                                flex-direction: column;
-                                gap: 4px;
-
-                                .priority_btn {
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    width: 28px;
-                                    height: 28px;
-                                    border: 1px solid $border-gray-light;
-                                    border-radius: $border-radius-sm;
-                                    background: white;
-                                    color: $text-secondary;
-                                    cursor: pointer;
-                                    transition: all $transition-fast;
-
-                                    &:hover:not(:disabled) {
-                                        background: $theme-primary-50;
-                                        border-color: $theme-primary;
-                                        color: $theme-primary;
-                                    }
-
-                                    &:disabled {
-                                        opacity: 0.5;
-                                        cursor: not-allowed;
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
+                
+                                    .courier_list {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 12px;
+                
+                                        .courier_item {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 16px;
+                                            padding: 16px;
+                                            border: 1px solid $border-gray-light;
+                                            border-radius: $border-radius-lg;
+                                            background: $bg-gray-light;
+                                            transition: all $transition-fast;
+                
+                                            .courier_drag_handle {
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                width: 32px;
+                                                height: 32px;
+                                                color: $text-secondary;
+                                                cursor: grab;
+                
+                                                &:active {
+                                                    cursor: grabbing;
+                                                }
+                                            }
+                
+                                            .courier_info {
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 12px;
+                                                flex: 1;
+                
+                                                .courier_priority {
+                                                    font-size: $font-size-sm;
+                                                    font-weight: $font-weight-semibold;
+                                                    color: $theme-primary;
+                                                    background: $theme-primary-100;
+                                                    padding: 4px 8px;
+                                                    border-radius: $border-radius-sm;
+                                                    min-width: 40px;
+                                                    text-align: center;
+                                                }
+                
+                                                .courier_name {
+                                                    font-size: $font-size-md;
+                                                    font-weight: $font-weight-medium;
+                                                    color: $text-primary;
+                                                }
+                                            }
+                
+                                            .courier_controls {
+                                                display: flex;
+                                                flex-direction: column;
+                                                gap: 4px;
+                
+                                                .priority_btn {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    border: 1px solid $border-gray-light;
+                                                    border-radius: $border-radius-sm;
+                                                    background: white;
+                                                    color: $text-secondary;
+                                                    cursor: pointer;
+                                                    transition: all $transition-fast;
+                
+                                                    &:hover:not(:disabled) {
+                                                        background: $theme-primary-50;
+                                                        border-color: $theme-primary;
+                                                        color: $theme-primary;
+                                                    }
+                
+                                                    &:disabled {
+                                                        opacity: 0.5;
+                                                        cursor: not-allowed;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
 
                 // COD Settings Card
                 .cod_settings_card {
@@ -2536,22 +2536,22 @@
                     }
 
                     .courier_priority_card {
-                        .courier_list {
-                            .courier_item {
-                                flex-direction: column;
-                                align-items: flex-start;
-                                gap: 12px;
-                                padding: 12px;
+                    }
+                    .courier_list {
+                        .courier_item {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 12px;
+                            padding: 12px;
 
-                                .courier_info {
-                                    width: 100%;
-                                    justify-content: space-between;
-                                }
+                            .courier_info {
+                                width: 100%;
+                                justify-content: space-between;
+                            }
 
-                                .courier_controls {
-                                    flex-direction: row;
-                                    align-self: flex-end;
-                                }
+                            .courier_controls {
+                                flex-direction: row;
+                                align-self: flex-end;
                             }
                         }
                     }
