@@ -1349,9 +1349,9 @@ const MerchantViewDetails = () => {
                     className={`tab_button ${
                       activeTab === "Custom" ? "active" : ""
                     }`}
-                    onClick={() => setActiveTab("Custom")}
+                    // onClick={() => setActiveTab("Custom")}
                   >
-                    Custom (Active)
+                    Add Courier
                   </button>
                 </div>
               </div>
