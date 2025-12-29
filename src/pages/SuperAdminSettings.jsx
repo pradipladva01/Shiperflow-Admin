@@ -6,6 +6,7 @@ import RippleButton from "../components/RippleButton";
 import Input from "../components/Input";
 import { toast } from "react-toastify";
 import { Check, Trash2, Plus, Copy } from "lucide-react";
+import { api } from "../utils/axiosUtils";
 
 const SuperAdminSettings = () => {
   const [activeTab, setActiveTab] = useState("user");
@@ -44,6 +45,7 @@ const SuperAdminSettings = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [activeZone, setActiveZone] = useState("A");
+  const [isSavingRateCard, setIsSavingRateCard] = useState(false);
 
   const zones = ["A", "B", "C", "D", "E", "Special"];
 
@@ -123,12 +125,49 @@ const SuperAdminSettings = () => {
         }
       ),
     }),
-    onSubmit: (values) => {
-      toast.success("Rate card created successfully!");
-      // Reset form and go back to step 1
-      setCurrentStep(1);
-      setCompletedSteps([]);
-      rateCardFormik.resetForm();
+    onSubmit: async (values) => {
+      setIsSavingRateCard(true);
+      console.log("Rate Card Data:", values);
+
+      try {
+        // Prepare the data for API
+        const rateCardData = {
+          courierPartner: values.courierPartner?.value || null,
+          courierMode: values.courierMode,
+          rateCardName: values.rateCardName,
+          status: values.status,
+          forwardRates: values.forwardRates,
+          rtoRates: values.rtoRates,
+          codEnabled: values.codEnabled,
+          fixedCodFee: values.fixedCodFee,
+          percentageCodFee: values.percentageCodFee,
+          minCodCap: values.minCodCap,
+          maxCodCap: values.maxCodCap,
+          additionalCharges: values.additionalCharges,
+        };
+
+        // API call to save rate card
+        // TODO: Update the endpoint URL as per your backend API
+        const response = await api.post("/rate-cards", rateCardData);
+
+        if (response.data) {
+          toast.success(
+            response.data?.message || "Rate card created successfully!"
+          );
+          // Reset form and go back to step 1
+          setCurrentStep(1);
+          setCompletedSteps([]);
+          rateCardFormik.resetForm();
+        }
+      } catch (error) {
+        console.error("Error saving rate card:", error);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to save rate card. Please try again."
+        );
+      } finally {
+        setIsSavingRateCard(false);
+      }
     },
   });
 
@@ -1532,8 +1571,10 @@ const SuperAdminSettings = () => {
                         type="button"
                         className="wizard_btn_save"
                         onClick={rateCardFormik.handleSubmit}
+                        disabled={isSavingRateCard}
                       >
-                        <Check size={16} /> Save Rate Card
+                        <Check size={16} />{" "}
+                        {isSavingRateCard ? "Saving..." : "Save Rate Card"}
                       </RippleButton>
                     )}
                   </div>
