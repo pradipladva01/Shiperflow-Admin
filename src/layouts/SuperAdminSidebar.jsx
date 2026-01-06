@@ -193,6 +193,23 @@ const SuperAdminSidebar = () => {
                 </li>
                 <li className="navbar_item">
                   <RippleButton
+                    to="/super-admin/rate-card"
+                    className={`navbar_link ${
+                      location.pathname === "/super-admin/rate-card"
+                        ? "active"
+                        : ""
+                    }`}
+                  >
+                    <div className="icon_wrapper">
+                      <DollarSign />
+                    </div>
+                    {!isCollapsed && (
+                      <span className="link_text">Rate Card</span>
+                    )}
+                  </RippleButton>
+                </li>
+                <li className="navbar_item">
+                  <RippleButton
                     to="/super-admin/settings"
                     className={`navbar_link ${
                       location.pathname === "/super-admin/settings"
