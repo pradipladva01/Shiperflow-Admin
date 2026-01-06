@@ -41,7 +41,6 @@ const SuperAdminSettings = () => {
     { value: "shiprocket", label: "Shiprocket" },
   ];
 
-  // Rate Card Wizard State
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [activeZone, setActiveZone] = useState("A");
@@ -49,7 +48,6 @@ const SuperAdminSettings = () => {
 
   const zones = ["A", "B", "C", "D", "E", "Special"];
 
-  // Rate Card Formik with all steps data
   const rateCardFormik = useFormik({
     initialValues: {
       // Step 1: Courier Details
@@ -297,7 +295,7 @@ const SuperAdminSettings = () => {
   const tabs = [
     { id: "user", label: "User" },
     { id: "notification", label: "Notification" },
-    { id: "rateCard", label: "Rate Card" },
+    // { id: "rateCard", label: "Rate Card" },
   ];
 
   // Render Step Content
@@ -1502,8 +1500,7 @@ const SuperAdminSettings = () => {
                 </div>
               )}
 
-              {/* Rate Card Tab - Multi Step Wizard */}
-              {activeTab === "rateCard" && (
+              {/* {activeTab === "rateCard" && (
                 <div className="rate_card_wizard">
                   <div className="wizard_header">
                     <h5>Create Rate Card</h5>
@@ -1513,7 +1510,6 @@ const SuperAdminSettings = () => {
                     </p>
                   </div>
 
-                  {/* Stepper */}
                   <div className="wizard_stepper">
                     {steps.map((step, index) => (
                       <div
@@ -1544,10 +1540,8 @@ const SuperAdminSettings = () => {
                     ))}
                   </div>
 
-                  {/* Step Content */}
                   <div className="wizard_content">{renderStepContent()}</div>
 
-                  {/* Navigation Buttons */}
                   <div className="wizard_actions">
                     {currentStep > 1 && (
                       <RippleButton
@@ -1579,7 +1573,7 @@ const SuperAdminSettings = () => {
                     )}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {activeTab !== "rateCard" && (
                 <div className="submit_button">

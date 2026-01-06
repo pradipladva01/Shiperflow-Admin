@@ -6389,96 +6389,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .section_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #f0f0f0;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .section_header h2 {
-  font-size: 22px;
-  color: #1e293b;
-  margin: 0;
-  font-weight: 600;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .section_header .tab_selector .tab_button {
-  padding: 8px 16px;
-  border: 1px solid #d1d5db;
-  background: white;
-  color: #6b7280;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .section_header .tab_selector .tab_button.active {
-  background: var(--theme-primary);
-  color: white;
-  border-color: var(--theme-primary);
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .section_header .tab_selector .tab_button:hover:not(.active) {
-  background: #f9fafb;
-  border-color: #9ca3af;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container {
-  overflow-x: auto;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table thead {
-  background: #f8fafc;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table thead th {
-  padding: 12px 8px;
-  text-align: left;
-  font-weight: 600;
-  color: #374151;
-  border-bottom: 1px solid #e2e8f0;
-  white-space: nowrap;
-  font-size: 12px;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr {
-  border-bottom: 1px solid #f1f5f9;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr:hover {
-  background: #f8fafc;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr:last-child {
-  border-bottom: none;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr td {
-  padding: 12px 8px;
-  color: #374151;
-  font-size: 12px;
-  white-space: nowrap;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr td .type_badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr td .type_badge.fwd {
-  background: var(--theme-primary-100);
-  color: var(--theme-primary-700);
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr td .type_badge.rto {
-  background: #fee2e2;
-  color: #dc2626;
-}
-.merchant_view_details .tab_content .orders_content .pricing_plans_section .pricing_table_container .pricing_table tbody tr td .type_badge.add_wt {
-  background: #fef3c7;
-  color: #d97706;
-}
 .merchant_view_details .tab_content .overview_content,
 .merchant_view_details .tab_content .billing_content,
 .merchant_view_details .tab_content .orders_content,
@@ -9951,6 +9861,26 @@
     transform: scale(1);
   }
 }
+.price_calculator_section .update_rate_card_btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.price_calculator_section .update_rate_card_btn .rate_card_btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  color: #5b6b79;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
 .price_calculator_section .pricing_plans_section {
   background: white;
   border-radius: 12px;
@@ -10014,6 +9944,30 @@
   white-space: nowrap;
   font-size: 12px;
 }
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(190, 200, 208);
+  border-radius: 5px;
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: rgb(190, 200, 208);
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input:checked {
+  background-color: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
+}
 .price_calculator_section .pricing_table_container .pricing_table tbody tr {
   border-bottom: 1px solid #f1f5f9;
 }
@@ -10028,6 +9982,34 @@
   color: #374151;
   font-size: 12px;
   white-space: nowrap;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td:first-child {
+  display: flex;
+  justify-content: center;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(190, 200, 208);
+  border-radius: 5px;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: rgb(190, 200, 208);
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input:checked {
+  background-color: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .type_badge {
   padding: 4px 8px;
@@ -10045,8 +10027,8 @@
   color: #dc2626;
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .type_badge.add_wt {
-  background: #fef3c7;
-  color: #d97706;
+  background: #fee2e2;
+  color: #dc2626;
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .editable_cell {
   display: inline-block;
@@ -15592,6 +15574,26 @@
          break-inside: avoid;
   }
 }
+.price_calculator_section .update_rate_card_btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.price_calculator_section .update_rate_card_btn .rate_card_btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  color: #5b6b79;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
 .price_calculator_section .pricing_plans_section {
   background: white;
   border-radius: 12px;
@@ -15655,6 +15657,30 @@
   white-space: nowrap;
   font-size: 12px;
 }
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(190, 200, 208);
+  border-radius: 5px;
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: rgb(190, 200, 208);
+}
+.price_calculator_section .pricing_table_container .pricing_table thead .ripple-button .form-check-input:checked {
+  background-color: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
+}
 .price_calculator_section .pricing_table_container .pricing_table tbody tr {
   border-bottom: 1px solid #f1f5f9;
 }
@@ -15669,6 +15695,34 @@
   color: #374151;
   font-size: 12px;
   white-space: nowrap;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td:first-child {
+  display: flex;
+  justify-content: center;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(190, 200, 208);
+  border-radius: 5px;
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: rgb(190, 200, 208);
+}
+.price_calculator_section .pricing_table_container .pricing_table tbody tr td .ripple-button .form-check-input:checked {
+  background-color: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .type_badge {
   padding: 4px 8px;
@@ -15686,8 +15740,8 @@
   color: #dc2626;
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .type_badge.add_wt {
-  background: #fef3c7;
-  color: #d97706;
+  background: #fee2e2;
+  color: #dc2626;
 }
 .price_calculator_section .pricing_table_container .pricing_table tbody tr td .editable_cell {
   display: inline-block;

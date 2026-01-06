@@ -1,113 +1,450 @@
 import React, { useState } from "react";
+import RippleButton from "../components/RippleButton";
 
 const pricingData = [
+  // Xpressbees New 500 gm
   {
-    courier: "Surface Xpressbees 0.5 K.G",
+    courier: "Xpressbees New 500 gm",
     type: "FWD",
-    withinCity: 45,
-    withinState: 45,
-    regional: 45,
-    metroToMetro: 45,
-    neJkKlAn: 45,
-    restOfIndia: 45,
-    codCharges: "-",
-    codPercent: "-",
-  },
-  {
-    courier: "Surface Xpressbees 0.5 K.G",
-    type: "RTO",
-    withinCity: 21,
-    withinState: 21,
-    regional: 21,
-    metroToMetro: 21,
-    neJkKlAn: 21,
-    restOfIndia: 21,
-    codCharges: 21,
-    codPercent: "1.18",
-  },
-  {
-    courier: "Surface Xpressbees 0.5 K.G",
-    type: "Add Wt.",
-    withinCity: 35,
-    withinState: 35,
-    regional: 35,
-    metroToMetro: 35,
-    neJkKlAn: 35,
-    restOfIndia: 35,
-    codCharges: "-",
-    codPercent: "-",
-  },
-  {
-    courier: "Xpressbees 1 K.G",
-    type: "FWD",
-    withinCity: 65,
-    withinState: 65,
-    regional: 65,
-    metroToMetro: 65,
-    neJkKlAn: 65,
-    restOfIndia: 65,
-    codCharges: "-",
-    codPercent: "-",
-  },
-  {
-    courier: "Xpressbees 1 K.G",
-    type: "RTO",
-    withinCity: 21,
-    withinState: 21,
-    regional: 21,
-    metroToMetro: 21,
-    neJkKlAn: 21,
-    restOfIndia: 21,
-    codCharges: 21,
-    codPercent: "1.18",
-  },
-  {
-    courier: "Xpressbees 1 K.G",
-    type: "Add Wt.",
-    withinCity: 45,
-    withinState: 45,
-    regional: 45,
-    metroToMetro: 45,
-    neJkKlAn: 45,
-    restOfIndia: 45,
-    codCharges: "-",
-    codPercent: "-",
-  },
-  {
-    courier: "Xpressbees 2 K.G",
-    type: "FWD",
-    withinCity: 79,
-    withinState: 79,
-    regional: 79,
-    metroToMetro: 79,
-    neJkKlAn: 79,
-    restOfIndia: 79,
-    codCharges: "-",
-    codPercent: "-",
-  },
-  {
-    courier: "Xpressbees 2 K.G",
-    type: "RTO",
-    withinCity: 21,
-    withinState: 21,
-    regional: 21,
-    metroToMetro: 21,
-    neJkKlAn: 21,
-    restOfIndia: 21,
-    codCharges: 21,
-    codPercent: "1.18",
-  },
-  {
-    courier: "Xpressbees 2 K.G",
-    type: "Add Wt.",
     withinCity: 30,
     withinState: 30,
     regional: 30,
     metroToMetro: 30,
     neJkKlAn: 30,
     restOfIndia: 30,
-    codCharges: "-",
-    codPercent: "-",
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 500 gm",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 500 gm",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Xpressbees New 1 K.G
+  {
+    courier: "Xpressbees New 1 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 1 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 1 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Xpressbees New 2 K.G
+  {
+    courier: "Xpressbees New 2 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 2 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Xpressbees New 2 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Ekart Surface 500 gm
+  {
+    courier: "Ekart Surface 500 gm",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 500 gm",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 500 gm",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Ekart Surface 1 K.G
+  {
+    courier: "Ekart Surface 1 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 1 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 1 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Ekart Surface 2 K.G
+  {
+    courier: "Ekart Surface 2 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 2 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Ekart Surface 2 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Surface (Brand) 500 gm
+  {
+    courier: "Delhivery Surface (Brand) 500 gm",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 500 gm",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 500 gm",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Surface (Brand) 1 K.G
+  {
+    courier: "Delhivery Surface (Brand) 1 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 1 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 1 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Surface (Brand) 2 K.G
+  {
+    courier: "Delhivery Surface (Brand) 2 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 2 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Surface (Brand) 2 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Lite 500 gm
+  {
+    courier: "Delhivery Lite 500 gm",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 500 gm",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 500 gm",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Lite 1 K.G
+  {
+    courier: "Delhivery Lite 1 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 1 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 1 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  // Delhivery Lite 2 K.G
+  {
+    courier: "Delhivery Lite 2 K.G",
+    type: "FWD",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 2 K.G",
+    type: "RTO",
+    withinCity: 30,
+    withinState: 30,
+    regional: 30,
+    metroToMetro: 30,
+    neJkKlAn: 30,
+    restOfIndia: 30,
+    codCharges: 50,
+    codPercent: 2,
+  },
+  {
+    courier: "Delhivery Lite 2 K.G",
+    type: "Add Wt",
+    withinCity: 10,
+    withinState: 10,
+    regional: 10,
+    metroToMetro: 10,
+    neJkKlAn: 10,
+    restOfIndia: 10,
+    codCharges: 50,
+    codPercent: 2,
   },
 ];
 
@@ -116,6 +453,7 @@ const SuperAdminRateCard = () => {
   const [data, setData] = useState(pricingData);
   const [editingCell, setEditingCell] = useState(null);
   const [focusedCell, setFocusedCell] = useState(null);
+  const [selectedRows, setSelectedRows] = useState(new Set());
 
   const handleCellClick = (rowIndex, field) => {
     // Don't allow editing COURIER and TYPE fields
@@ -192,6 +530,55 @@ const SuperAdminRateCard = () => {
   const handleKeyPress = (e, rowIndex, field) => {
     if (e.key === "Enter") {
       handleCellBlur(rowIndex, field);
+    }
+  };
+
+  // Get all row indices for a given courier name
+  const getCourierRowIndices = (courierName) => {
+    return data
+      .map((item, index) => (item.courier === courierName ? index : null))
+      .filter((index) => index !== null);
+  };
+
+  // Check if this is the first row for a courier (where checkbox should appear)
+  const isFirstRowForCourier = (rowIndex) => {
+    const courierName = data[rowIndex].courier;
+    const courierIndices = getCourierRowIndices(courierName);
+    return courierIndices[0] === rowIndex;
+  };
+
+  // Check if all rows for a courier are selected
+  const areAllCourierRowsSelected = (courierName) => {
+    const courierIndices = getCourierRowIndices(courierName);
+    return courierIndices.every((index) => selectedRows.has(index));
+  };
+
+  const handleCheckboxChange = (rowIndex) => {
+    const courierName = data[rowIndex].courier;
+    const courierIndices = getCourierRowIndices(courierName);
+    const newSelectedRows = new Set(selectedRows);
+
+    // Check if all rows for this courier are currently selected
+    const allSelected = courierIndices.every((index) =>
+      newSelectedRows.has(index)
+    );
+
+    if (allSelected) {
+      // Deselect all rows for this courier
+      courierIndices.forEach((index) => newSelectedRows.delete(index));
+    } else {
+      // Select all rows for this courier
+      courierIndices.forEach((index) => newSelectedRows.add(index));
+    }
+
+    setSelectedRows(newSelectedRows);
+  };
+
+  const handleSelectAll = () => {
+    if (selectedRows.size === data.length && data.length > 0) {
+      setSelectedRows(new Set());
+    } else {
+      setSelectedRows(new Set(data.map((_, index) => index)));
     }
   };
 
@@ -326,6 +713,21 @@ const SuperAdminRateCard = () => {
             <table className="pricing_table">
               <thead>
                 <tr>
+                  <th>
+                    <RippleButton
+                      className="checkbox_wrapper"
+                      onClick={handleSelectAll}
+                    >
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        checked={
+                          selectedRows.size === data.length && data.length > 0
+                        }
+                        readOnly
+                      />
+                    </RippleButton>
+                  </th>
                   <th>COURIER</th>
                   <th>TYPE</th>
                   <th>WITHIN CITY</th>
@@ -341,6 +743,23 @@ const SuperAdminRateCard = () => {
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index}>
+                    <td>
+                      {isFirstRowForCourier(index) ? (
+                        <RippleButton
+                          className="checkbox_wrapper"
+                          onClick={() => handleCheckboxChange(index)}
+                        >
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            checked={areAllCourierRowsSelected(item.courier)}
+                            readOnly
+                          />
+                        </RippleButton>
+                      ) : (
+                        <span></span>
+                      )}
+                    </td>
                     <td>{item.courier}</td>
                     <td>
                       <span

@@ -1,5 +1,27 @@
 // Price Calculator Section Styles
 .price_calculator_section {
+    .update_rate_card_btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+
+        .rate_card_btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: 1px solid $border-gray-light;
+            border-radius: $border-radius-lg;
+            background: white;
+            color: $text-secondary;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            cursor: pointer;
+            transition: all $transition-fast;
+        }
+    }
+
     .pricing_plans_section {
         background: white;
         border-radius: 12px;
@@ -71,6 +93,35 @@
                     white-space: nowrap;
                     font-size: 12px;
                 }
+
+                .ripple-button {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    .form-check-input {
+                        margin: 0;
+                        width: 18px;
+                        height: 18px;
+                        border: 1px solid rgb(190, 200, 208);
+                        border-radius: 5px;
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: none;
+                            border-color: rgb(190, 200, 208);
+                        }
+
+                        &:checked {
+                            background-color: rgb(59, 130, 246);
+                            border-color: rgb(59, 130, 246);
+                        }
+                    }
+
+                }
             }
 
             tbody {
@@ -81,6 +132,7 @@
                         background: #f8fafc;
                     }
 
+
                     &:last-child {
                         border-bottom: none;
                     }
@@ -90,6 +142,40 @@
                         color: #374151;
                         font-size: 12px;
                         white-space: nowrap;
+
+                        &:first-child {
+                            display: flex;
+                            justify-content: center;
+                        }
+
+                        .ripple-button {
+                            width: 30px;
+                            height: 30px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+
+                            .form-check-input {
+                                margin: 0;
+                                width: 18px;
+                                height: 18px;
+                                border: 1px solid rgb(190, 200, 208);
+                                border-radius: 5px;
+
+                                &:focus {
+                                    outline: none;
+                                    box-shadow: none;
+                                    border-color: rgb(190, 200, 208);
+                                }
+
+                                &:checked {
+                                    background-color: rgb(59, 130, 246);
+                                    border-color: rgb(59, 130, 246);
+                                }
+                            }
+
+                        }
 
                         .type_badge {
                             padding: 4px 8px;
@@ -109,8 +195,8 @@
                             }
 
                             &.add_wt {
-                                background: #fef3c7;
-                                color: #d97706;
+                                background: #fee2e2;
+                                color: #dc2626;
                             }
                         }
 

@@ -1765,121 +1765,121 @@
             }
         }
 
-        .orders_content {
-            .pricing_plans_section {
+        // .orders_content {
+        //     .pricing_plans_section {
 
-                .section_header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 25px;
-                    padding-bottom: 15px;
-                    border-bottom: 2px solid #f0f0f0;
+        //         .section_header {
+        //             display: flex;
+        //             justify-content: space-between;
+        //             align-items: center;
+        //             margin-bottom: 25px;
+        //             padding-bottom: 15px;
+        //             border-bottom: 2px solid #f0f0f0;
 
-                    h2 {
-                        font-size: 22px;
-                        color: #1e293b;
-                        margin: 0;
-                        font-weight: 600;
-                    }
+        //             h2 {
+        //                 font-size: 22px;
+        //                 color: #1e293b;
+        //                 margin: 0;
+        //                 font-weight: 600;
+        //             }
 
-                    .tab_selector {
-                        .tab_button {
-                            padding: 8px 16px;
-                            border: 1px solid #d1d5db;
-                            background: white;
-                            color: #6b7280;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            font-size: 14px;
-                            font-weight: 500;
-                            transition: all 0.2s ease;
+        //             .tab_selector {
+        //                 .tab_button {
+        //                     padding: 8px 16px;
+        //                     border: 1px solid #d1d5db;
+        //                     background: white;
+        //                     color: #6b7280;
+        //                     border-radius: 6px;
+        //                     cursor: pointer;
+        //                     font-size: 14px;
+        //                     font-weight: 500;
+        //                     transition: all 0.2s ease;
 
-                            &.active {
-                                background: var(--theme-primary);
-                                color: white;
-                                border-color: var(--theme-primary);
-                            }
+        //                     &.active {
+        //                         background: var(--theme-primary);
+        //                         color: white;
+        //                         border-color: var(--theme-primary);
+        //                     }
 
-                            &:hover:not(.active) {
-                                background: #f9fafb;
-                                border-color: #9ca3af;
-                            }
-                        }
-                    }
-                }
+        //                     &:hover:not(.active) {
+        //                         background: #f9fafb;
+        //                         border-color: #9ca3af;
+        //                     }
+        //                 }
+        //             }
+        //         }
 
-                .pricing_table_container {
-                    overflow-x: auto;
-                    border-radius: 8px;
-                    border: 1px solid #e2e8f0;
+        //         .pricing_table_container {
+        //             overflow-x: auto;
+        //             border-radius: 8px;
+        //             border: 1px solid #e2e8f0;
 
-                    .pricing_table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        font-size: 13px;
+        //             .pricing_table {
+        //                 width: 100%;
+        //                 border-collapse: collapse;
+        //                 font-size: 13px;
 
-                        thead {
-                            background: #f8fafc;
+        //                 thead {
+        //                     background: #f8fafc;
 
-                            th {
-                                padding: 12px 8px;
-                                text-align: left;
-                                font-weight: 600;
-                                color: #374151;
-                                border-bottom: 1px solid #e2e8f0;
-                                white-space: nowrap;
-                                font-size: 12px;
-                            }
-                        }
+        //                     th {
+        //                         padding: 12px 8px;
+        //                         text-align: left;
+        //                         font-weight: 600;
+        //                         color: #374151;
+        //                         border-bottom: 1px solid #e2e8f0;
+        //                         white-space: nowrap;
+        //                         font-size: 12px;
+        //                     }
+        //                 }
 
-                        tbody {
-                            tr {
-                                border-bottom: 1px solid #f1f5f9;
+        //                 tbody {
+        //                     tr {
+        //                         border-bottom: 1px solid #f1f5f9;
 
-                                &:hover {
-                                    background: #f8fafc;
-                                }
+        //                         &:hover {
+        //                             background: #f8fafc;
+        //                         }
 
-                                &:last-child {
-                                    border-bottom: none;
-                                }
+        //                         &:last-child {
+        //                             border-bottom: none;
+        //                         }
 
-                                td {
-                                    padding: 12px 8px;
-                                    color: #374151;
-                                    font-size: 12px;
-                                    white-space: nowrap;
+        //                         td {
+        //                             padding: 12px 8px;
+        //                             color: #374151;
+        //                             font-size: 12px;
+        //                             white-space: nowrap;
 
-                                    .type_badge {
-                                        padding: 4px 8px;
-                                        border-radius: 4px;
-                                        font-size: 11px;
-                                        font-weight: 500;
-                                        text-transform: uppercase;
+        //                             .type_badge {
+        //                                 padding: 4px 8px;
+        //                                 border-radius: 4px;
+        //                                 font-size: 11px;
+        //                                 font-weight: 500;
+        //                                 text-transform: uppercase;
 
-                                        &.fwd {
-                                            background: var(--theme-primary-100);
-                                            color: var(--theme-primary-700);
-                                        }
+        //                                 &.fwd {
+        //                                     background: var(--theme-primary-100);
+        //                                     color: var(--theme-primary-700);
+        //                                 }
 
-                                        &.rto {
-                                            background: #fee2e2;
-                                            color: #dc2626;
-                                        }
+        //                                 &.rto {
+        //                                     background: #fee2e2;
+        //                                     color: #dc2626;
+        //                                 }
 
-                                        &.add_wt {
-                                            background: #fef3c7;
-                                            color: #d97706;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //                                 &.add_wt {
+        //                                     background: #fef3c7;
+        //                                     color: #d97706;
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         .overview_content,
         .billing_content,
