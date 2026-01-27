@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
@@ -15,131 +15,56 @@ import {
 } from "lucide-react";
 import RippleButton from "../components/RippleButton";
 import CustomSelect from "../components/CustomSelect";
-import Select from "react-select";
+import { handleError } from "../utils/axiosUtils";
+import Loader from "../components/Loader";
+import { api } from "../utils/axiosUtils";
 
-// Mock merchant data
-const merchantData = [
-  {
-    id: "M001",
-    businessName: "TechStore India",
-    owner: "Rahul Sharma",
-    gstin: "29ABCDE1234F1Z5",
-    tier: "Premium",
-    status: "Active",
-    codCycle: "Weekly",
-    pendingCod: 125000,
-    lastActive: "2024-01-15",
-    riskScore: 3,
-    email: "rahul@techstore.com",
-    phone: "+91 98765 43210",
-  },
-  {
-    id: "M002",
-    businessName: "Fashion Hub",
-    owner: "Priya Patel",
-    gstin: "24FGHIJ5678K2L6",
-    tier: "Standard",
-    status: "Active",
-    codCycle: "Biweekly",
-    pendingCod: 75000,
-    lastActive: "2024-01-14",
-    riskScore: 5,
-    email: "priya@fashionhub.com",
-    phone: "+91 98765 43211",
-  },
-  {
-    id: "M003",
-    businessName: "Home Essentials",
-    owner: "Amit Kumar",
-    gstin: "07MNOPQ9012R3S7",
-    tier: "Starter",
-    status: "Suspended",
-    codCycle: "Monthly",
-    pendingCod: 25000,
-    lastActive: "2024-01-10",
-    riskScore: 8,
-    email: "amit@homeessentials.com",
-    phone: "+91 98765 43212",
-  },
-  {
-    id: "M004",
-    businessName: "ElectroMart",
-    owner: "Sneha Singh",
-    gstin: "12QRSTU3456V7W8",
-    tier: "Premium",
-    status: "Active",
-    codCycle: "Weekly",
-    pendingCod: 200000,
-    lastActive: "2024-01-16",
-    riskScore: 2,
-    email: "sneha@electromart.com",
-    phone: "+91 98765 43213",
-  },
-  {
-    id: "M005",
-    businessName: "BookWorld",
-    owner: "Vikram Joshi",
-    gstin: "33XYZAB7890C1D2",
-    tier: "Standard",
-    status: "Pending",
-    codCycle: "Monthly",
-    pendingCod: 0,
-    lastActive: "2024-01-12",
-    riskScore: 6,
-    email: "vikram@bookworld.com",
-    phone: "+91 98765 43214",
-  },
-];
-
-const tierOptions = [
-  { value: "all", label: "All Tiers" },
-  { value: "Premium", label: "Premium" },
-  { value: "Standard", label: "Standard" },
-  { value: "Starter", label: "Starter" },
-];
-
-const statusOptions = [
-  { value: "all", label: "All Status" },
-  { value: "Active", label: "Active" },
-  { value: "Suspended", label: "Suspended" },
-  { value: "Pending", label: "Pending" },
-];
-
-const codCycleOptions = [
-  { value: "all", label: "All Cycles" },
-  { value: "Weekly", label: "Weekly" },
-  { value: "Biweekly", label: "Biweekly" },
-  { value: "Monthly", label: "Monthly" },
-];
 
 const SuperAdminMerchant = () => {
   const navigate = useNavigate();
-  const [merchants] = useState(merchantData);
-  const [selectedTier, setSelectedTier] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState(null);
-  const [selectedCodCycle, setSelectedCodCycle] = useState(null);
+  const [merchants, setMerchants] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedMerchants, setSelectedMerchants] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [showActionDropdown, setShowActionDropdown] = useState(null);
 
-  // Filter merchants based on filters
-  const filteredMerchants = merchants.filter((merchant) => {
-    const matchesTier =
-      !selectedTier ||
-      selectedTier.value === "all" ||
-      merchant.tier === selectedTier.value;
-    const matchesStatus =
-      !selectedStatus ||
-      selectedStatus.value === "all" ||
-      merchant.status === selectedStatus.value;
-    const matchesCodCycle =
-      !selectedCodCycle ||
-      selectedCodCycle.value === "all" ||
-      merchant.codCycle === selectedCodCycle.value;
+  // Fetch merchants from API
+  useEffect(() => {
+    const fetchMerchants = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get("/all-merchant");
+        
+        if (response.data && response.data.success && response.data.data) {
+          // Map API response to component format - only use fields from API
+          const mappedMerchants = response.data.data.map((merchant) => ({
+            id: merchant.merchant_id || merchant.id,
+            merchantId: merchant.merchant_id || `MER-${merchant.id}`,
+            name: merchant.name || "",
+            email: merchant.email || "",
+            phone: merchant.phone || "",
+            lastActive: merchant.updated_at || merchant.created_at || "",
+            originalId: merchant.id,
+          }));
+          setMerchants(mappedMerchants);
+        }
+      } catch (error) {
+        console.error("Error fetching merchants:", error);
+        const errorData = handleError(error);
+        console.error("Error details:", errorData);
+        // Keep empty array on error
+        setMerchants([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    return matchesTier && matchesStatus && matchesCodCycle;
-  });
+    fetchMerchants();
+  }, []);
+
+  // No filters needed - show all merchants
+  const filteredMerchants = merchants;
 
   // Pagination
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -176,45 +101,6 @@ const SuperAdminMerchant = () => {
     }
   };
 
-  const getTierBadgeColor = (tier) => {
-    switch (tier) {
-      case "Premium":
-        return { bg: "#3B82F6", color: "#3B82F6" };
-      case "Standard":
-        return { bg: "#6B7280", color: "#6B7280" };
-      case "Starter":
-        return { bg: "#9CA3AF", color: "#9CA3AF" };
-      default:
-        return { bg: "#374151", color: "#374151" };
-    }
-  };
-
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
-      case "Active":
-        return { bg: "#10B981", color: "#10B981" };
-      case "Suspended":
-        return { bg: "#EF4444", color: "#EF4444" };
-      case "Pending":
-        return { bg: "#F59E0B", color: "#F59E0B" };
-      default:
-        return { bg: "#374151", color: "#374151" };
-    }
-  };
-
-  const getRiskScoreColor = (score) => {
-    if (score <= 3) return "#10B981";
-    if (score <= 6) return "#F59E0B";
-    return "#EF4444";
-  };
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-IN");
@@ -230,33 +116,16 @@ const SuperAdminMerchant = () => {
     // Implement other action logic here
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="shipment_section super_admin_merchant">
       <div className="page_header">
         <h1>Merchants</h1>
       </div>
       <div className="filter_controls">
-        <Select
-          options={statusOptions}
-          value={selectedStatus}
-          onChange={setSelectedStatus}
-          placeholder="Active"
-          className="option_select"
-        />
-        <Select
-          options={tierOptions}
-          value={selectedTier}
-          onChange={setSelectedTier}
-          placeholder="Starter"
-          className="option_select"
-        />
-        <Select
-          options={codCycleOptions}
-          value={selectedCodCycle}
-          onChange={setSelectedCodCycle}
-          placeholder="COD Cycle"
-          className="option_select"
-        />
         <div className="action_buttons">
           <RippleButton className="export_btn">
             <Download size={16} />
@@ -292,15 +161,10 @@ const SuperAdminMerchant = () => {
                     </RippleButton>
                   </th>
                   <th>Merchant ID</th>
-                  <th>Business Name</th>
-                  <th>Owner</th>
-                  <th>GSTIN</th>
-                  <th>Tier</th>
-                  <th>Status</th>
-                  <th>COD Cycle</th>
-                  <th>Pending COD</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
                   <th>Last Active</th>
-                  <th>Risk Score</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -320,48 +184,12 @@ const SuperAdminMerchant = () => {
                         />
                       </RippleButton>
                     </td>
-                    <td className="merchant_id">{merchant.id}</td>
-                    <td className="business_name">{merchant.businessName}</td>
-                    <td className="owner">{merchant.owner}</td>
-                    <td className="gstin">{merchant.gstin}</td>
-                    <td>
-                      <span
-                        className="status_badge"
-                        style={{
-                          backgroundColor: `${
-                            getTierBadgeColor(merchant.tier).bg
-                          }20`,
-                          color: getTierBadgeColor(merchant.tier).color,
-                        }}
-                      >
-                        {merchant.tier}
-                      </span>
-                    </td>
-                    <td>
-                      <span
-                        className="status_badge"
-                        style={{
-                          backgroundColor: `${
-                            getStatusBadgeColor(merchant.status).bg
-                          }20`,
-                          color: getStatusBadgeColor(merchant.status).color,
-                        }}
-                      >
-                        {merchant.status}
-                      </span>
-                    </td>
-                    <td className="cod_cycle">{merchant.codCycle}</td>
-                    <td className="pending_cod">
-                      {formatCurrency(merchant.pendingCod)}
-                    </td>
+                    <td className="merchant_id">{merchant.merchantId}</td>
+                    <td className="business_name">{merchant.name}</td>
+                    <td className="email">{merchant.email}</td>
+                    <td className="phone">{merchant.phone}</td>
                     <td className="last_active">
-                      {formatDate(merchant.lastActive)}
-                    </td>
-                    <td
-                      className="risk_score"
-                      style={{ color: getRiskScoreColor(merchant.riskScore) }}
-                    >
-                      {merchant.riskScore}/10
+                      {merchant.lastActive ? formatDate(merchant.lastActive) : "N/A"}
                     </td>
                     <td className="actions">
                       <div className="action_dropdown">

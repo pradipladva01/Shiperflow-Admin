@@ -301,6 +301,7 @@ const recentOrders = [
     weightDiscrepancy: true,
   },
 ];
+// eslint-disable-next-line no-unused-vars
 const pricingData = [
   // Xpressbees New 500 gm
   {
@@ -968,6 +969,7 @@ const MerchantViewDetails = () => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      // eslint-disable-next-line no-unused-vars
       const settingsData = {
         courierPriority,
         codEnabled,
@@ -1013,6 +1015,7 @@ const MerchantViewDetails = () => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      // eslint-disable-next-line no-unused-vars
       const actionData = {
         disputeId: selectedDispute.id,
         actionType: modalType,

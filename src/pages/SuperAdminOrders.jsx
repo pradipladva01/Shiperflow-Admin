@@ -5,10 +5,8 @@ import Select from "react-select";
 import {
   ChevronLeft,
   ChevronRight,
-  CircleX,
   FunnelPlus,
   X,
-  MoreVertical,
 } from "lucide-react";
 import CustomSelect from "../components/CustomSelect";
 import dayjs from "dayjs";
@@ -366,21 +364,6 @@ const SuperAdminOrders = () => {
 
     setShowCancelOrderModal(false);
     setSelectedCancelOrder(null);
-  };
-
-  const handleActionClick = (action, order) => {
-    setShowActionDropdown(null);
-
-    if (action === "View details") {
-      setSelectedOrderForDrawer(order);
-      setShowOrderDrawer(true);
-    } else if (action === "Download Label") {
-      // Download label for order
-      // Add download label functionality here
-    } else if (action === "Edit order") {
-      // Edit order
-      // Add edit order functionality here
-    }
   };
 
   const handleCloseDrawer = () => {
