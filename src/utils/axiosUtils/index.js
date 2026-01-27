@@ -52,7 +52,7 @@ client.interceptors.response.use(
 const request = async ({ ...options }, router, headerOption) => {
   const onSuccess = (response) => response;
   const onError = (error) => {
-    if (error?.response?.status == 401) {
+    if (error?.response?.status === 401) {
       Cookies.remove("uat");
       Cookies.remove("ue");
       Cookies.remove("account");
