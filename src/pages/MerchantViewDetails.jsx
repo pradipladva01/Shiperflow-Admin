@@ -754,10 +754,13 @@ const MerchantViewDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [merchantStatus, setMerchantStatus] = useState(merchantDetails.status);
   // const [activeTab, setActiveTab] = useState("Custom");
-  const [data, setData] = useState(pricingData);
+  const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null);
   const [focusedCell, setFocusedCell] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCourier, setSelectedCourier] = useState(null);
+  const [selectedWeight, setSelectedWeight] = useState(null);
 
   // Shipping Settings State
   const [courierPriority, setCourierPriority] = useState(
@@ -807,6 +810,24 @@ const MerchantViewDetails = () => {
     { id: "disputes", label: "Disputes & Risk" },
     { id: "notes", label: "Notes & Audit" },
     { id: "integration", label: "Integration" },
+  ];
+
+  const courierOptions = [
+    { value: "Delhivery Surface", label: "Delhivery Surface" },
+    { value: "Delhivery Air", label: "Delhivery Air" },
+    { value: "Ekart Surface", label: "Ekart Surface" },
+    { value: "Ekart Air", label: "Ekart Air" },
+    { value: "Bluedart Surface", label: "Bluedart Surface" },
+    { value: "Bluedart Air", label: "Bluedart Air" },
+    { value: "Xpressbees Surface", label: "Xpressbees Surface" },
+    { value: "Xpressbees Air", label: "Xpressbees Air" },
+  ];
+
+  const weightOptions = [
+    { value: "0.25 KG", label: "0.25 KG" },
+    { value: "0.5 KG", label: "0.5 KG" },
+    { value: "1 KG", label: "1 KG" },
+    { value: "2 KG", label: "2 KG" },
   ];
 
   const formatCurrency = (amount) => {
@@ -1227,6 +1248,10 @@ const MerchantViewDetails = () => {
   // Check if this is the first row for a courier (where checkbox should appear)
   const isFirstRowForCourier = (rowIndex) => {
     const courierName = data[rowIndex].courier;
+    // Checkbox should only appear on rows where courier name is not "-"
+    if (courierName === "-") {
+      return false;
+    }
     const courierIndices = getCourierRowIndices(courierName);
     return courierIndices[0] === rowIndex;
   };
@@ -1264,6 +1289,67 @@ const MerchantViewDetails = () => {
     } else {
       setSelectedRows(new Set(data.map((_, index) => index)));
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCourier(null);
+    setSelectedWeight(null);
+  };
+
+  const handleAddCourier = () => {
+    if (!selectedCourier || !selectedWeight) {
+      alert("Please select both courier and weight");
+      return;
+    }
+
+    const courierName = `${selectedCourier.value} ${selectedWeight.value}`;
+    
+    // Create 3 rows for the new courier
+    const newRows = [
+      {
+        courier: courierName,
+        weight: selectedWeight.value,
+        type: "FWD",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: "",
+        codPercent: "",
+      },
+      {
+        courier: "-",
+        weight: selectedWeight.value,
+        type: "RTO",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: 0,
+        codPercent: 0,
+      },
+      {
+        courier: "-",
+        weight: selectedWeight.value,
+        type: "Add Wt",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: "",
+        codPercent: "",
+      },
+    ];
+
+    setData([...data, ...newRows]);
+    handleCloseModal();
   };
 
   const renderEditableCell = (rowIndex, field, value) => {
@@ -1909,132 +1995,124 @@ const MerchantViewDetails = () => {
         {activeTab === "rateCard" && (
           <div className="price_calculator_section">
             <div className="pricing_plans_section">
-              {selectedRows.size > 0 && (
-                <div className="update_rate_card_btn">
-                  <RippleButton variant="primary" className="rate_card_btn">
-                    <Save size={16} />
-                    Update Rate Card
-                  </RippleButton>
-                </div>
-              )}
+              <div className="section_header">
+                <h2>Rate Card</h2>
+                <RippleButton
+                  className="add_courier_btn"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Add Courier
+                </RippleButton>
+              </div>
 
-              <div className="pricing_table_container">
-                <table className="pricing_table">
-                  <thead>
-                    <tr>
-                      <th>
+          <div className="pricing_table_container">
+            <table className="pricing_table">
+              <thead>
+                <tr>
+                  <th>
+                    <RippleButton
+                      className="checkbox_wrapper"
+                      onClick={handleSelectAll}
+                    >
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        checked={
+                          selectedRows.size === data.length && data.length > 0
+                        }
+                        readOnly
+                      />
+                    </RippleButton>
+                  </th>
+                  <th>COURIER</th>
+                  <th>WEIGHT</th>
+                  <th>TYPE</th>
+                  <th>WITHIN CITY</th>
+                  <th>WITHIN STATE</th>
+                  <th>REGIONAL</th>
+                  <th>METRO TO METRO</th>
+                  <th>NE, J&K, KL, AN</th>
+                  <th>REST OF INDIA</th>
+                  <th>COD CHARGES</th>
+                  <th>COD %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      {isFirstRowForCourier(index) ? (
                         <RippleButton
                           className="checkbox_wrapper"
-                          onClick={handleSelectAll}
+                          onClick={() => handleCheckboxChange(index)}
                         >
                           <input
                             className="form-check-input"
                             type="checkbox"
-                            checked={
-                              selectedRows.size === data.length &&
-                              data.length > 0
-                            }
+                            checked={areAllCourierRowsSelected(item.courier)}
                             readOnly
                           />
                         </RippleButton>
-                      </th>
-                      <th>COURIER</th>
-                      <th>TYPE</th>
-                      <th>WITHIN CITY</th>
-                      <th>WITHIN STATE</th>
-                      <th>REGIONAL</th>
-                      <th>METRO TO METRO</th>
-                      <th>NE, J&K, KL, AN</th>
-                      <th>REST OF INDIA</th>
-                      <th>COD CHARGES</th>
-                      <th>COD %</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          {isFirstRowForCourier(index) ? (
-                            <RippleButton
-                              className="checkbox_wrapper"
-                              onClick={() => handleCheckboxChange(index)}
-                            >
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                checked={areAllCourierRowsSelected(
-                                  item.courier
-                                )}
-                                readOnly
-                              />
-                            </RippleButton>
-                          ) : (
-                            <span></span>
-                          )}
-                        </td>
-                        <td>{item.courier}</td>
-                        <td>
-                          <span
-                            className={`type_badge ${item.type
-                              .toLowerCase()
-                              .replace(" ", "_")}`}
-                          >
-                            {item.type}
-                          </span>
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "withinCity",
-                            item.withinCity
-                          )}
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "withinState",
-                            item.withinState
-                          )}
-                        </td>
-                        <td>
-                          {renderEditableCell(index, "regional", item.regional)}
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "metroToMetro",
-                            item.metroToMetro
-                          )}
-                        </td>
-                        <td>
-                          {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "restOfIndia",
-                            item.restOfIndia
-                          )}
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "codCharges",
-                            item.codCharges
-                          )}
-                        </td>
-                        <td>
-                          {renderEditableCell(
-                            index,
-                            "codPercent",
-                            item.codPercent
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                      ) : (
+                        <span></span>
+                      )}
+                    </td>
+                    <td>{item.courier === "-" ? "" : item.courier}</td>
+                    <td>{item?.weight}</td>
+                    <td>
+                      <span
+                        className={`type_badge ${item.type
+                          .toLowerCase()
+                          .replace(" ", "_")}`}
+                      >
+                        {item.type}
+                      </span>
+                    </td>
+                    <td>
+                      {renderEditableCell(index, "withinCity", item.withinCity)}
+                    </td>
+                    <td>
+                      {renderEditableCell(
+                        index,
+                        "withinState",
+                        item.withinState
+                      )}
+                    </td>
+                    <td>
+                      {renderEditableCell(index, "regional", item.regional)}
+                    </td>
+                    <td>
+                      {renderEditableCell(
+                        index,
+                        "metroToMetro",
+                        item.metroToMetro
+                      )}
+                    </td>
+                    <td>
+                      {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
+                    </td>
+                    <td>
+                      {renderEditableCell(
+                        index,
+                        "restOfIndia",
+                        item.restOfIndia
+                      )}
+                    </td>
+                    <td>
+                      {item.type === "RTO" && (
+                        renderEditableCell(index, "codCharges", item.codCharges)
+                      )}
+                    </td>
+                    <td>
+                      {item.type === "RTO" && (
+                        renderEditableCell(index, "codPercent", item.codPercent)
+                      )}
+                    </td>
+                  </tr>
+                ))}
+                </tbody>
+            </table>
+          </div>
             </div>
           </div>
         )}
@@ -2647,6 +2725,61 @@ const MerchantViewDetails = () => {
                 onClick={handleModalSubmit}
               >
                 Apply {modalType === "penalty" ? "Penalty" : "Refund"}
+              </RippleButton>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Courier Modal */}
+      {isModalOpen && (
+        <div className="custom_modal_overlay" onClick={handleCloseModal}>
+          <div className="custom_modal_content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal_header">
+              <h3>Add New Courier</h3>
+              <button
+                className="modal_close_btn"
+                onClick={handleCloseModal}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal_body">
+              <div className="form_group">
+                <label>Courier Name:</label>
+                <Select
+                  options={courierOptions}
+                  value={selectedCourier}
+                  onChange={(selectedOption) => setSelectedCourier(selectedOption)}
+                  placeholder="Select Courier"
+                  className="option_select"
+                  isClearable
+                />
+              </div>
+              <div className="form_group">
+                <label>Weight:</label>
+                <Select
+                  options={weightOptions}
+                  value={selectedWeight}
+                  onChange={(selectedOption) => setSelectedWeight(selectedOption)}
+                  placeholder="Select Weight"
+                  className="option_select"
+                  isClearable
+                />
+              </div>
+            </div>
+            <div className="modal_footer">
+              <RippleButton
+                className="btn_cancel"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </RippleButton>
+              <RippleButton
+                className="btn_submit"
+                onClick={handleAddCourier}
+              >
+                Add Courier
               </RippleButton>
             </div>
           </div>

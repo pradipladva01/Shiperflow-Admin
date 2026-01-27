@@ -1,459 +1,226 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import RippleButton from "../components/RippleButton";
 
-const pricingData = [
-  // Xpressbees New 500 gm
-  {
-    courier: "Xpressbees New 500 gm",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 500 gm",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 500 gm",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Xpressbees New 1 K.G
-  {
-    courier: "Xpressbees New 1 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 1 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 1 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Xpressbees New 2 K.G
-  {
-    courier: "Xpressbees New 2 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 2 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Xpressbees New 2 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Ekart Surface 500 gm
-  {
-    courier: "Ekart Surface 500 gm",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 500 gm",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 500 gm",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Ekart Surface 1 K.G
-  {
-    courier: "Ekart Surface 1 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 1 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 1 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Ekart Surface 2 K.G
-  {
-    courier: "Ekart Surface 2 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 2 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Ekart Surface 2 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Surface (Brand) 500 gm
-  {
-    courier: "Delhivery Surface (Brand) 500 gm",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 500 gm",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 500 gm",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Surface (Brand) 1 K.G
-  {
-    courier: "Delhivery Surface (Brand) 1 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 1 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 1 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Surface (Brand) 2 K.G
-  {
-    courier: "Delhivery Surface (Brand) 2 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 2 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Surface (Brand) 2 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Lite 500 gm
-  {
-    courier: "Delhivery Lite 500 gm",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 500 gm",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 500 gm",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Lite 1 K.G
-  {
-    courier: "Delhivery Lite 1 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 1 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 1 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  // Delhivery Lite 2 K.G
-  {
-    courier: "Delhivery Lite 2 K.G",
-    type: "FWD",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 2 K.G",
-    type: "RTO",
-    withinCity: 30,
-    withinState: 30,
-    regional: 30,
-    metroToMetro: 30,
-    neJkKlAn: 30,
-    restOfIndia: 30,
-    codCharges: 50,
-    codPercent: 2,
-  },
-  {
-    courier: "Delhivery Lite 2 K.G",
-    type: "Add Wt",
-    withinCity: 10,
-    withinState: 10,
-    regional: 10,
-    metroToMetro: 10,
-    neJkKlAn: 10,
-    restOfIndia: 10,
-    codCharges: 50,
-    codPercent: 2,
-  },
-];
 
 const SuperAdminRateCard = () => {
-  const [activeTab, setActiveTab] = useState("Custom");
-  const [data, setData] = useState(pricingData);
+  const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null);
   const [focusedCell, setFocusedCell] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCourier, setSelectedCourier] = useState(null);
+  const [selectedWeight, setSelectedWeight] = useState(null);
+  const [draggedRowIndex, setDraggedRowIndex] = useState(null);
+  const [dragOverRowIndex, setDragOverRowIndex] = useState(null);
+
+  const courierOptions = [
+    { value: "Delhivery Surface", label: "Delhivery Surface" },
+    { value: "Delhivery Air", label: "Delhivery Air" },
+    { value: "Ekart Surface", label: "Ekart Surface" },
+    { value: "Ekart Air", label: "Ekart Air" },
+    { value: "Bluedart Surface", label: "Bluedart Surface" },
+    { value: "Bluedart Air", label: "Bluedart Air" },
+    { value: "Xpressbees Surface", label: "Xpressbees Surface" },
+    { value: "Xpressbees Air", label: "Xpressbees Air" },
+  ];
+
+  const weightOptions = [
+    { value: "0.25 KG", label: "0.25 KG" },
+    { value: "0.5 KG", label: "0.5 KG" },
+    { value: "1 KG", label: "1 KG" },
+    { value: "2 KG", label: "2 KG" },
+  ];
+
+  // Get all existing courier+weight combinations
+  const getExistingCombinations = () => {
+    const combinations = new Set();
+    data.forEach((item) => {
+      if (item.courier !== "-" && item.courier && item.weight) {
+        const weightValues = weightOptions.map((w) => w.value);
+        let baseCourier = item.courier;
+        for (const weight of weightValues) {
+          if (baseCourier.endsWith(` ${weight}`)) {
+            baseCourier = baseCourier.replace(` ${weight}`, "").trim();
+            break;
+          }
+        }
+        const combination = `${baseCourier}|${item.weight}`;
+        combinations.add(combination);
+      }
+    });
+    return combinations;
+  };
+
+  // Check if a combination already exists
+  const combinationExists = (courier, weight) => {
+    const existingCombinations = getExistingCombinations();
+    const combination = `${courier}|${weight}`;
+    return existingCombinations.has(combination);
+  };
+
+  // Get filtered courier options based on selected weight
+  const getFilteredCourierOptions = (weight = selectedWeight) => {
+    const existingCombinations = getExistingCombinations();
+    return courierOptions.filter((courier) => {
+      if (!weight) return true;
+      const combination = `${courier.value}|${weight.value}`;
+      return !existingCombinations.has(combination);
+    });
+  };
+
+  // Get filtered weight options based on selected courier
+  const getFilteredWeightOptions = (courier = selectedCourier) => {
+    const existingCombinations = getExistingCombinations();
+    return weightOptions.filter((weight) => {
+      if (!courier) return true;
+      const combination = `${courier.value}|${weight.value}`;
+      return !existingCombinations.has(combination);
+    });
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCourier(null);
+    setSelectedWeight(null);
+  };
+
+  // Get base courier name (without weight suffix)
+  const getBaseCourierName = (courierName) => {
+    if (!courierName || courierName === "-") return null;
+    const weightValues = weightOptions.map((w) => w.value);
+    let baseCourier = courierName;
+    for (const weight of weightValues) {
+      if (baseCourier.endsWith(` ${weight}`)) {
+        baseCourier = baseCourier.replace(` ${weight}`, "").trim();
+        break;
+      }
+    }
+    return baseCourier;
+  };
+  
+  const getWeightOrder = (weight) => {
+    const order = weightOptions.findIndex((w) => w.value === weight);
+    return order === -1 ? 999 : order; 
+  };
+
+  const findInsertionIndex = (baseCourierName, newWeight) => {
+    const newWeightOrder = getWeightOrder(newWeight);
+    
+    // Find all entries for the same base courier
+    const sameCourierEntries = [];
+    data.forEach((item, index) => {
+      if (item.courier !== "-") {
+        const itemBaseCourier = getBaseCourierName(item.courier);
+        if (itemBaseCourier === baseCourierName) {
+          const itemWeight = item.weight;
+          const itemWeightOrder = getWeightOrder(itemWeight);
+          sameCourierEntries.push({
+            index,
+            weight: itemWeight,
+            weightOrder: itemWeightOrder,
+          });
+        }
+      }
+    });
+
+    // If no existing entries for this courier, return -1 to append at end
+    if (sameCourierEntries.length === 0) {
+      return -1;
+    }
+
+    // Sort by weight order
+    sameCourierEntries.sort((a, b) => a.weightOrder - b.weightOrder);
+
+    // Find where to insert based on weight order
+    for (let i = 0; i < sameCourierEntries.length; i++) {
+      if (newWeightOrder < sameCourierEntries[i].weightOrder) {
+        // Insert before this entry
+        const targetEntry = sameCourierEntries[i];
+        const courierIndices = getCourierRowIndices(data[targetEntry.index].courier);
+        return courierIndices[0]; // Return the first index of the target courier group
+      }
+    }
+
+    // If new weight is greater than all existing, insert after the last one
+    const lastEntry = sameCourierEntries[sameCourierEntries.length - 1];
+    const lastCourierIndices = getCourierRowIndices(data[lastEntry.index].courier);
+    return Math.max(...lastCourierIndices) + 1; // Insert after the last row of the last courier group
+  };
+
+  const handleAddCourier = () => {
+    if (!selectedCourier || !selectedWeight) {
+      alert("Please select both courier and weight");
+      return;
+    }
+
+    // Check if this combination already exists
+    const courierName = `${selectedCourier.value} ${selectedWeight.value}`;
+    if (combinationExists(selectedCourier.value, selectedWeight.value)) {
+      alert("This courier and weight combination already exists!");
+      return;
+    }
+    
+    // Create 3 rows for the new courier
+    const newRows = [
+      {
+        courier: courierName,
+        weight: selectedWeight.value,
+        type: "FWD",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: "",
+        codPercent: "",
+      },
+      {
+        courier: "-",
+        weight: selectedWeight.value,
+        type: "RTO",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: 0,
+        codPercent: 0,
+      },
+      {
+        courier: "-",
+        weight: selectedWeight.value,
+        type: "Add Wt",
+        withinCity: 0,
+        withinState: 0,
+        regional: 0,
+        metroToMetro: 0,
+        neJkKlAn: 0,
+        restOfIndia: 0,
+        codCharges: "",
+        codPercent: "",
+      },
+    ];
+
+    // Find the correct insertion index based on weight sequence
+    const baseCourierName = selectedCourier.value;
+    const insertIndex = findInsertionIndex(baseCourierName, selectedWeight.value);
+
+    let newData;
+    if (insertIndex === -1) {
+      // No existing entry for this courier, append to the end
+      newData = [...data, ...newRows];
+    } else {
+      // Insert at the correct position based on weight sequence
+      newData = [...data];
+      newData.splice(insertIndex, 0, ...newRows);
+    }
+
+    setData(newData);
+    handleCloseModal();
+  };
 
   const handleCellClick = (rowIndex, field) => {
     // Don't allow editing COURIER and TYPE fields
@@ -533,16 +300,30 @@ const SuperAdminRateCard = () => {
     }
   };
 
-  // Get all row indices for a given courier name
+  // Get all row indices for a given courier name (includes all 3 rows: FWD, RTO, Add Wt)
   const getCourierRowIndices = (courierName) => {
-    return data
-      .map((item, index) => (item.courier === courierName ? index : null))
-      .filter((index) => index !== null);
+    const indices = [];
+    data.forEach((item, index) => {
+      if (item.courier === courierName) {
+        // Found the first row (FWD), add it and the next 2 rows (RTO, Add Wt)
+        indices.push(index);
+        if (index + 1 < data.length && data[index + 1].courier === "-" && data[index + 1].weight === item.weight) {
+          indices.push(index + 1);
+        }
+        if (index + 2 < data.length && data[index + 2].courier === "-" && data[index + 2].weight === item.weight) {
+          indices.push(index + 2);
+        }
+      }
+    });
+    return indices;
   };
 
   // Check if this is the first row for a courier (where checkbox should appear)
   const isFirstRowForCourier = (rowIndex) => {
     const courierName = data[rowIndex].courier;
+    if (courierName === "-") {
+      return false;
+    }
     const courierIndices = getCourierRowIndices(courierName);
     return courierIndices[0] === rowIndex;
   };
@@ -551,6 +332,13 @@ const SuperAdminRateCard = () => {
   const areAllCourierRowsSelected = (courierName) => {
     const courierIndices = getCourierRowIndices(courierName);
     return courierIndices.every((index) => selectedRows.has(index));
+  };
+
+  // Check if a row index is part of a courier group (all 3 rows)
+  const isRowPartOfCourierGroup = (rowIndex, courierName) => {
+    if (!courierName) return false;
+    const courierIndices = getCourierRowIndices(courierName);
+    return courierIndices.includes(rowIndex);
   };
 
   const handleCheckboxChange = (rowIndex) => {
@@ -580,6 +368,86 @@ const SuperAdminRateCard = () => {
     } else {
       setSelectedRows(new Set(data.map((_, index) => index)));
     }
+  };
+
+  // Drag and Drop handlers
+  const handleDragStart = (e, rowIndex) => {
+    // Only allow dragging from the first row (FWD) of each courier
+    if (!isFirstRowForCourier(rowIndex)) {
+      e.preventDefault();
+      return;
+    }
+    setDraggedRowIndex(rowIndex);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", rowIndex);
+    e.currentTarget.style.opacity = "0.5";
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.style.opacity = "1";
+    setDraggedRowIndex(null);
+    setDragOverRowIndex(null);
+  };
+
+  const handleDragOver = (e, rowIndex) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    
+    // Only allow dropping on the first row (FWD) of each courier
+    if (isFirstRowForCourier(rowIndex)) {
+      setDragOverRowIndex(rowIndex);
+    }
+  };
+
+  const handleDragLeave = (e) => {
+    setDragOverRowIndex(null);
+  };
+
+  const handleDrop = (e, dropRowIndex) => {
+    e.preventDefault();
+    setDragOverRowIndex(null);
+
+    if (draggedRowIndex === null || draggedRowIndex === dropRowIndex) {
+      return;
+    }
+
+    // Only allow dropping on the first row (FWD) of each courier
+    if (!isFirstRowForCourier(dropRowIndex)) {
+      return;
+    }
+
+    // Get the courier name for the dragged row
+    const draggedCourierName = data[draggedRowIndex].courier;
+
+    // Get all indices for the dragged courier (should be 3 rows: FWD, RTO, Add Wt)
+    const draggedCourierIndices = getCourierRowIndices(draggedCourierName);
+    
+    // Extract the rows to move
+    const draggedRows = draggedCourierIndices.map((idx) => data[idx]);
+
+    // Create new data array without the dragged rows
+    const newData = data.filter((_, index) => !draggedCourierIndices.includes(index));
+
+    // Calculate new drop position in the filtered array
+    let newDropIndex = dropRowIndex;
+    
+    // Count how many rows before dropRowIndex were removed
+    const removedBeforeDrop = draggedCourierIndices.filter(idx => idx < dropRowIndex).length;
+    
+    // Adjust the drop index
+    if (draggedRowIndex < dropRowIndex) {
+      // If dragging down, adjust for removed rows
+      newDropIndex = dropRowIndex - removedBeforeDrop;
+    } else {
+      // If dragging up, just use the adjusted index
+      newDropIndex = dropRowIndex - removedBeforeDrop;
+    }
+
+    // Insert dragged rows at new position
+    newData.splice(newDropIndex, 0, ...draggedRows);
+
+    setData(newData);
+    setDraggedRowIndex(null);
   };
 
   const renderEditableCell = (rowIndex, field, value) => {
@@ -697,122 +565,261 @@ const SuperAdminRateCard = () => {
         <div className="pricing_plans_section">
           <div className="section_header">
             <h2>Rate Card</h2>
-            <div className="tab_selector">
-              <button
-                className={`tab_button ${
-                  activeTab === "Custom" ? "active" : ""
-                }`}
-                onClick={() => setActiveTab("Custom")}
-              >
-                Custom (Active)
-              </button>
-            </div>
+            <RippleButton
+              className="add_courier_btn"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Add Courier
+            </RippleButton>
           </div>
 
           <div className="pricing_table_container">
-            <table className="pricing_table">
-              <thead>
-                <tr>
-                  <th>
-                    <RippleButton
-                      className="checkbox_wrapper"
-                      onClick={handleSelectAll}
-                    >
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={
-                          selectedRows.size === data.length && data.length > 0
-                        }
-                        readOnly
-                      />
-                    </RippleButton>
-                  </th>
-                  <th>COURIER</th>
-                  <th>TYPE</th>
-                  <th>WITHIN CITY</th>
-                  <th>WITHIN STATE</th>
-                  <th>REGIONAL</th>
-                  <th>METRO TO METRO</th>
-                  <th>NE, J&K, KL, AN</th>
-                  <th>REST OF INDIA</th>
-                  <th>COD CHARGES</th>
-                  <th>COD %</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      {isFirstRowForCourier(index) ? (
-                        <RippleButton
-                          className="checkbox_wrapper"
-                          onClick={() => handleCheckboxChange(index)}
-                        >
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            checked={areAllCourierRowsSelected(item.courier)}
-                            readOnly
-                          />
-                        </RippleButton>
-                      ) : (
-                        <span></span>
-                      )}
-                    </td>
-                    <td>{item.courier}</td>
-                    <td>
-                      <span
-                        className={`type_badge ${item.type
-                          .toLowerCase()
-                          .replace(" ", "_")}`}
+            {data.length === 0 ? (
+              <div className="no_data_found">
+                <h6>No Data Available</h6>
+                <p>Click "Add Courier" to add your first rate card entry.</p>
+              </div>
+            ) : (
+              <table className="pricing_table">
+                <thead>
+                  <tr>
+                    <th>
+                      <RippleButton
+                        className="checkbox_wrapper"
+                        onClick={handleSelectAll}
                       >
-                        {item.type}
-                      </span>
-                    </td>
-                    <td>
-                      {renderEditableCell(index, "withinCity", item.withinCity)}
-                    </td>
-                    <td>
-                      {renderEditableCell(
-                        index,
-                        "withinState",
-                        item.withinState
-                      )}
-                    </td>
-                    <td>
-                      {renderEditableCell(index, "regional", item.regional)}
-                    </td>
-                    <td>
-                      {renderEditableCell(
-                        index,
-                        "metroToMetro",
-                        item.metroToMetro
-                      )}
-                    </td>
-                    <td>
-                      {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
-                    </td>
-                    <td>
-                      {renderEditableCell(
-                        index,
-                        "restOfIndia",
-                        item.restOfIndia
-                      )}
-                    </td>
-                    <td>
-                      {renderEditableCell(index, "codCharges", item.codCharges)}
-                    </td>
-                    <td>
-                      {renderEditableCell(index, "codPercent", item.codPercent)}
-                    </td>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          checked={
+                            selectedRows.size === data.length && data.length > 0
+                          }
+                          readOnly
+                        />
+                      </RippleButton>
+                    </th>
+                    <th>COURIER</th>
+                    <th>WEIGHT</th>
+                    <th>TYPE</th>
+                    <th>WITHIN CITY</th>
+                    <th>WITHIN STATE</th>
+                    <th>REGIONAL</th>
+                    <th>METRO TO METRO</th>
+                    <th>NE, J&K, KL, AN</th>
+                    <th>REST OF INDIA</th>
+                    <th>COD CHARGES</th>
+                    <th>COD %</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => (
+                    <tr
+                      key={index}
+                      draggable={isFirstRowForCourier(index)}
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragEnd={handleDragEnd}
+                      onDragOver={(e) => handleDragOver(e, index)}
+                      onDragLeave={handleDragLeave}
+                      onDrop={(e) => handleDrop(e, index)}
+                      className={
+                        (() => {
+                          // Check if this row is part of the dragged courier group (all 3 rows)
+                          if (draggedRowIndex !== null) {
+                            const draggedCourierName = data[draggedRowIndex]?.courier;
+                            if (isRowPartOfCourierGroup(index, draggedCourierName)) {
+                              return "dragging";
+                            }
+                          }
+                          // Check if this row is part of the drag-over courier group (all 3 rows)
+                          if (dragOverRowIndex !== null) {
+                            const dragOverCourierName = data[dragOverRowIndex]?.courier;
+                            if (isRowPartOfCourierGroup(index, dragOverCourierName)) {
+                              return "drag-over";
+                            }
+                          }
+                          return "";
+                        })()
+                      }
+                    >
+                      <td>
+                        {isFirstRowForCourier(index) ? (
+                          <RippleButton
+                            className="checkbox_wrapper"
+                            onClick={() => handleCheckboxChange(index)}
+                          >
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              checked={areAllCourierRowsSelected(item.courier)}
+                              readOnly
+                            />
+                          </RippleButton>
+                        ) : (
+                          <span></span>
+                        )}
+                      </td>
+                      <td>
+                        {isFirstRowForCourier(index) ? (
+                          <div
+                            className="drag_handle"
+                            onMouseDown={(e) => e.stopPropagation()}
+                            title="Drag to reorder"
+                          >
+                            <svg
+                              width="12"
+                              height="16"
+                              viewBox="0 0 12 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle cx="2" cy="3" r="1.5" fill="currentColor" />
+                              <circle cx="2" cy="8" r="1.5" fill="currentColor" />
+                              <circle cx="2" cy="13" r="1.5" fill="currentColor" />
+                              <circle cx="6" cy="3" r="1.5" fill="currentColor" />
+                              <circle cx="6" cy="8" r="1.5" fill="currentColor" />
+                              <circle cx="6" cy="13" r="1.5" fill="currentColor" />
+                            </svg>
+                          </div>
+                        ) : (
+                          <span></span>
+                        )}
+                      </td>
+                      <td>{item.courier === "-" ? "" : item.courier}</td>
+                      <td>{item?.weight}</td>
+                      <td>
+                        <span
+                          className={`type_badge ${item.type
+                            .toLowerCase()
+                            .replace(" ", "_")}`}
+                        >
+                          {item.type}
+                        </span>
+                      </td>
+                      <td>
+                        {renderEditableCell(index, "withinCity", item.withinCity)}
+                      </td>
+                      <td>
+                        {renderEditableCell(
+                          index,
+                          "withinState",
+                          item.withinState
+                        )}
+                      </td>
+                      <td>
+                        {renderEditableCell(index, "regional", item.regional)}
+                      </td>
+                      <td>
+                        {renderEditableCell(
+                          index,
+                          "metroToMetro",
+                          item.metroToMetro
+                        )}
+                      </td>
+                      <td>
+                        {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
+                      </td>
+                      <td>
+                        {renderEditableCell(
+                          index,
+                          "restOfIndia",
+                          item.restOfIndia
+                        )}
+                      </td>
+                      <td>
+                        {item.type === "RTO" && (
+                          renderEditableCell(index, "codCharges", item.codCharges)
+                        )}
+                      </td>
+                      <td>
+                        {item.type === "RTO" && (
+                          renderEditableCell(index, "codPercent", item.codPercent)
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Add Courier Modal */}
+      {isModalOpen && (
+        <div className="custom_modal_overlay" onClick={handleCloseModal}>
+          <div className="custom_modal_content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal_header">
+              <h3>Add New Courier</h3>
+              <button
+                className="modal_close_btn"
+                onClick={handleCloseModal}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal_body">
+              <div className="form_group">
+                <label>Courier Name:</label>
+                <Select
+                  options={getFilteredCourierOptions()}
+                  value={selectedCourier}
+                  onChange={(selectedOption) => {
+                    setSelectedCourier(selectedOption);
+                    // Reset weight if the selected courier doesn't have any available weights or current weight is not available
+                    if (selectedOption && selectedWeight) {
+                      const availableWeights = getFilteredWeightOptions(selectedOption);
+                      if (availableWeights.length === 0 || !availableWeights.find(w => w.value === selectedWeight.value)) {
+                        setSelectedWeight(null);
+                      }
+                    } else if (!selectedOption) {
+                      setSelectedWeight(null);
+                    }
+                  }}
+                  placeholder="Select Courier"
+                  className="option_select"
+                  isClearable
+                />
+              </div>
+              <div className="form_group">
+                <label>Weight:</label>
+                <Select
+                  options={getFilteredWeightOptions()}
+                  value={selectedWeight}
+                  onChange={(selectedOption) => {
+                    setSelectedWeight(selectedOption);
+                    // Reset courier if the selected weight doesn't have any available couriers or current courier is not available
+                    if (selectedOption && selectedCourier) {
+                      const availableCouriers = getFilteredCourierOptions(selectedOption);
+                      if (availableCouriers.length === 0 || !availableCouriers.find(c => c.value === selectedCourier.value)) {
+                        setSelectedCourier(null);
+                      }
+                    } else if (!selectedOption) {
+                      setSelectedCourier(null);
+                    }
+                  }}
+                  placeholder="Select Weight"
+                  className="option_select"
+                  isClearable
+                />
+              </div>
+            </div>
+            <div className="modal_footer">
+              <RippleButton
+                className="btn_cancel"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </RippleButton>
+              <RippleButton
+                className="btn_submit"
+                onClick={handleAddCourier}
+              >
+                Add Courier
+              </RippleButton>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
