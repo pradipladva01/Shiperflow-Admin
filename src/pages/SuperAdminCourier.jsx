@@ -1,11 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import DataTable from "../components/DataTable";
 import Loader from "../components/Loader";
 import RippleButton from "../components/RippleButton";
 import CustomSelect from "../components/CustomSelect";
 import Input from "../components/Input";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FormModal } from "../components/CommonModal";
+import { ChevronLeft, ChevronRight, Plus, Edit, Trash2 } from "lucide-react";
+import { api } from "../utils/axiosUtils";
+import { toast } from "react-toastify";
 
 const SuperAdminCourier = () => {
   const [couriers, setCouriers] = useState([]);
@@ -21,6 +26,8 @@ const SuperAdminCourier = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCourier, setSelectedCourier] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -68,6 +75,16 @@ const SuperAdminCourier = () => {
     };
   }, []);
 
+  const handleEdit = (courier) => {
+    // TODO: Implement edit functionality
+    console.log("Edit courier:", courier);
+  };
+
+  const handleDelete = (courier) => {
+    // TODO: Implement delete functionality
+    console.log("Delete courier:", courier);
+  };
+
   const columns = useMemo(
     () => [
       { 
@@ -80,6 +97,27 @@ const SuperAdminCourier = () => {
       { label: "Courier ID", accessor: "id" },
       { label: "Name", accessor: "name" },
       { label: "Master Company", accessor: "master_company" },
+      {
+        label: "Action",
+        accessor: "action",
+        render: (value, row) => {
+          return (
+              <RippleButton
+                className="edit_btn"
+                onClick={() => {
+                  setSelectedCourier({
+                    id: row.id,
+                    name: row.name,
+                    min_weight: row.min_weight
+                  });
+                  setIsModalOpen(true);
+                }}
+              >
+                <Plus size={16} />
+              </RippleButton>
+          );
+        }
+      },
     ],
     []
   );
@@ -110,10 +148,67 @@ const SuperAdminCourier = () => {
     setCurrentPage(1);
   }, [searchQuery]);
 
+  // Formik for Add Courier Modal
+  const formik = useFormik({
+    initialValues: {
+      label_name: "",
+    },
+    validationSchema: Yup.object({
+      label_name: Yup.string().required("Label Name is required"),
+    }),
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      console.log("Formik onSubmit called", values, selectedCourier);
+      
+      if (!selectedCourier) {
+        toast.error("No courier selected");
+        setSubmitting(false);
+        return;
+      }
+
+      try {
+        const payload = {
+          courier_id: selectedCourier.id.toString(),
+          courier_name: selectedCourier.name,
+          min_weight: selectedCourier.min_weight,
+          name: values.label_name
+        };
+
+        console.log("Making API call with payload:", payload);
+        const response = await api.post("/superadmin/admin-courier", payload);
+        console.log("API response:", response);
+
+        if (response.data) {
+          toast.success(
+            response.data?.message || "Courier added successfully!"
+          );
+          resetForm();
+          setIsModalOpen(false);
+          setSelectedCourier(null);
+        }
+      } catch (error) {
+        console.error("Error saving courier:", error);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to add courier. Please try again."
+        );
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    formik.resetForm();
+    setSelectedCourier(null);
+  };
+
   return (
     <div className="shipment_section super_admin_courier">
       <div className="page_header">
-          <h1>Couriers</h1>
+        <h1>Couriers</h1>
       </div>
 
       {!loading && !error && (
@@ -200,6 +295,60 @@ const SuperAdminCourier = () => {
           </div>
         </div>
       )}
+
+      <FormModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        title="Change Label Name"
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log("Form submitted", formik.values, selectedCourier);
+          formik.handleSubmit(e);
+        }}
+        size="medium"
+        submitText="Save"
+        cancelText="Cancel"
+        submitButtonProps={{
+          type: "button",
+          disabled: formik.isSubmitting,
+          onClick: async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Save button clicked", formik.values, selectedCourier);
+            
+            if (!selectedCourier) {
+              toast.error("No courier selected");
+              return;
+            }
+
+            // Validate form first
+            const errors = await formik.validateForm();
+            if (Object.keys(errors).length === 0) {
+              // Form is valid, trigger submit
+              console.log("Form is valid, calling handleSubmit");
+              formik.handleSubmit();
+            } else {
+              // Mark all fields as touched to show errors
+              console.log("Form has errors:", errors);
+              formik.setTouched({
+                label_name: true,
+              });
+            }
+          },
+        }}
+      >
+          <Input
+            type="text"
+            label="Label Name"
+            name="label_name"
+            placeholder="Enter Label Name"
+            value={formik.values.label_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.label_name && formik.errors.label_name ? formik.errors.label_name : ""}
+            required
+          />
+      </FormModal>
     </div>
   );
 };

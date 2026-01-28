@@ -18,6 +18,9 @@ const SuperAdminRateCard = () => {
   const [dragOverRowIndex, setDragOverRowIndex] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [courierOptions, setCourierOptions] = useState([]);
+  const [loadingOptions, setLoadingOptions] = useState(false);
+  const [rawCourierData, setRawCourierData] = useState([]); // Store raw API data for filtering
 
   // Formik form for Add Courier Modal
   const formik = useFormik({
@@ -184,35 +187,82 @@ const SuperAdminRateCard = () => {
     }
   };
 
+  // Function to fetch courier and weight options
+  const fetchCourierAndWeightOptions = async () => {
+    try {
+      setLoadingOptions(true);
+      const response = await api.get("/superadmin/admin-courier");
+
+      if (response.data) {
+        const apiData = response.data.data || response.data;
+        
+        // Handle array response structure
+        if (Array.isArray(apiData)) {
+          // Store raw data for filtering
+          setRawCourierData(apiData);
+          
+          // Extract unique courier names from courier_name field
+          const courierSet = new Set();
+          
+          apiData.forEach((item) => {
+            if (item.name) {
+              courierSet.add(item.name);
+            }
+          });
+
+          const couriers = Array.from(courierSet).map(name => ({
+            value: name,
+            label: name
+          }));
+
+          setCourierOptions(couriers);
+          
+          // Weights will be filtered dynamically based on selected courier
+          // So we don't set all weights here, they'll be filtered in getFilteredWeightOptions
+        } else {
+          // Handle object response structure (fallback)
+          if (apiData.couriers && Array.isArray(apiData.couriers)) {
+            setRawCourierData(apiData.couriers);
+            const couriers = apiData.couriers.map(item => ({
+              value: typeof item === 'string' ? item : ( item.name || item),
+              label: typeof item === 'string' ? item : ( item.name || item)
+            }));
+            setCourierOptions(couriers);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching courier and weight options:", error);
+      const errorData = handleError(error);
+      toast.error(
+        errorData.message || "Failed to fetch courier and weight options."
+      );
+    } finally {
+      setLoadingOptions(false);
+    }
+  };
+
   // Fetch rate card data on component mount
   useEffect(() => {
     fetchRateCardData();
+    fetchCourierAndWeightOptions();
   }, []);
 
-  const courierOptions = [
-    { value: "Delhivery Surface", label: "Delhivery Surface" },
-    { value: "Delhivery Air", label: "Delhivery Air" },
-    { value: "Ekart Surface", label: "Ekart Surface" },
-    { value: "Ekart Air", label: "Ekart Air" },
-    { value: "Bluedart Surface", label: "Bluedart Surface" },
-    { value: "Bluedart Air", label: "Bluedart Air" },
-    { value: "Xpressbees Surface", label: "Xpressbees Surface" },
-    { value: "Xpressbees Air", label: "Xpressbees Air" },
-  ];
-
-  const weightOptions = [
-    { value: "0.25 KG", label: "0.25 KG" },
-    { value: "0.5 KG", label: "0.5 KG" },
-    { value: "1 KG", label: "1 KG" },
-    { value: "2 KG", label: "2 KG" },
-  ];
 
   // Get all existing courier+weight combinations
   const getExistingCombinations = () => {
     const combinations = new Set();
     data.forEach((item) => {
       if (item.courier !== "-" && item.courier && item.weight) {
-        const weightValues = weightOptions.map((w) => w.value);
+        // Extract all possible weights from rawCourierData
+        const weightSet = new Set();
+        rawCourierData.forEach((rawItem) => {
+          if (rawItem.min_weight) {
+            weightSet.add(rawItem.min_weight);
+          }
+        });
+        const weightValues = Array.from(weightSet);
+        
         let baseCourier = item.courier;
         for (const weight of weightValues) {
           if (baseCourier.endsWith(` ${weight}`)) {
@@ -237,8 +287,29 @@ const SuperAdminRateCard = () => {
   // Get filtered courier options based on selected weight
   const getFilteredCourierOptions = (weight = formik.values.weight) => {
     const existingCombinations = getExistingCombinations();
-    return courierOptions.filter((courier) => {
-      if (!weight) return true;
+    
+    // If no weight selected, return all couriers
+    if (!weight) {
+      return courierOptions.filter((courier) => {
+        return true;
+      });
+    }
+    
+    // Filter couriers that have the selected weight in their min_weight
+    const courierSet = new Set();
+    rawCourierData.forEach((item) => {
+      if (item.name && item.min_weight === weight.value) {
+        courierSet.add(item.name);
+      }
+    });
+    
+    const availableCouriers = Array.from(courierSet).map(name => ({
+      value: name,
+      label: name
+    }));
+    
+    // Filter out couriers that already exist in combinations
+    return availableCouriers.filter((courier) => {
       const combination = `${courier.value}|${weight.value}`;
       return !existingCombinations.has(combination);
     });
@@ -247,8 +318,40 @@ const SuperAdminRateCard = () => {
   // Get filtered weight options based on selected courier
   const getFilteredWeightOptions = (courier = formik.values.courier) => {
     const existingCombinations = getExistingCombinations();
-    return weightOptions.filter((weight) => {
-      if (!courier) return true;
+    
+    // If no courier selected, return empty array or all weights
+    if (!courier) {
+      // Extract all unique weights from raw data
+      const weightSet = new Set();
+      rawCourierData.forEach((item) => {
+        if (item.min_weight) {
+          weightSet.add(item.min_weight);
+        }
+      });
+      return Array.from(weightSet).map(weight => ({
+        value: weight,
+        label: weight
+      })).filter((weight) => {
+        // Still filter out existing combinations even if no courier selected
+        return true;
+      });
+    }
+    
+    // Filter weights based on selected courier from rawCourierData
+    const weightSet = new Set();
+    rawCourierData.forEach((item) => {
+      if (item.name === courier.value && item.min_weight) {
+        weightSet.add(item.min_weight);
+      }
+    });
+    
+    const availableWeights = Array.from(weightSet).map(weight => ({
+      value: weight,
+      label: weight
+    }));
+    
+    // Filter out weights that already exist in combinations
+    return availableWeights.filter((weight) => {
       const combination = `${courier.value}|${weight.value}`;
       return !existingCombinations.has(combination);
     });
@@ -785,61 +888,70 @@ const SuperAdminRateCard = () => {
               </button>
             </div>
             <div className="modal_body">
-              <div className="form_group">
-                <label>Courier Name:</label>
-                <Select
-                  options={getFilteredCourierOptions()}
-                  value={formik.values.courier}
-                  onChange={(selectedOption) => {
-                    formik.setFieldValue("courier", selectedOption);
-                    // Reset weight if the selected courier doesn't have any available weights or current weight is not available
-                    if (selectedOption && formik.values.weight) {
-                      const availableWeights = getFilteredWeightOptions(selectedOption);
-                      if (availableWeights.length === 0 || !availableWeights.find(w => w.value === formik.values.weight.value)) {
-                        formik.setFieldValue("weight", null);
-                      }
-                    } else if (!selectedOption) {
-                      formik.setFieldValue("weight", null);
-                    }
-                  }}
-                  onBlur={() => formik.setFieldTouched("courier", true)}
-                  placeholder="Select Courier"
-                  className="option_select"
-                  isClearable
-                />
-                {formik.touched.courier && formik.errors.courier && (
-                  <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
-                    {formik.errors.courier}
+              {loadingOptions ? (
+                <div style={{ padding: "20px", textAlign: "center" }}>
+                  <Loader />
+                </div>
+              ) : (
+                <>
+                  <div className="form_group">
+                    <label>Courier Name:</label>
+                    <Select
+                      options={getFilteredCourierOptions()}
+                      value={formik.values.courier}
+                      onChange={(selectedOption) => {
+                        formik.setFieldValue("courier", selectedOption);
+                        if (selectedOption && formik.values.weight) {
+                          const availableWeights = getFilteredWeightOptions(selectedOption);
+                          if (availableWeights.length === 0 || !availableWeights.find(w => w.value === formik.values.weight.value)) {
+                            formik.setFieldValue("weight", null);
+                          }
+                        } else if (!selectedOption) {
+                          formik.setFieldValue("weight", null);
+                        }
+                      }}
+                      onBlur={() => formik.setFieldTouched("courier", true)}
+                      placeholder="Select Courier"
+                      className="option_select"
+                      isClearable
+                      isLoading={loadingOptions}
+                    />
+                    {formik.touched.courier && formik.errors.courier && (
+                      <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
+                        {formik.errors.courier}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="form_group">
-                <label>Weight:</label>
-                <Select
-                  options={getFilteredWeightOptions()}
-                  value={formik.values.weight}
-                  onChange={(selectedOption) => {
-                    formik.setFieldValue("weight", selectedOption);
-                    if (selectedOption && formik.values.courier) {
-                      const availableCouriers = getFilteredCourierOptions(selectedOption);
-                      if (availableCouriers.length === 0 || !availableCouriers.find(c => c.value === formik.values.courier.value)) {
-                        formik.setFieldValue("courier", null);
-                      }
-                    } else if (!selectedOption) {
-                      formik.setFieldValue("courier", null);
-                    }
-                  }}
-                  onBlur={() => formik.setFieldTouched("weight", true)}
-                  placeholder="Select Weight"
-                  className="option_select"
-                  isClearable
-                />
-                {formik.touched.weight && formik.errors.weight && (
-                  <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
-                    {formik.errors.weight}
+                  <div className="form_group">
+                    <label>Weight:</label>
+                    <Select
+                      options={getFilteredWeightOptions()}
+                      value={formik.values.weight}
+                      onChange={(selectedOption) => {
+                        formik.setFieldValue("weight", selectedOption);
+                        if (selectedOption && formik.values.courier) {
+                          const availableCouriers = getFilteredCourierOptions(selectedOption);
+                          if (availableCouriers.length === 0 || !availableCouriers.find(c => c.value === formik.values.courier.value)) {
+                            formik.setFieldValue("courier", null);
+                          }
+                        } else if (!selectedOption) {
+                          formik.setFieldValue("courier", null);
+                        }
+                      }}
+                      onBlur={() => formik.setFieldTouched("weight", true)}
+                      placeholder="Select Weight"
+                      className="option_select"
+                      isClearable
+                      isLoading={loadingOptions}
+                    />
+                    {formik.touched.weight && formik.errors.weight && (
+                      <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
+                        {formik.errors.weight}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </>
+              )}
             </div>
             <div className="modal_footer">
               <RippleButton
