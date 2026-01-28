@@ -59,30 +59,27 @@ const SuperAdminRateCard = () => {
         types: [
           {
             type: "FWD",
-            withinCity: 0,
-            withinState: 0,
-            regional: 0,
-            metroToMetro: 0,
-            neJkKlAn: 0,
-            restOfIndia: 0,
+            zoneA: 0,
+            zoneB: 0,
+            zoneC: 0,
+            zoneD: 0,
+            zoneE: 0,
           },
           {
             type: "RTO",
-            withinCity: 0,
-            withinState: 0,
-            regional: 0,
-            metroToMetro: 0,
-            neJkKlAn: 0,
-            restOfIndia: 0,
+            zoneA: 0,
+            zoneB: 0,
+            zoneC: 0,
+            zoneD: 0,
+            zoneE: 0,
           },
           {
             type: "Add Wt",
-            withinCity: 0,
-            withinState: 0,
-            regional: 0,
-            metroToMetro: 0,
-            neJkKlAn: 0,
-            restOfIndia: 0,
+            zoneA: 0,
+            zoneB: 0,
+            zoneC: 0,
+            zoneD: 0,
+            zoneE: 0,
           },
         ],
       };
@@ -138,19 +135,36 @@ const SuperAdminRateCard = () => {
           if (item.types && Array.isArray(item.types)) {
             // Create 3 rows from the types array
             item.types.forEach((typeObj, index) => {
+              const toNumberOrZero = (v) => {
+                if (v === "-" || v === "" || v === null || v === undefined) return 0;
+                const n =
+                  typeof v === "number"
+                    ? v
+                    : parseFloat(String(v).replace(/[₹,%\s]/g, ""));
+                return Number.isFinite(n) ? n : 0;
+              };
+
               transformedData.push({
                 id: item.id,
                 courier: index === 0 ? item.courier : "-", // Only first row shows courier name
                 weight: item.weight,
                 type: typeObj.type,
-                withinCity: typeObj.withinCity ?? 0,
-                withinState: typeObj.withinState ?? 0,
-                regional: typeObj.regional ?? 0,
-                metroToMetro: typeObj.metroToMetro ?? 0,
-                neJkKlAn: typeObj.neJkKlAn ?? 0,
-                restOfIndia: typeObj.restOfIndia ?? 0,
-                codCharges: typeObj.type === "RTO" ? (item.cod_charges ?? item.codCharges ?? 0) : undefined,
-                codPercent: typeObj.type === "RTO" ? (item.cod_percent ?? item.codPercent ?? 0) : undefined,
+                // Support new API fields (zoneA..zoneE) with fallback to legacy keys
+                zoneA: toNumberOrZero(typeObj.zoneA ?? typeObj.withinCity),
+                zoneB: toNumberOrZero(typeObj.zoneB ?? typeObj.withinState),
+                zoneC: toNumberOrZero(typeObj.zoneC ?? typeObj.regional),
+                zoneD: toNumberOrZero(typeObj.zoneD ?? typeObj.metroToMetro),
+                zoneE: toNumberOrZero(
+                  typeObj.zoneE ?? typeObj.neJkKlAn ?? typeObj.restOfIndia
+                ),
+                codCharges:
+                  typeObj.type === "RTO"
+                    ? toNumberOrZero(item.cod_charges ?? item.codCharges)
+                    : undefined,
+                codPercent:
+                  typeObj.type === "RTO"
+                    ? toNumberOrZero(item.cod_percent ?? item.codPercent)
+                    : undefined,
               });
             });
           }
@@ -262,29 +276,28 @@ const SuperAdminRateCard = () => {
 
     // For numeric fields, try to convert to number if possible
     const numericFields = [
-      "withinCity",
-      "withinState",
-      "regional",
-      "metroToMetro",
-      "neJkKlAn",
-      "restOfIndia",
+      "zoneA",
+      "zoneB",
+      "zoneC",
+      "zoneD",
+      "zoneE",
       "codCharges",
     ];
 
     if (numericFields.includes(field)) {
-      // If it's "-" or empty, keep it as "-"
+      // If empty, default to 0
       if (cleanValue === "-" || cleanValue === "") {
-        cleanValue = "-";
+        cleanValue = 0;
       } else {
         // Try to convert to number
         const numValue = parseFloat(cleanValue);
-        cleanValue = isNaN(numValue) ? cleanValue : numValue;
+        cleanValue = isNaN(numValue) ? 0 : numValue;
       }
     }
 
     // For codPercent, store as string without % (will be formatted on blur)
     if (field === "codPercent") {
-      cleanValue = cleanValue === "" ? "" : cleanValue;
+      cleanValue = cleanValue === "" || cleanValue === "-" ? 0 : cleanValue;
     }
 
     newData[rowIndex] = {
@@ -308,7 +321,7 @@ const SuperAdminRateCard = () => {
       let cleanValue = String(currentValue).replace(/%/g, "").trim();
 
       if (cleanValue === "" || cleanValue === "-") {
-        newData[rowIndex][field] = "-";
+        newData[rowIndex][field] = "0%";
       } else {
         // Keep as string with % for display
         newData[rowIndex][field] = `${cleanValue}%`;
@@ -481,12 +494,11 @@ const SuperAdminRateCard = () => {
 
     // Price fields that need ₹ prefix
     const priceFields = [
-      "withinCity",
-      "withinState",
-      "regional",
-      "metroToMetro",
-      "neJkKlAn",
-      "restOfIndia",
+      "zoneA",
+      "zoneB",
+      "zoneC",
+      "zoneD",
+      "zoneE",
       "codCharges",
     ];
 
@@ -718,27 +730,27 @@ const SuperAdminRateCard = () => {
                         </span>
                       </td>
                       <td>
-                        {renderEditableCell(index, "withinCity", item.withinCity)}
+                        {renderEditableCell(index, "zoneA", item.zoneA)}
                       </td>
                       <td>
                         {renderEditableCell(
                           index,
-                          "withinState",
-                          item.withinState
+                          "zoneB",
+                          item.zoneB
                         )}
                       </td>
                       <td>
-                        {renderEditableCell(index, "regional", item.regional)}
+                        {renderEditableCell(index, "zoneC", item.zoneC)}
                       </td>
                       <td>
                         {renderEditableCell(
                           index,
-                          "metroToMetro",
-                          item.metroToMetro
+                          "zoneD",
+                          item.zoneD
                         )}
                       </td>
                       <td>
-                        {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
+                        {renderEditableCell(index, "zoneE", item.zoneE)}
                       </td>
                       <td>
                         {item.type === "RTO" && (
