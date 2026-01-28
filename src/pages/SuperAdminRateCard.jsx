@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import RippleButton from "../components/RippleButton";
+import { api, handleError } from "../utils/axiosUtils";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 
 const SuperAdminRateCard = () => {
@@ -9,10 +14,166 @@ const SuperAdminRateCard = () => {
   const [focusedCell, setFocusedCell] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCourier, setSelectedCourier] = useState(null);
-  const [selectedWeight, setSelectedWeight] = useState(null);
   const [draggedRowIndex, setDraggedRowIndex] = useState(null);
   const [dragOverRowIndex, setDragOverRowIndex] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Formik form for Add Courier Modal
+  const formik = useFormik({
+    initialValues: {
+      courier: null,
+      weight: null,
+    },
+    validationSchema: Yup.object({
+      courier: Yup.object()
+        .nullable()
+        .required("Please select a courier"),
+      weight: Yup.object()
+        .nullable()
+        .required("Please select a weight"),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      const selectedCourier = values.courier;
+      const selectedWeight = values.weight;
+      
+      if (!selectedCourier || !selectedWeight) {
+        return;
+      }
+
+      // Check if this combination already exists
+      const courierName = `${selectedCourier.value} ${selectedWeight.value}`;
+      if (combinationExists(selectedCourier.value, selectedWeight.value)) {
+        toast.error("This courier and weight combination already exists!");
+        return;
+      }
+
+      setIsSubmitting(true);
+
+      // Format data for backend - COURIER, COD CHARGES, COD % ek hi baar
+      const backendData = {
+        courier: courierName,
+        weight: selectedWeight.value,
+        codCharges: 0,
+        codPercent: 0,
+        types: [
+          {
+            type: "FWD",
+            withinCity: 0,
+            withinState: 0,
+            regional: 0,
+            metroToMetro: 0,
+            neJkKlAn: 0,
+            restOfIndia: 0,
+          },
+          {
+            type: "RTO",
+            withinCity: 0,
+            withinState: 0,
+            regional: 0,
+            metroToMetro: 0,
+            neJkKlAn: 0,
+            restOfIndia: 0,
+          },
+          {
+            type: "Add Wt",
+            withinCity: 0,
+            withinState: 0,
+            regional: 0,
+            metroToMetro: 0,
+            neJkKlAn: 0,
+            restOfIndia: 0,
+          },
+        ],
+      };
+
+      try {
+        // API call to add courier
+        const response = await api.post("/superadmin/rate-card", backendData);
+
+        if (response.data) {
+          toast.success(
+            response.data?.message || "Courier added successfully!"
+          );
+
+          await fetchRateCardData();
+          
+          setIsModalOpen(false);
+          resetForm();
+        }
+      } catch (error) {
+        console.error("Error adding courier:", error);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to add courier. Please try again."
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    enableReinitialize: true,
+  });
+
+  // Function to fetch rate card data
+  const fetchRateCardData = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get("/superadmin/rate-card");
+
+      if (response.data) {
+        const apiData = response.data.data || response.data;
+        
+        let rawData = [];
+        if (Array.isArray(apiData)) {
+          rawData = apiData;
+        } else if (apiData && Array.isArray(apiData.rateCards)) {
+          rawData = apiData.rateCards;
+        } else if (apiData && Array.isArray(apiData.items)) {
+          rawData = apiData.items;
+        }
+
+        // Transform data: flatten types array into separate rows
+        const transformedData = [];
+        rawData.forEach((item) => {
+          if (item.types && Array.isArray(item.types)) {
+            // Create 3 rows from the types array
+            item.types.forEach((typeObj, index) => {
+              transformedData.push({
+                id: item.id,
+                courier: index === 0 ? item.courier : "-", // Only first row shows courier name
+                weight: item.weight,
+                type: typeObj.type,
+                withinCity: typeObj.withinCity ?? 0,
+                withinState: typeObj.withinState ?? 0,
+                regional: typeObj.regional ?? 0,
+                metroToMetro: typeObj.metroToMetro ?? 0,
+                neJkKlAn: typeObj.neJkKlAn ?? 0,
+                restOfIndia: typeObj.restOfIndia ?? 0,
+                codCharges: typeObj.type === "RTO" ? (item.cod_charges ?? item.codCharges ?? 0) : undefined,
+                codPercent: typeObj.type === "RTO" ? (item.cod_percent ?? item.codPercent ?? 0) : undefined,
+              });
+            });
+          }
+        });
+
+        setData(transformedData);
+      }
+    } catch (error) {
+      console.error("Error fetching rate card data:", error);
+      const errorData = handleError(error);
+      toast.error(
+        errorData.message || "Failed to fetch rate card data. Please try again."
+      );
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch rate card data on component mount
+  useEffect(() => {
+    fetchRateCardData();
+  }, []);
 
   const courierOptions = [
     { value: "Delhivery Surface", label: "Delhivery Surface" },
@@ -60,7 +221,7 @@ const SuperAdminRateCard = () => {
   };
 
   // Get filtered courier options based on selected weight
-  const getFilteredCourierOptions = (weight = selectedWeight) => {
+  const getFilteredCourierOptions = (weight = formik.values.weight) => {
     const existingCombinations = getExistingCombinations();
     return courierOptions.filter((courier) => {
       if (!weight) return true;
@@ -70,7 +231,7 @@ const SuperAdminRateCard = () => {
   };
 
   // Get filtered weight options based on selected courier
-  const getFilteredWeightOptions = (courier = selectedCourier) => {
+  const getFilteredWeightOptions = (courier = formik.values.courier) => {
     const existingCombinations = getExistingCombinations();
     return weightOptions.filter((weight) => {
       if (!courier) return true;
@@ -81,184 +242,9 @@ const SuperAdminRateCard = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedCourier(null);
-    setSelectedWeight(null);
-  };
-
-  // Get base courier name (without weight suffix)
-  const getBaseCourierName = (courierName) => {
-    if (!courierName || courierName === "-") return null;
-    const weightValues = weightOptions.map((w) => w.value);
-    let baseCourier = courierName;
-    for (const weight of weightValues) {
-      if (baseCourier.endsWith(` ${weight}`)) {
-        baseCourier = baseCourier.replace(` ${weight}`, "").trim();
-        break;
-      }
+    if (formik) {
+      formik.resetForm();
     }
-    return baseCourier;
-  };
-  
-  const getWeightOrder = (weight) => {
-    const order = weightOptions.findIndex((w) => w.value === weight);
-    return order === -1 ? 999 : order; 
-  };
-
-  const findInsertionIndex = (baseCourierName, newWeight) => {
-    const newWeightOrder = getWeightOrder(newWeight);
-    
-    // Find all entries for the same base courier
-    const sameCourierEntries = [];
-    data.forEach((item, index) => {
-      if (item.courier !== "-") {
-        const itemBaseCourier = getBaseCourierName(item.courier);
-        if (itemBaseCourier === baseCourierName) {
-          const itemWeight = item.weight;
-          const itemWeightOrder = getWeightOrder(itemWeight);
-          sameCourierEntries.push({
-            index,
-            weight: itemWeight,
-            weightOrder: itemWeightOrder,
-          });
-        }
-      }
-    });
-
-    // If no existing entries for this courier, return -1 to append at end
-    if (sameCourierEntries.length === 0) {
-      return -1;
-    }
-
-    // Sort by weight order
-    sameCourierEntries.sort((a, b) => a.weightOrder - b.weightOrder);
-
-    // Find where to insert based on weight order
-    for (let i = 0; i < sameCourierEntries.length; i++) {
-      if (newWeightOrder < sameCourierEntries[i].weightOrder) {
-        // Insert before this entry
-        const targetEntry = sameCourierEntries[i];
-        const courierIndices = getCourierRowIndices(data[targetEntry.index].courier);
-        return courierIndices[0]; // Return the first index of the target courier group
-      }
-    }
-
-    // If new weight is greater than all existing, insert after the last one
-    const lastEntry = sameCourierEntries[sameCourierEntries.length - 1];
-    const lastCourierIndices = getCourierRowIndices(data[lastEntry.index].courier);
-    return Math.max(...lastCourierIndices) + 1; // Insert after the last row of the last courier group
-  };
-
-  const handleAddCourier = () => {
-    if (!selectedCourier || !selectedWeight) {
-      alert("Please select both courier and weight");
-      return;
-    }
-
-    // Check if this combination already exists
-    const courierName = `${selectedCourier.value} ${selectedWeight.value}`;
-    if (combinationExists(selectedCourier.value, selectedWeight.value)) {
-      alert("This courier and weight combination already exists!");
-      return;
-    }
-    
-    const newRows = [
-      {
-        courier: courierName,
-        weight: selectedWeight.value,
-        type: "FWD",
-        withinCity: 0,
-        withinState: 0,
-        regional: 0,
-        metroToMetro: 0,
-        neJkKlAn: 0,
-        restOfIndia: 0,
-        codCharges: "",
-        codPercent: "",
-      },
-      {
-        courier: "-",
-        weight: selectedWeight.value,
-        type: "RTO",
-        withinCity: 0,
-        withinState: 0,
-        regional: 0,
-        metroToMetro: 0,
-        neJkKlAn: 0,
-        restOfIndia: 0,
-        codCharges: 0,
-        codPercent: 0,
-      },
-      {
-        courier: "-",
-        weight: selectedWeight.value,
-        type: "Add Wt",
-        withinCity: 0,
-        withinState: 0,
-        regional: 0,
-        metroToMetro: 0,
-        neJkKlAn: 0,
-        restOfIndia: 0,
-        codCharges: "",
-        codPercent: "",
-      },
-    ];
-
-    // Format data for backend - COURIER, COD CHARGES, COD % ek hi baar
-    const backendData = {
-      courier: courierName,
-      weight: selectedWeight.value,
-      codCharges: 0,
-      codPercent: 0,
-      types: [
-        {
-          type: "FWD",
-          withinCity: 0,
-          withinState: 0,
-          regional: 0,
-          metroToMetro: 0,
-          neJkKlAn: 0,
-          restOfIndia: 0,
-        },
-        {
-          type: "RTO",
-          withinCity: 0,
-          withinState: 0,
-          regional: 0,
-          metroToMetro: 0,
-          neJkKlAn: 0,
-          restOfIndia: 0,
-        },
-        {
-          type: "Add Wt",
-          withinCity: 0,
-          withinState: 0,
-          regional: 0,
-          metroToMetro: 0,
-          neJkKlAn: 0,
-          restOfIndia: 0,
-        },
-      ],
-    };
-
-    // Console log array of objects for backend
-    console.log("📦 Add Courier - Backend Data Structure:", backendData);
-
-    // Find the correct insertion index based on weight sequence
-    const baseCourierName = selectedCourier.value;
-    const insertIndex = findInsertionIndex(baseCourierName, selectedWeight.value);
-
-    let newData;
-    if (insertIndex === -1) {
-      // No existing entry for this courier, append to the end
-      newData = [...data, ...newRows];
-    } else {
-      // Insert at the correct position based on weight sequence
-      newData = [...data];
-      newData.splice(insertIndex, 0, ...newRows);
-    }
-
-    setData(newData);
-    handleCloseModal();
   };
 
   const handleCellClick = (rowIndex, field) => {
@@ -509,9 +495,9 @@ const SuperAdminRateCard = () => {
       let inputValue =
         typeof value === "number"
           ? value.toString()
-          : value === "-"
+          : value === "-" || value === null || value === undefined
           ? ""
-          : value;
+          : String(value);
 
       // Remove existing symbols if any
       inputValue = inputValue.replace(/₹/g, "").replace(/%/g, "").trim();
@@ -574,19 +560,15 @@ const SuperAdminRateCard = () => {
       }
     }
 
-    // For display, format the value
+    // For display, format the value - FIXED: Show ₹0 for zero values
     const displayValue =
-      field === "codCharges" && value === "-"
-        ? "-"
-        : field === "codCharges" && value !== "-"
-        ? `₹${value}`
-        : field === "codPercent" && value === "-"
-        ? "-"
+      field === "codCharges"
+        ? value === "-" || value === null || value === undefined ? "-" : `₹${value}`
         : field === "codPercent"
-        ? `${String(value).replace(/%/g, "")}%`
-        : typeof value === "number"
-        ? `₹${value}`
-        : value;
+        ? value === "-" || value === null || value === undefined ? "-" : `${String(value || "").replace(/%/g, "")}%`
+        : priceFields.includes(field)
+        ? value === "-" || value === null || value === undefined ? "-" : `₹${value}`
+        : value === null || value === undefined ? "" : value;
 
     return (
       <span
@@ -613,7 +595,9 @@ const SuperAdminRateCard = () => {
           </div>
 
           <div className="pricing_table_container">
-            {data.length === 0 ? (
+            {loading ? (
+              <Loader />
+            ) : data.length === 0 ? (
               <div className="no_data_found">
                 <h6>No Data Available</h6>
                 <p>Click "Add Courier" to add your first rate card entry.</p>
@@ -640,12 +624,11 @@ const SuperAdminRateCard = () => {
                     <th>COURIER</th>
                     <th>WEIGHT</th>
                     <th>TYPE</th>
-                    <th>WITHIN CITY</th>
-                    <th>WITHIN STATE</th>
-                    <th>REGIONAL</th>
-                    <th>METRO TO METRO</th>
-                    <th>NE, J&K, KL, AN</th>
-                    <th>REST OF INDIA</th>
+                    <th>ZONE A</th>
+                    <th>ZONE B</th>
+                    <th>ZONE C</th>
+                    <th>ZONE D</th>
+                    <th>ZONE E</th>
                     <th>COD CHARGES</th>
                     <th>COD %</th>
                   </tr>
@@ -728,8 +711,8 @@ const SuperAdminRateCard = () => {
                       <td>
                         <span
                           className={`type_badge ${item.type
-                            .toLowerCase()
-                            .replace(" ", "_")}`}
+                            ?.toLowerCase()
+                            .replace(" ", "_") || ""}`}
                         >
                           {item.type}
                         </span>
@@ -756,13 +739,6 @@ const SuperAdminRateCard = () => {
                       </td>
                       <td>
                         {renderEditableCell(index, "neJkKlAn", item.neJkKlAn)}
-                      </td>
-                      <td>
-                        {renderEditableCell(
-                          index,
-                          "restOfIndia",
-                          item.restOfIndia
-                        )}
                       </td>
                       <td>
                         {item.type === "RTO" && (
@@ -801,45 +777,56 @@ const SuperAdminRateCard = () => {
                 <label>Courier Name:</label>
                 <Select
                   options={getFilteredCourierOptions()}
-                  value={selectedCourier}
+                  value={formik.values.courier}
                   onChange={(selectedOption) => {
-                    setSelectedCourier(selectedOption);
+                    formik.setFieldValue("courier", selectedOption);
                     // Reset weight if the selected courier doesn't have any available weights or current weight is not available
-                    if (selectedOption && selectedWeight) {
+                    if (selectedOption && formik.values.weight) {
                       const availableWeights = getFilteredWeightOptions(selectedOption);
-                      if (availableWeights.length === 0 || !availableWeights.find(w => w.value === selectedWeight.value)) {
-                        setSelectedWeight(null);
+                      if (availableWeights.length === 0 || !availableWeights.find(w => w.value === formik.values.weight.value)) {
+                        formik.setFieldValue("weight", null);
                       }
                     } else if (!selectedOption) {
-                      setSelectedWeight(null);
+                      formik.setFieldValue("weight", null);
                     }
                   }}
+                  onBlur={() => formik.setFieldTouched("courier", true)}
                   placeholder="Select Courier"
                   className="option_select"
                   isClearable
                 />
+                {formik.touched.courier && formik.errors.courier && (
+                  <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
+                    {formik.errors.courier}
+                  </div>
+                )}
               </div>
               <div className="form_group">
                 <label>Weight:</label>
                 <Select
                   options={getFilteredWeightOptions()}
-                  value={selectedWeight}
+                  value={formik.values.weight}
                   onChange={(selectedOption) => {
-                    setSelectedWeight(selectedOption);
-                    // Reset courier if the selected weight doesn't have any available couriers or current courier is not available
-                    if (selectedOption && selectedCourier) {
+                    formik.setFieldValue("weight", selectedOption);
+                    if (selectedOption && formik.values.courier) {
                       const availableCouriers = getFilteredCourierOptions(selectedOption);
-                      if (availableCouriers.length === 0 || !availableCouriers.find(c => c.value === selectedCourier.value)) {
-                        setSelectedCourier(null);
+                      if (availableCouriers.length === 0 || !availableCouriers.find(c => c.value === formik.values.courier.value)) {
+                        formik.setFieldValue("courier", null);
                       }
                     } else if (!selectedOption) {
-                      setSelectedCourier(null);
+                      formik.setFieldValue("courier", null);
                     }
                   }}
+                  onBlur={() => formik.setFieldTouched("weight", true)}
                   placeholder="Select Weight"
                   className="option_select"
                   isClearable
                 />
+                {formik.touched.weight && formik.errors.weight && (
+                  <div className="error" style={{ color: "#dc3545", fontSize: "14px", marginTop: "5px" }}>
+                    {formik.errors.weight}
+                  </div>
+                )}
               </div>
             </div>
             <div className="modal_footer">
@@ -851,9 +838,16 @@ const SuperAdminRateCard = () => {
               </RippleButton>
               <RippleButton
                 className="btn_submit"
-                onClick={handleAddCourier}
+                onClick={() => {
+                  formik.setTouched({
+                    courier: true,
+                    weight: true,
+                  });
+                  formik.handleSubmit();
+                }}
+                disabled={isSubmitting}
               >
-                Add Courier
+                {isSubmitting ? "Adding..." : "Add Courier"}
               </RippleButton>
             </div>
           </div>
