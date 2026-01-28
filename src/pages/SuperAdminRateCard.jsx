@@ -161,7 +161,6 @@ const SuperAdminRateCard = () => {
       return;
     }
     
-    // Create 3 rows for the new courier
     const newRows = [
       {
         courier: courierName,
@@ -203,6 +202,46 @@ const SuperAdminRateCard = () => {
         codPercent: "",
       },
     ];
+
+    // Format data for backend - COURIER, COD CHARGES, COD % ek hi baar
+    const backendData = {
+      courier: courierName,
+      weight: selectedWeight.value,
+      codCharges: 0,
+      codPercent: 0,
+      types: [
+        {
+          type: "FWD",
+          withinCity: 0,
+          withinState: 0,
+          regional: 0,
+          metroToMetro: 0,
+          neJkKlAn: 0,
+          restOfIndia: 0,
+        },
+        {
+          type: "RTO",
+          withinCity: 0,
+          withinState: 0,
+          regional: 0,
+          metroToMetro: 0,
+          neJkKlAn: 0,
+          restOfIndia: 0,
+        },
+        {
+          type: "Add Wt",
+          withinCity: 0,
+          withinState: 0,
+          regional: 0,
+          metroToMetro: 0,
+          neJkKlAn: 0,
+          restOfIndia: 0,
+        },
+      ],
+    };
+
+    // Console log array of objects for backend
+    console.log("📦 Add Courier - Backend Data Structure:", backendData);
 
     // Find the correct insertion index based on weight sequence
     const baseCourierName = selectedCourier.value;
