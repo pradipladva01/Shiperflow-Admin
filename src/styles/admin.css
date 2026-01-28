@@ -2278,19 +2278,12 @@
 .shipment_section .orders_container .table-responsive .order_table .sticky_column {
   position: sticky;
   right: 0;
-  background-color: #f8f9fa;
   z-index: 10;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   min-width: 120px;
 }
 .shipment_section .orders_container .table-responsive .order_table .sticky_column.status_badge {
   background-color: #ffffff;
-}
-.shipment_section .orders_container .table-responsive .order_table thead .sticky_column {
-  background-color: #f8f9fa;
-}
-.shipment_section .orders_container .table-responsive .order_table tr:hover .sticky_column {
-  background-color: #f1f3f5;
 }
 .shipment_section .orders_container .table-responsive .order_table .action_dropdown_container {
   position: relative;
@@ -3467,19 +3460,12 @@
 .shipping_charge_section .orders_container .table-responsive .order_table .sticky_column {
   position: sticky;
   right: 0;
-  background-color: #f8f9fa;
   z-index: 10;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   min-width: 120px;
 }
 .shipping_charge_section .orders_container .table-responsive .order_table .sticky_column.status_badge {
   background-color: #ffffff;
-}
-.shipping_charge_section .orders_container .table-responsive .order_table thead .sticky_column {
-  background-color: #f8f9fa;
-}
-.shipping_charge_section .orders_container .table-responsive .order_table tr:hover .sticky_column {
-  background-color: #f1f3f5;
 }
 .shipping_charge_section .orders_container .table-responsive .order_table .action_dropdown_container {
   position: relative;

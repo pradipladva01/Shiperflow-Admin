@@ -470,7 +470,7 @@
                 .sticky_column {
                     position: sticky;
                     right: 0;
-                    background-color: #f8f9fa;
+                    // background-color: #f8f9fa;
                     z-index: 10;
                     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
                     min-width: 120px;
@@ -481,11 +481,11 @@
                 }
 
                 thead .sticky_column {
-                    background-color: #f8f9fa;
+                    // background-color: #f8f9fa;
                 }
 
                 tr:hover .sticky_column {
-                    background-color: #f1f3f5;
+                    // background-color: #f1f3f5;
                 }
 
                 // Action dropdown styles

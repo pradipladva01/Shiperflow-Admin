@@ -25,6 +25,9 @@ const SuperAdmin404 = lazy(() => retry(() => import("../pages/SuperAdmin404")));
 const SuperAdminRateCard = lazy(() =>
   retry(() => import("../pages/SuperAdminRateCard"))
 );
+const SuperAdminCourier = lazy(() =>
+  retry(() => import("../pages/SuperAdminCourier"))
+);
 const SuperAdminRoutes = () => {
   const route = useRoutes([
     {
@@ -62,6 +65,10 @@ const SuperAdminRoutes = () => {
     {
       path: "merchants",
       element: <SuperAdminMerchant />,
+    },
+    {
+      path: "couriers",
+      element: <SuperAdminCourier />,
     },
     {
       path: "rate-card",
