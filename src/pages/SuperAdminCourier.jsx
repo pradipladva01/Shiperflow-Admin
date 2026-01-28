@@ -4,6 +4,7 @@ import DataTable from "../components/DataTable";
 import Loader from "../components/Loader";
 import RippleButton from "../components/RippleButton";
 import CustomSelect from "../components/CustomSelect";
+import Input from "../components/Input";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SuperAdminCourier = () => {
@@ -19,6 +20,7 @@ const SuperAdminCourier = () => {
   const [error, setError] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     let isMounted = true;
@@ -68,24 +70,63 @@ const SuperAdminCourier = () => {
 
   const columns = useMemo(
     () => [
-      { label: "ID", accessor: "id" },
+      { 
+        label: "ID", 
+        accessor: "_rowIndex",
+        render: (value, row) => {
+          return (row._rowIndex ?? 0) + 1;
+        }
+      },
+      { label: "Courier ID", accessor: "id" },
       { label: "Name", accessor: "name" },
       { label: "Master Company", accessor: "master_company" },
     ],
     []
   );
 
+  // Filter couriers based on search query
+  const filteredCouriers = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return couriers;
+    }
+    const query = searchQuery.toLowerCase().trim();
+    return couriers.filter((courier) => {
+      return (
+        courier.id?.toString().toLowerCase().includes(query) ||
+        courier.name?.toLowerCase().includes(query) ||
+        courier.master_company?.toLowerCase().includes(query)
+      );
+    });
+  }, [couriers, searchQuery]);
+
   // Pagination logic
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const paginatedCouriers = couriers.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(couriers.length / rowsPerPage);
+  const paginatedCouriers = filteredCouriers.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(filteredCouriers.length / rowsPerPage);
+
+  // Reset to first page when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
 
   return (
     <div className="shipment_section super_admin_courier">
       <div className="page_header">
           <h1>Couriers</h1>
       </div>
+
+      {!loading && !error && (
+        <div style={{ marginBottom: "10px" }}>
+          <Input
+            type="text"
+            placeholder="Search by ID, Name, or Master Company..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search_input"
+          />
+        </div>
+      )}
 
       {loading ? (
         <div style={{ padding: 16 }}>
@@ -101,13 +142,18 @@ const SuperAdminCourier = () => {
             <div className="order_table_wrapper">
               <DataTable
                 columns={columns}
-                data={paginatedCouriers}
+                data={paginatedCouriers.map((row, index) => ({
+                  ...row,
+                  _rowIndex: startIndex + index,
+                }))}
                 stickyColumn={columns[0]}
               />
             </div>
           </div>
-          {couriers.length === 0 && (
-            <h6 className="no_data_found">No couriers found.</h6>
+          {filteredCouriers.length === 0 && (
+            <h6 className="no_data_found">
+              {searchQuery ? "No couriers found matching your search." : "No couriers found."}
+            </h6>
           )}
           <div className="pagination_container">
             <div className="pagination_info">
@@ -124,12 +170,12 @@ const SuperAdminCourier = () => {
               </div>
 
               <div className="row_count">
-                {couriers.length === 0
+                {filteredCouriers.length === 0
                   ? "0 of 0"
                   : `${startIndex + 1}–${Math.min(
                       endIndex,
-                      couriers.length
-                    )} of ${couriers.length}`}
+                      filteredCouriers.length
+                    )} of ${filteredCouriers.length}`}
               </div>
 
               <div className="pagination_controls">
