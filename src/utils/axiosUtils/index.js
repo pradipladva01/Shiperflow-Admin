@@ -40,6 +40,7 @@ client.interceptors.response.use(
 
     if (error?.response?.status === 401) {
       Cookies.remove("uat");
+      
       Cookies.remove("ue");
       Cookies.remove("account");
       localStorage.removeItem("token");
