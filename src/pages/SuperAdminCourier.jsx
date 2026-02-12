@@ -97,6 +97,7 @@ const SuperAdminCourier = () => {
       { label: "Courier ID", accessor: "id" },
       { label: "Name", accessor: "name" },
       { label: "Master Company", accessor: "master_company" },
+      { label: "Change Label Name", accessor: "change_name" },
       {
         label: "Action",
         accessor: "action",
