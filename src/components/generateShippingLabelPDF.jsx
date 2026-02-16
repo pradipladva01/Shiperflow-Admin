@@ -1,6 +1,5 @@
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { saveAs } from "file-saver";
-// import { generateBarcodeDataUrl } from "../utils/barcodeUtils";
 
 const normalizeOrder = (order) => ({
   id: order.id || "ORD000000000",
